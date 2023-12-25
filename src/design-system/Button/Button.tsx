@@ -3,12 +3,14 @@ import "./Button.css";
 
 type ButtonSize = "sm" | "md" | "lg";
 type ButtonShape = "rounded" | "circle";
-type ButtonColor = "primary" | "secondary" | "text" | "danger";
+type ButtonColor = "primary" | "secondary" | "danger";
+type ButtonVariant = "contained" | "outlined" | "text";
 
 type ButtonProps = {
     size?: ButtonSize;
     shape?: ButtonShape;
     color?: ButtonColor;
+    variant?: ButtonVariant;
     disabled?: boolean;
     className?: string;
     children: React.ReactNode;
@@ -28,12 +30,18 @@ const shapeClassNames = {
 const colorClassNames = {
     primary: "btn-primary",
     secondary: "btn-secondary",
-    text: "btn-tertiary",
     danger: "btn-danger"
 };
 
+const variantClassNames = {
+    contained: "btn-contained",
+    outlined: "btn-outlined",
+    text: "btn-text"
+};
+
 const Button: FC<ButtonProps> = (props) => {
-    const { size, shape, color, disabled, className, children } = props;
+    const { size, shape, color, variant, disabled, className, children } =
+        props;
 
     const sizeClassName = size !== undefined ? sizeClassNames[size] : "";
 
@@ -41,13 +49,19 @@ const Button: FC<ButtonProps> = (props) => {
 
     const colorClassName = color !== undefined ? colorClassNames[color] : "";
 
-    const finalClassNames =
-        `btn ${colorClassName} ${sizeClassName} ${shapeClassName} ${
-            className || ""
-        }`.trim();
+    const variantClassName =
+        variant !== undefined ? variantClassNames[variant] : "";
+
+    const finalClassNames = `btn ${colorClassName} ${sizeClassName} ${shapeClassName} ${variantClassName} ${
+        className || ""
+    }`;
 
     return (
-        <button className={finalClassNames} disabled={disabled}>
+        <button
+            className={finalClassNames}
+            disabled={disabled}
+            onClick={() => alert("Hello")}
+        >
             {children}
         </button>
     );

@@ -8,10 +8,15 @@
 
     height: 3.6rem;
     padding: 0 var(--space-16);
+    margin-right: 10px;
+    margin-bottom: 10px;
 }
 
 .btn:hover {
     cursor: pointer;
+}
+.btn:disabled {
+    pointer-events: none;
 }
 
 .btn-small {
@@ -36,6 +41,11 @@
     border-radius: var(--border-radius-20);
 }
 
+.btn-large.btn-circle {
+    border-radius: var(--border-radius-24);
+}
+
+/* Primary Button */
 .btn-primary {
     background-color: var(--primary-500);
     color: var(--white);
@@ -55,23 +65,156 @@
     background-color: var(--primary-700);
     box-shadow: var(--shadow-xs-hover);
 }
-/* Danger Button  */
 
+.btn-primary.btn-outlined {
+    background-color: var(--white);
+    border: 0.15rem solid var(--primary-500);
+    color: var(--primary-500);
+}
+
+.btn-primary.btn-outlined:hover {
+    background-color: var(--primary-25);
+}
+
+.btn-primary.btn-outlined:focus {
+    background-color: var(--primary-50);
+}
+
+.btn-primary.btn-outlined:disabled {
+    border: 0.15rem solid var(--jaguar-300);
+    color: var(--jaguar-300);
+}
+
+.btn-primary.btn-text {
+    background-color: var(--white);
+    color: var(--primary-500);
+    box-shadow: none;
+}
+
+.btn-primary.btn-text:hover {
+    background-color: var(--primary-25);
+}
+
+.btn-primary.btn-text:focus {
+    background-color: var(--primary-50);
+}
+
+.btn-primary.btn-text:disabled {
+    color: var(--jaguar-300);
+}
+
+/* Secondary Button */
+.btn-secondary {
+    background-color: var(--jaguar-500);
+    color: var(--white);
+    box-shadow: var(--shadow-s);
+}
+
+.btn-secondary:hover {
+    background-color: var(--jaguar-600);
+    box-shadow: var(--shadow-s-hover);
+}
+
+.btn-secondary:disabled {
+    background-color: var(--jaguar-300);
+}
+
+.btn-secondary:focus {
+    background-color: var(--jaguar-700);
+    box-shadow: var(--shadow-xs-hover);
+}
+
+.btn-secondary.btn-outlined {
+    background-color: var(--white);
+    border: 0.15rem solid var(--jaguar-500);
+    color: var(--jaguar-500);
+}
+
+.btn-secondary.btn-outlined:hover {
+    background-color: var(--black-50);
+}
+
+.btn-secondary.btn-outlined:focus {
+    background-color: var(--black-100);
+}
+
+.btn-secondary.btn-outlined:disabled {
+    border: 0.15rem solid var(--jaguar-300);
+    color: var(--jaguar-300);
+}
+
+.btn-secondary.btn-text {
+    background-color: var(--white);
+    color: var(--jaguar-500);
+    box-shadow: none;
+}
+
+.btn-secondary.btn-text:hover {
+    background-color: var(--black-50);
+}
+
+.btn-secondary.btn-text:focus {
+    background-color: var(--black-100);
+}
+
+.btn-secondary.btn-text:disabled {
+    color: var(--jaguar-300);
+}
+
+/* Danger Button */
 .btn-danger {
     background-color: var(--red-orange-500);
     color: var(--white);
     box-shadow: var(--shadow-s);
-    display: block;
 }
+
 .btn-danger:hover {
     background-color: var(--red-orange-600);
     box-shadow: var(--shadow-s-hover);
 }
+
 .btn-danger:disabled {
-    background-color: var(--jaguar-300);
+    background-color: var(--red-orange-300);
 }
 
 .btn-danger:focus {
-    background-color: var(--danger-700);
+    background-color: var(--red-orange-700);
     box-shadow: var(--shadow-xs-hover);
+}
+
+.btn-danger.btn-outlined {
+    background-color: var(--white);
+    border: 0.15rem solid var(--red-orange-500);
+    color: var(--red-orange-500);
+}
+
+.btn-danger.btn-outlined:hover {
+    background-color: var(--red-orange-25);
+}
+
+.btn-danger.btn-outlined:focus {
+    background-color: var(--red-orange-50);
+}
+
+.btn-danger.btn-outlined:disabled {
+    border: 0.15rem solid var(--red-orange-300);
+    color: var(--red-orange-300);
+}
+
+.btn-danger.btn-text {
+    background-color: var(--white);
+    color: var(--red-orange-500);
+    box-shadow: none;
+}
+
+.btn-danger.btn-text:hover {
+    background-color: var(--red-orange-25);
+}
+
+.btn-danger.btn-text:focus {
+    background-color: var(--red-orange-50);
+}
+
+.btn-danger.btn-text:disabled {
+    color: var(--red-orange-300);
 }
