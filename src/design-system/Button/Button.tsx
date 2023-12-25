@@ -41,7 +41,10 @@ const Button: FC<ButtonProps> = (props) => {
 
     const colorClassName = color !== undefined ? colorClassNames[color] : "";
 
-    const finalClassNames = `btn ${colorClassName} ${sizeClassName} ${shapeClassName} ${className}`;
+    const finalClassNames =
+        `btn ${colorClassName} ${sizeClassName} ${shapeClassName} ${
+            className || ""
+        }`.trim();
 
     return (
         <button className={finalClassNames} disabled={disabled}>
