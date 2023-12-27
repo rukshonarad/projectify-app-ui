@@ -2,38 +2,47 @@ import { useState, useId } from "react";
 import { Button, Typography, Input, Label } from "./design-system";
 
 const App = () => {
-    const [show, setShow] = useState(false);
-    const emailId = useId();
+    const [value, setValue] = useState<string>("");
+    const [text, setText] = useState<string>("");
 
+    const handleOnChange = (value: string) => {
+        console.log(value);
+        setValue(value);
+    };
+
+    const handleOnChangeTextarea = (value: string) => {
+        setText(value);
+    };
     return (
         <div style={{ padding: "100px" }}>
             <Typography variant="h5">Hello</Typography>
 
-            <form onSubmit={() => alert("submitted")}>
+            <form onSubmit={() => alert(`${value} ${text}`)} noValidate>
                 <Input
                     type="email"
                     placeholder="Email"
                     size="md"
                     shape="rounded"
                     labelText="Email"
+                    onChange={handleOnChange}
+                    value={value}
                 />
 
                 <Input
-                    placeholder="About You"
-                    size="lg"
                     type="textarea"
+                    placeholder="About me"
+                    size="md"
                     shape="rounded"
-                    labelText="Tell us about yourself"
-                    hintMessage="This is for your password"
+                    labelText="Email"
+                    error={true}
+                    onChange={handleOnChangeTextarea}
+                    value={text}
                 />
-                <div style={{ width: "900px", background: "pink" }}>
-                    <Button color="primary" fullWidth>
-                        Submit
-                    </Button>
-                </div>
-            </form>
 
-            {show && <p>Hello</p>}
+                <Button color="primary" shape="rounded">
+                    Submit
+                </Button>
+            </form>
         </div>
     );
 };
