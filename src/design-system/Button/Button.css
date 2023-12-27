@@ -8,8 +8,10 @@
 
     height: 3.6rem;
     padding: 0 var(--space-16);
-    margin-right: 10px;
-    margin-bottom: 10px;
+}
+
+.btn-full-width {
+    width: 100%;
 }
 
 .btn:hover {
@@ -217,4 +219,62 @@
 
 .btn-danger.btn-text:disabled {
     color: var(--red-orange-300);
+}
+
+/* Success Button */
+.btn-success {
+    background-color: var(--green-500);
+    color: var(--white);
+    box-shadow: var(--shadow-s);
+}
+
+.btn-success:hover {
+    background-color: var(--green-600);
+    box-shadow: var(--shadow-s-hover);
+}
+
+.btn-success:disabled {
+    background-color: var(--green-300);
+}
+
+.btn-success:focus {
+    background-color: var(--green-700);
+    box-shadow: var(--shadow-xs-hover);
+}
+
+.btn-success.btn-outlined {
+    background-color: var(--white);
+    border: 0.15rem solid var(--green-500);
+    color: var(--green-500);
+}
+
+.btn-success.btn-outlined:hover {
+    background-color: var(--green-25);
+}
+
+.btn-success.btn-outlined:focus {
+    background-color: var(--green-50);
+}
+
+.btn-success.btn-outlined:disabled {
+    border: 0.15rem solid var(--green-300);
+    color: var(--green-300);
+}
+
+.btn-success.btn-text {
+    background-color: var(--white);
+    color: var(--green-500);
+    box-shadow: none;
+}
+
+.btn-success.btn-text:hover {
+    background-color: var(--green-25);
+}
+
+.btn-success.btn-text:focus {
+    background-color: var(--green-50);
+}
+
+.btn-success.btn-text:disabled {
+    color: var(--green-300);
 }

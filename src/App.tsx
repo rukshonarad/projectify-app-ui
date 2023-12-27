@@ -17,18 +17,7 @@ const App = () => {
                     shape="rounded"
                     labelText="Email"
                 />
-                <Input
-                    placeholder="First Name"
-                    size="md"
-                    shape="rounded"
-                    labelText="First Name"
-                />
-                <Input
-                    placeholder="Last Name"
-                    size="md"
-                    shape="rounded"
-                    labelText="Last Name"
-                />
+
                 <Input
                     placeholder="About You"
                     size="lg"
@@ -37,8 +26,11 @@ const App = () => {
                     labelText="Tell us about yourself"
                     hintMessage="This is for your password"
                 />
-
-                <Button>Submit</Button>
+                <div style={{ width: "900px", background: "pink" }}>
+                    <Button color="primary" fullWidth>
+                        Submit
+                    </Button>
+                </div>
             </form>
 
             {show && <p>Hello</p>}
