@@ -1,14 +1,11 @@
 import { useState, useId } from "react";
 import { Button, Typography, Input, Label, Avatar } from "./design-system";
-// import { muslimGirl } from "./design-system/assets/image.png";
+// import muslimGirl from "./assets/image.png";
 const App = () => {
     return (
         <div
             style={{
-                margin: "0 auto",
-                display: "flex",
-                alignItems: "center",
-                height: "800px"
+                padding: "150px"
             }}
         >
             <Avatar
@@ -17,7 +14,47 @@ const App = () => {
                 type="initial"
                 shape="circle"
             >
-                {/* <img src={muslimGirl} alt="" /> */} Rukhshona Radjabova
+                Rukhshona Radjabova
+            </Avatar>
+            <Avatar
+                onClick={() => alert("Hello")}
+                size="md"
+                type="initial"
+                shape="circle"
+            >
+                Rukhshona Radjabova
+            </Avatar>
+            <Avatar
+                onClick={() => alert("Hello")}
+                size="sm"
+                type="initial"
+                shape="circle"
+            >
+                Rukhshona Radjabova
+            </Avatar>
+            <Avatar
+                type="initial"
+                // imageUrl={muslimGirl}
+                size="lg"
+                shape="rounded"
+            >
+                Rukhshona Radjabova
+            </Avatar>
+            <Avatar
+                onClick={() => alert("Hello")}
+                size="md"
+                type="initial"
+                shape="rounded"
+            >
+                Rukhshona Radjabova
+            </Avatar>
+            <Avatar
+                onClick={() => alert("Hello")}
+                size="sm"
+                type="initial"
+                shape="rounded"
+            >
+                Rukhshona Radjabova
             </Avatar>
         </div>
     );
