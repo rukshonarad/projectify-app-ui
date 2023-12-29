@@ -7,7 +7,8 @@
     border: none;
     outline: none;
     height: 3.6rem;
-    padding: 0 var(--space-16);
+    /* padding: 0 var(--space-16); */
+    margin-left: -15px;
     background-color: var(--jaguar-400);
 }
 
@@ -50,3 +51,28 @@
     font-size: 20px;
 }
 /* image  */
+.avatar-small img {
+    object-fit: cover;
+    height: var(--space-24);
+    width: var(--space-24);
+}
+
+.avatar-medium img {
+    object-fit: cover;
+    height: var(--space-36);
+    width: var(--space-36);
+}
+
+.avatar-large img {
+    object-fit: cover;
+    height: var(--space-40);
+    width: var(--space-40);
+}
+
+.avatar-rounded img {
+    border-radius: var(--border-radius-8);
+}
+
+.avatar-circle img {
+    border-radius: 50%;
+}

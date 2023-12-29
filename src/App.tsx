@@ -1,43 +1,29 @@
 import { useState } from "react";
 import { Button, Typography, Input, Modal, Avatar } from "./design-system";
-
+import muslimGirl from "./assets/image.png";
 const App = () => {
-    const [showModal, setShowModal] = useState<boolean>(false);
-
     return (
         <div style={{ padding: "100px" }}>
-            <Button onClick={() => setShowModal(true)}>Open Modal</Button>
-            <Modal show={showModal} position="right">
-                <form
-                    style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "15px"
-                    }}
-                >
-                    <Typography variant="h6">Hello</Typography>
-                    <Input
-                        placeholder="Email"
-                        type="email"
-                        value=""
-                        onChange={(char) => console.log(char)}
-                        shape="rounded"
-                        size="lg"
-                    />
-
-                    <Button
-                        color="primary"
-                        shape="rounded"
-                        onClick={() => setShowModal(false)}
-                    >
-                        Submit
-                    </Button>
-                </form>
-            </Modal>
+            <Avatar shape="circle" type="photo" size="lg" imageUrl={muslimGirl}>
+                Rukhshona Radjabova
+            </Avatar>
+            <Avatar shape="circle" type="photo" size="lg" imageUrl={muslimGirl}>
+                Rukhshona Radjabova
+            </Avatar>
+            <Avatar shape="circle" type="photo" size="lg" imageUrl={muslimGirl}>
+                Rukhshona Radjabova
+            </Avatar>
+            <br></br>
+            <Avatar
+                shape="circle"
+                type="initial"
+                size="lg"
+                imageUrl={muslimGirl}
+            >
+                Rukhshona Radjabova
+            </Avatar>
         </div>
     );
 };
-
-<button type="submit"></button>;
 
 export { App };
