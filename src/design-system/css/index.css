@@ -3,3 +3,10 @@
 @import url("./spacing.css");
 @import url("./typography.css");
 @import url("./border-radius.css");
+@import url("./shadows.css");
+
+.buttons {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 10px;
+}
