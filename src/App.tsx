@@ -34,7 +34,6 @@ const App = () => {
                     size="md"
                     shape="rounded"
                     labelText="Email"
-                    error={true}
                     onChange={handleOnChangeTextarea}
                     value={text}
                 />
