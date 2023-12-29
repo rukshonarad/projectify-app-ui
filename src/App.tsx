@@ -1,63 +1,43 @@
-import { useState, useId } from "react";
-import { Button, Typography, Input, Label, Avatar } from "./design-system";
-// import muslimGirl from "./assets/image.png";
+import { useState } from "react";
+import { Button, Typography, Input, Modal, Avatar } from "./design-system";
+
 const App = () => {
+    const [showModal, setShowModal] = useState<boolean>(false);
+
     return (
-        <div
-            style={{
-                padding: "150px"
-            }}
-        >
-            <Avatar
-                onClick={() => alert("Hello")}
-                size="lg"
-                type="initial"
-                shape="circle"
-            >
-                Rukhshona Radjabova
-            </Avatar>
-            <Avatar
-                onClick={() => alert("Hello")}
-                size="md"
-                type="initial"
-                shape="circle"
-            >
-                Rukhshona Radjabova
-            </Avatar>
-            <Avatar
-                onClick={() => alert("Hello")}
-                size="sm"
-                type="initial"
-                shape="circle"
-            >
-                Rukhshona Radjabova
-            </Avatar>
-            <Avatar
-                type="initial"
-                // imageUrl={muslimGirl}
-                size="lg"
-                shape="rounded"
-            >
-                Rukhshona Radjabova
-            </Avatar>
-            <Avatar
-                onClick={() => alert("Hello")}
-                size="md"
-                type="initial"
-                shape="rounded"
-            >
-                Rukhshona Radjabova
-            </Avatar>
-            <Avatar
-                onClick={() => alert("Hello")}
-                size="sm"
-                type="initial"
-                shape="rounded"
-            >
-                Rukhshona Radjabova
-            </Avatar>
+        <div style={{ padding: "100px" }}>
+            <Button onClick={() => setShowModal(true)}>Open Modal</Button>
+            <Modal show={showModal} position="right">
+                <form
+                    style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "15px"
+                    }}
+                >
+                    <Typography variant="h6">Hello</Typography>
+                    <Input
+                        placeholder="Email"
+                        type="email"
+                        value=""
+                        onChange={(char) => console.log(char)}
+                        shape="rounded"
+                        size="lg"
+                    />
+
+                    <Button
+                        color="primary"
+                        shape="rounded"
+                        onClick={() => setShowModal(false)}
+                    >
+                        Submit
+                    </Button>
+                </form>
+            </Modal>
         </div>
     );
 };
+
+<button type="submit"></button>;
 
 export { App };
