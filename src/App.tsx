@@ -1,23 +1,57 @@
-import { useState, useId } from "react";
-import { Button, Typography, Input, Label, Avatar } from "./design-system";
-// import { muslimGirl } from "./design-system/assets/image.png";
+import { useState } from "react";
+import { Button, Typography, Input, Modal, Avatar } from "./design-system";
+import muslimGirl from "./assets/image.png";
 const App = () => {
     return (
-        <div
-            style={{
-                margin: "0 auto",
-                display: "flex",
-                alignItems: "center",
-                height: "800px"
-            }}
-        >
+        <div style={{ padding: "100px" }}>
+            <Avatar shape="circle" type="photo" size="lg" imageUrl={muslimGirl}>
+                Rukhshona Radjabova
+            </Avatar>
             <Avatar
-                onClick={() => alert("Hello")}
-                size="lg"
-                type="initial"
                 shape="circle"
+                type="photo"
+                size="lg"
+                imageUrl={muslimGirl}
+                onClick={() => {
+                    alert("Hello");
+                }}
             >
-                {/* <img src={muslimGirl} alt="" /> */} Rukhshona Radjabova
+                Rukhshona Radjabova
+            </Avatar>
+            <Avatar
+                shape="rounded"
+                type="photo"
+                size="lg"
+                imageUrl={muslimGirl}
+                onClick={() => {
+                    alert("Hello");
+                }}
+            >
+                Rukhshona Radjabova
+            </Avatar>
+            <br></br>
+            <Avatar
+                shape="circle"
+                type="initial"
+                size="lg"
+                imageUrl={muslimGirl}
+                onClick={() => {
+                    alert("Hello");
+                }}
+            >
+                Rukhshona Radjabova
+            </Avatar>
+            <br />
+            <Avatar
+                shape="rounded"
+                type="initial"
+                size="lg"
+                imageUrl={muslimGirl}
+                onClick={() => {
+                    alert("Hello");
+                }}
+            >
+                Rukhshona Radjabova
             </Avatar>
         </div>
     );

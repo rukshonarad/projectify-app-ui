@@ -14,6 +14,7 @@ type AvatarProps = {
     className?: string;
     children: React.ReactNode;
     onClick?: () => void;
+    imageUrl?: string;
 };
 
 const sizeClassNames = {
@@ -28,7 +29,16 @@ const shapeClassNames = {
 };
 
 const Avatar: FC<AvatarProps> = (props) => {
-    const { size, shape, type, disabled, className, children, onClick } = props;
+    const {
+        size,
+        shape,
+        type,
+        disabled,
+        className,
+        children,
+        onClick,
+        imageUrl
+    } = props;
 
     const sizeClassName = size ? sizeClassNames[size] : "";
     const shapeClassName = shape ? shapeClassNames[shape] : "";
@@ -38,7 +48,7 @@ const Avatar: FC<AvatarProps> = (props) => {
         const initials = getNameInitials(children as string);
         typeElement = <span>{initials}</span>;
     } else if (type === "photo") {
-        typeElement = <img src="path_to_your_image" alt="Avatar" />;
+        typeElement = <img src={imageUrl} alt="Avatar" />;
     }
 
     const finalClassNames = `avatar ${sizeClassName} ${shapeClassName} ${
