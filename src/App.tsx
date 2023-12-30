@@ -7,10 +7,26 @@ const App = () => {
             <Avatar shape="circle" type="photo" size="lg" imageUrl={muslimGirl}>
                 Rukhshona Radjabova
             </Avatar>
-            <Avatar shape="circle" type="photo" size="lg" imageUrl={muslimGirl}>
+            <Avatar
+                shape="circle"
+                type="photo"
+                size="lg"
+                imageUrl={muslimGirl}
+                onClick={() => {
+                    alert("Hello");
+                }}
+            >
                 Rukhshona Radjabova
             </Avatar>
-            <Avatar shape="circle" type="photo" size="lg" imageUrl={muslimGirl}>
+            <Avatar
+                shape="rounded"
+                type="photo"
+                size="lg"
+                imageUrl={muslimGirl}
+                onClick={() => {
+                    alert("Hello");
+                }}
+            >
                 Rukhshona Radjabova
             </Avatar>
             <br></br>
@@ -19,6 +35,21 @@ const App = () => {
                 type="initial"
                 size="lg"
                 imageUrl={muslimGirl}
+                onClick={() => {
+                    alert("Hello");
+                }}
+            >
+                Rukhshona Radjabova
+            </Avatar>
+            <br />
+            <Avatar
+                shape="rounded"
+                type="initial"
+                size="lg"
+                imageUrl={muslimGirl}
+                onClick={() => {
+                    alert("Hello");
+                }}
             >
                 Rukhshona Radjabova
             </Avatar>

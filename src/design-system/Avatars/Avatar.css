@@ -10,6 +10,7 @@
     /* padding: 0 var(--space-16); */
     margin-left: -15px;
     background-color: var(--jaguar-400);
+    border: 1px solid white;
 }
 
 .avatar-small {
@@ -52,18 +53,21 @@
 }
 /* image  */
 .avatar-small img {
+    border: 1px solid white;
     object-fit: cover;
     height: var(--space-24);
     width: var(--space-24);
 }
 
 .avatar-medium img {
+    border: 1px solid white;
     object-fit: cover;
     height: var(--space-36);
     width: var(--space-36);
 }
 
 .avatar-large img {
+    border: 1px solid white;
     object-fit: cover;
     height: var(--space-40);
     width: var(--space-40);
