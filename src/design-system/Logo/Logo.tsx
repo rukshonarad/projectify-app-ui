@@ -8,6 +8,7 @@ type LogoProps = {
     layout: "horizontal" | "vertical";
     size: "lg" | "sm";
     className?: string;
+    customText?: string;
 };
 
 const layoutClassNames = {
@@ -20,7 +21,7 @@ const sizeClassNames = {
     sm: "logo-small"
 };
 
-const Logo: React.FC<LogoProps> = ({ layout, size, className }) => {
+const Logo: React.FC<LogoProps> = ({ layout, size, customText, className }) => {
     const layoutClassName = layout ? layoutClassNames[layout] : "";
     const sizeClassName = size ? sizeClassNames[size] : "";
 
@@ -30,7 +31,7 @@ const Logo: React.FC<LogoProps> = ({ layout, size, className }) => {
     return (
         <div className={finalClassNames}>
             <img src={logo} alt="Logo" />
-            <div className="logo__text">Projectify</div>
+            <div className="logo__text">{customText || "Projectify"}</div>
         </div>
     );
 };

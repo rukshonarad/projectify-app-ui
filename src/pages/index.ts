@@ -1,1 +1,1 @@
-export * from "./admin-auth/Signup";
+export * from "./admin-auth/sign-up/Signup";
