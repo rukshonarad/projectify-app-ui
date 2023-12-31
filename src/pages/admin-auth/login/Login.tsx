@@ -7,24 +7,8 @@ import flatIronBuilding from "../../../assets/images/team.png";
 import "./Login.css";
 
 const Login = () => {
-    const [firstName, setFirstName] = useState<string>("");
-    const [lastName, setLastName] = useState<string>("");
-    const [preferredName, setPreferredName] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    const [passwordConfirm, setPasswordConfirm] = useState<string>("");
-
-    const handleOnChangeFirstName = (value: string) => {
-        setFirstName(value);
-    };
-
-    const handleOnChangeLastName = (value: string) => {
-        setLastName(value);
-    };
-
-    const handleOnChangeName = (value: string) => {
-        setPreferredName(value);
-    };
 
     const handleOnChangeEmail = (value: string) => {
         setEmail(value);
@@ -34,25 +18,14 @@ const Login = () => {
         setPassword(value);
     };
 
-    const handleOnChangePasswordConfirm = (value: string) => {
-        setPasswordConfirm(value);
-    };
-
-    const createAccount = (e: React.FormEvent<HTMLFormElement>) => {
+    const login = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(
-            firstName,
-            lastName,
-            preferredName,
-            password,
-            passwordConfirm,
-            email
-        );
+        console.log(password, email);
     };
 
     return (
         <AuthWrapper imageUrl={flatIronBuilding} pageTitle="Login">
-            <form className="login" onSubmit={createAccount}>
+            <form className="login" onSubmit={login}>
                 <Input
                     type="email"
                     placeholder="Email"
