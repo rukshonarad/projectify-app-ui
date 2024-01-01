@@ -17,18 +17,21 @@ const PasswordWrapper: FC<PasswordWrapperProps> = ({
 }) => {
     return (
         <main className="password-wrapper">
-            <section className="password-wrapper__form">
-                <div className="password-wrapper__content">
-                    <Typography variant="h6" weight="semibold" align="center">
-                        {pageTitle}
-                    </Typography>
-                    <img src={imagePath} alt={pageTitle} />
-                    {children}
-                    <Button shape="rounded" color="primary" size="lg">
-                        {btnText}
-                    </Button>
-                </div>
-            </section>
+            <div className="password-wrapper__content">
+                <Typography variant="h6" weight="semibold" align="center">
+                    {pageTitle}
+                </Typography>
+                <img src={imagePath} alt={pageTitle} />
+                {children}
+                <Button
+                    shape="rounded"
+                    color="primary"
+                    size="lg"
+                    className="password-wrapper__btn"
+                >
+                    {btnText}
+                </Button>
+            </div>
         </main>
     );
 };

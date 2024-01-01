@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Input } from "../../../design-system";
 import { PasswordWrapper } from "../../components";
-
+import "./Forgot-password.css";
 import forgotPassword from "../../../assets/images/forgotPassword.svg";
 const ForgotPassword = () => {
     const [email, setEmail] = useState<string>("");
@@ -23,6 +23,7 @@ const ForgotPassword = () => {
         >
             <form onSubmit={sendInstructions}>
                 <Input
+                    className="forgot-password__input"
                     type="email"
                     placeholder="Email"
                     value={email}
