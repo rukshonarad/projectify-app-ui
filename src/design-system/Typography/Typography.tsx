@@ -22,7 +22,6 @@ type TypographyVariant =
     | "subtitleLG"
     | "subtitleMD"
     | "subtitleSM";
-("subtitleSM");
 type TypographyWeight = "normal" | "medium" | "semibold" | "bold";
 
 type TypographyAlign = "center" | "left" | "right" | "justify" | "inherit";

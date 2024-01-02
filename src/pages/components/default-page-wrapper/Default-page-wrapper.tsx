@@ -1,6 +1,6 @@
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 import { Button, Typography } from "../../../design-system";
-import "./DefaultPageWrapper.css";
+import "./Default-page-wrapper.css";
 
 type DefaultPageWrapperProps = {
     imagePath: string;
@@ -17,7 +17,7 @@ const DefaultPageWrapper: FC<DefaultPageWrapperProps> = ({
         <div className="default-page-wrapper">
             <div className="default-page__content">
                 <img src={imagePath} alt={pageTitle} />
-                <Typography variant="paragraph-lg" className="page-title">
+                <Typography variant="paragraphLG" className="page-title">
                     {pageTitle}
                 </Typography>
                 <Button
