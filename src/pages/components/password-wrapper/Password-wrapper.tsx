@@ -27,7 +27,7 @@ const PasswordWrapper: FC<PasswordWrapperProps> = ({
                     shape="rounded"
                     color="primary"
                     size="lg"
-                    className="password-wrapper__btn"
+                    fullWidth={true}
                 >
                     {btnText}
                 </Button>

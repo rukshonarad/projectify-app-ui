@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Input } from "../../../design-system";
 import { PasswordWrapper } from "../../components";
-import "./Forgot-password.css";
-import forgotPassword from "../../../assets/images/forgotPassword.svg";
-const ForgotPassword = () => {
+import "./Update-password.css";
+import updatePassword from "../../../assets/images/updatePassword.svg";
+const UpdatePassword = () => {
     const [email, setEmail] = useState<string>("");
 
     const handleOnChangeEmail = (value: string) => {
@@ -14,17 +14,26 @@ const ForgotPassword = () => {
         e.preventDefault();
         console.log(email);
     };
+
     return (
         <PasswordWrapper
-            pageTitle="Forgot Password?"
-            imagePath={forgotPassword}
-            btnText="Get Instructions"
+            pageTitle="Update Password"
+            imagePath={updatePassword}
+            btnText="Reset My Password"
         >
             <form onSubmit={sendInstructions}>
                 <Input
-                    className="forgot-password__input"
-                    type="email"
-                    placeholder="Email"
+                    className="update-password__input"
+                    type="password"
+                    placeholder="New Password"
+                    value={email}
+                    onChange={handleOnChangeEmail}
+                    shape="rounded"
+                    size="lg"
+                />
+                <Input
+                    type="password"
+                    placeholder="Confirm Password"
                     value={email}
                     onChange={handleOnChangeEmail}
                     shape="rounded"
@@ -35,4 +44,4 @@ const ForgotPassword = () => {
     );
 };
 
-export { ForgotPassword };
+export { UpdatePassword };
