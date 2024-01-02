@@ -8,14 +8,21 @@ import {
 
 type TypographyVariant =
     | "displayLG"
+    | "displayMD"
     | "displaySM"
     | "h1"
     | "h2"
     | "h3"
     | "h4"
     | "h5"
-    | "h6";
-
+    | "h6"
+    | "paragraphLG"
+    | "paragraphMD"
+    | "paragraphSM"
+    | "subtitleLG"
+    | "subtitleMD"
+    | "subtitleSM";
+("subtitleSM");
 type TypographyWeight = "normal" | "medium" | "semibold" | "bold";
 
 type TypographyAlign = "center" | "left" | "right" | "justify" | "inherit";
