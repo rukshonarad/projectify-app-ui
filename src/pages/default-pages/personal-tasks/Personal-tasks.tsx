@@ -2,7 +2,7 @@ import { MainLayout } from "../../components";
 import { DefaultPageWrapper } from "../../components";
 
 import "./Personal-tasks.css";
-import image from "../../../assets/images/personal-tasks.svg";
+import image from "../../../assets/images/task.svg";
 
 const personalTasks = [
     {

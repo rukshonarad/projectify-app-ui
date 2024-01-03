@@ -2,7 +2,7 @@ import { MainLayout } from "../../components";
 import { DefaultPageWrapper } from "../../components";
 
 import "./Team-members.css";
-import image from "../../../assets/images/team-members.svg";
+import image from "../../../assets/images/team.png";
 
 const teamMembers = [
     {

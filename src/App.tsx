@@ -1,8 +1,7 @@
-import { UpdatePassword } from "./pages";
-import { DefaultPageWrapper } from "./pages/components/default-page-wrapper/Default-page-wrapper";
+import { Profile } from "./pages";
 
 const App = () => {
-    return <></>;
+    return <Profile />;
 };
 
 export { App };

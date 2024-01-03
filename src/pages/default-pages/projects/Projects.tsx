@@ -2,7 +2,7 @@ import { MainLayout } from "../../components/main-layout/Main-layout";
 import { DefaultPageWrapper } from "../../components";
 
 import "./Projects.css";
-import image from "../../../assets/images/projects.svg";
+import image from "../../../assets/images/project.svg";
 
 const projects = [
     {

@@ -2,7 +2,7 @@ import { MainLayout } from "../../components";
 import { DefaultPageWrapper } from "../../components";
 
 import "./Stories.css";
-import image from "../../../assets/images/stories.svg";
+import image from "../../../assets/images/story.svg";
 
 const stories = [
     {
