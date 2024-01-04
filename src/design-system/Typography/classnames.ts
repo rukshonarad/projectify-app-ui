@@ -1,5 +1,6 @@
 export const variantClassNames = {
     displayLG: "display-lg",
+    displayMD: "display-md",
     displaySM: "display-sm",
     h1: "heading-1",
     h2: "heading-2",
