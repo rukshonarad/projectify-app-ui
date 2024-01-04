@@ -1,7 +1,7 @@
-import { Profile } from "./pages";
+import { Projects } from "./pages";
 
 const App = () => {
-    return <Profile />;
+    return <Projects />;
 };
 
 export { App };
