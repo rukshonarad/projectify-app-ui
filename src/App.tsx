@@ -1,8 +1,7 @@
-import { useState } from "react";
-import { ForgotPassword } from "./pages";
+import { Login } from "./pages";
 
 const App = () => {
-    return <ForgotPassword />;
+    return <Login />;
 };
 
 export { App };
