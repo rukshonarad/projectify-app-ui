@@ -3,7 +3,13 @@ import { Button, Input } from "../../../design-system";
 import { AuthWrapper } from "../../components";
 
 import teamMemberLogin from "../../../assets/images/teamMemberLogin.jpeg";
-import "./Login.css";
+import styled from "styled-components";
+
+const Form = styled.form`
+    width: 100%;
+    display: grid;
+    gap: var(--space-20);
+`;
 
 const Login = () => {
     const [email, setEmail] = useState<string>("");
@@ -24,7 +30,7 @@ const Login = () => {
 
     return (
         <AuthWrapper imageUrl={teamMemberLogin} pageTitle="Login">
-            <form className="login" onSubmit={login} noValidate>
+            <Form onSubmit={login} noValidate>
                 <Input
                     type="email"
                     placeholder="Email"
@@ -52,7 +58,7 @@ const Login = () => {
                 >
                     Login
                 </Button>
-            </form>
+            </Form>
         </AuthWrapper>
     );
 };

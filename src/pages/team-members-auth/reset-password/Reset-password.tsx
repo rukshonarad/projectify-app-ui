@@ -1,8 +1,14 @@
 import { useState } from "react";
 import { Input } from "../../../design-system";
 import { PasswordWrapper } from "../../components";
-import "./Reset-password.css";
 import resetPassword from "../../../assets/images/resetPassword.svg";
+import styled from "styled-components";
+
+const Form = styled.form`
+    width: 100%;
+    display: grid;
+    gap: var(--space-20);
+`;
 const ResetPassword = () => {
     const [email, setEmail] = useState<string>("");
 
@@ -21,7 +27,7 @@ const ResetPassword = () => {
             imagePath={resetPassword}
             btnText="Reset My Password"
         >
-            <form onSubmit={sendInstructions}>
+            <Form onSubmit={sendInstructions}>
                 <Input
                     className="team-member-reset-password__input"
                     type="password"
@@ -39,9 +45,9 @@ const ResetPassword = () => {
                     shape="rounded"
                     size="lg"
                 />
-            </form>
+            </Form>
         </PasswordWrapper>
     );
 };
 
-export { ResetPassword as AdminResaetPassword };
+export { ResetPassword as TeamMemberResettPassword };

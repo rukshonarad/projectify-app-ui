@@ -3,7 +3,7 @@ export * from "./admin-auth/login/Login";
 export * from "./admin-auth/forgot-password/Forgot-password";
 export * from "./admin-auth/reset-password/Reset-password";
 export * from "./team-members-auth/create-password/Create-password";
-// export * from "./team-members-auth/create-password/Create-password";
+export * from "./team-members-auth/reset-password/Reset-password";
 export * from "./team-members-auth/login/Login";
 
 // export * from "./default-pages/projects/Projects";

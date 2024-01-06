@@ -3,7 +3,26 @@ import { Button, Input } from "../../../design-system";
 import { AuthWrapper } from "../../components";
 
 import teamWork from "../../../assets/images/teamMemberLogin.jpeg";
-import "./Create-password.css";
+import styled from "styled-components";
+
+const Form = styled.form`
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-20);
+    .create-password__preferred-name {
+        grid-column: 1 / 3;
+    }
+
+    .create-password__email {
+        grid-column: 1 / 3;
+    }
+
+    .create-password__submit-button {
+        grid-column: 1 / 3;
+    }
+`;
 
 const CreatePassword = () => {
     const [email, setEmail] = useState<string>("");
@@ -29,7 +48,7 @@ const CreatePassword = () => {
 
     return (
         <AuthWrapper imageUrl={teamWork} pageTitle="Create Password">
-            <form
+            <Form
                 className="create-password"
                 onSubmit={createPassword}
                 noValidate
@@ -67,9 +86,9 @@ const CreatePassword = () => {
                 >
                     Create Password
                 </Button>
-            </form>
+            </Form>
         </AuthWrapper>
     );
 };
 
-export { CreatePassword };
+export { CreatePassword as TeamMemberCreatePassword };
