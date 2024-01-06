@@ -3,8 +3,25 @@ import { Button, Input } from "../../../design-system";
 import { AuthWrapper } from "../../components";
 
 import flatIronBuilding from "../../../assets/images/team.png";
+import styled from "styled-components";
 
-import "./Signup.css";
+const Form = styled.form`
+    width: 100%;
+    display: grid;
+    gap: var(--space-20);
+
+    .sign-up__preferred-name {
+        grid-column: 1 / 3;
+    }
+
+    .sign-up__email {
+        grid-column: 1 / 3;
+    }
+
+    .sign-up__submit-button {
+        grid-column: 1 / 3;
+    }
+`;
 
 const Signup = () => {
     const [firstName, setFirstName] = useState<string>("");
@@ -52,7 +69,7 @@ const Signup = () => {
 
     return (
         <AuthWrapper imageUrl={flatIronBuilding} pageTitle="Sign Up">
-            <form className="sign-up" onSubmit={createAccount}>
+            <Form onSubmit={createAccount}>
                 <Input
                     type="text"
                     placeholder="First Name"
@@ -111,9 +128,9 @@ const Signup = () => {
                 >
                     Sign Up
                 </Button>
-            </form>
+            </Form>
         </AuthWrapper>
     );
 };
 
-export { Signup };
+export { Signup as AdminSignup };

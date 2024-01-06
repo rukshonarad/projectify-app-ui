@@ -42,4 +42,4 @@ const ForgotPassword = () => {
     );
 };
 
-export { ForgotPassword };
+export { ForgotPassword as AdminForgotPassword };

@@ -4,7 +4,25 @@ import { AuthWrapper } from "../../components";
 
 import flatIronBuilding from "../../../assets/images/team.png";
 
-import "./Login.css";
+import styled from "styled-components";
+
+const LoginForm = styled.form`
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-20);
+    .login__email {
+        grid-column: 1 / 3;
+    }
+
+    .login__password {
+        grid-column: 1 / 3;
+    }
+
+    .login__submit-button {
+        grid-column: 1 / 3;
+    }
+`;
 
 const Login = () => {
     const [email, setEmail] = useState<string>("");
@@ -25,7 +43,7 @@ const Login = () => {
 
     return (
         <AuthWrapper imageUrl={flatIronBuilding} pageTitle="Login">
-            <form className="login" onSubmit={login}>
+            <LoginForm className="login" onSubmit={login}>
                 <Input
                     type="email"
                     placeholder="Email"
@@ -53,9 +71,9 @@ const Login = () => {
                 >
                     Login
                 </Button>
-            </form>
+            </LoginForm>
         </AuthWrapper>
     );
 };
 
-export { Login };
+export { Login as AdminLogin };
