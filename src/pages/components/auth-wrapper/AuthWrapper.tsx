@@ -7,8 +7,11 @@ const Wrapper = styled.main`
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 100vh;
 `;
-const AuthForm = styled.section`
-    grid-column: 1 / 2;
+
+const AuthForm = styled.section<{ $switchLayout?: boolean }>`
+    grid-row: 1 / 2;
+    grid-column: ${(props) => (props.$switchLayout ? "2 / 3" : "1 / 2")};
+
     padding: var(--space-50);
     display: flex;
     align-items: center;
@@ -22,16 +25,27 @@ const AuthContent = styled.div`
     gap: var(--space-50);
     flex-basis: 57rem;
 `;
-const AuthImg = styled.section`
-    grid-column: 2 / 3;
+
+const AuthImgWrapper = styled.section<{ $switchLayout?: boolean }>`
+    grid-row: 1 / 2;
+    grid-column: ${(props) => (props.$switchLayout ? "1 / 2" : "2 / 3")};
     padding: var(--space-50);
-    img {
-        height: 100%;
-        width: 100%;
-        border-radius: var(--space-50);
-        object-fit: cover;
+`;
+
+const AuthImage = styled.img.attrs({
+    alt: "Office"
+})`
+    height: 100%;
+    width: 100%;
+    border-radius: var(--space-50);
+    object-fit: cover;
+    transition: all 1s;
+
+    &:hover {
+        transform: scale(1.1);
     }
 `;
+
 type AuthWrapperProps = {
     imageUrl: string;
     children: ReactNode;
@@ -51,9 +65,9 @@ const AuthWrapper: FC<AuthWrapperProps> = ({
                     {children}
                 </AuthContent>
             </AuthForm>
-            <AuthImg>
-                <img src={imageUrl} alt="Projectify App | Hands making star" />
-            </AuthImg>
+            <AuthImgWrapper>
+                <AuthImage src={imageUrl} />
+            </AuthImgWrapper>
         </Wrapper>
     );
 };
