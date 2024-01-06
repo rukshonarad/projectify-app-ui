@@ -1,16 +1,15 @@
 import { useState } from "react";
-import styled from "styled-components";
 import { Input } from "../../../design-system";
 import { PasswordWrapper } from "../../components";
-import forgotPassword from "../../../assets/images/forgotPassword.svg";
+import resetPassword from "../../../assets/images/resetPassword.svg";
+import styled from "styled-components";
 
 const Form = styled.form`
     width: 100%;
-    display: flex;
-    flex-direction: column;
+    display: grid;
     gap: var(--space-20);
 `;
-const ForgotPassword = () => {
+const ResetPassword = () => {
     const [email, setEmail] = useState<string>("");
 
     const handleOnChangeEmail = (value: string) => {
@@ -21,17 +20,26 @@ const ForgotPassword = () => {
         e.preventDefault();
         console.log(email);
     };
+
     return (
         <PasswordWrapper
-            pageTitle="Forgot Password?"
-            imagePath={forgotPassword}
-            btnText="Get Instructions"
+            pageTitle="Reset Password"
+            imagePath={resetPassword}
+            btnText="Reset My Password"
         >
             <Form onSubmit={sendInstructions}>
                 <Input
-                    className="forgot-password__input"
-                    type="email"
-                    placeholder="Email"
+                    className="team-member-reset-password__input"
+                    type="password"
+                    placeholder="New Password"
+                    value={email}
+                    onChange={handleOnChangeEmail}
+                    shape="rounded"
+                    size="lg"
+                />
+                <Input
+                    type="password"
+                    placeholder="Confirm Password"
                     value={email}
                     onChange={handleOnChangeEmail}
                     shape="rounded"
@@ -42,4 +50,4 @@ const ForgotPassword = () => {
     );
 };
 
-export { ForgotPassword as AdminForgotPassword };
+export { ResetPassword as TeamMemberResettPassword };

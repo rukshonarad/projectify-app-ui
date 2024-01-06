@@ -2,31 +2,32 @@ import { useState } from "react";
 import { Button, Input } from "../../../design-system";
 import { AuthWrapper } from "../../components";
 
-import flatIronBuilding from "../../../assets/images/team.png";
-
+import teamWork from "../../../assets/images/teamMemberLogin.jpeg";
 import styled from "styled-components";
 
-const LoginForm = styled.form`
+const Form = styled.form`
     width: 100%;
+
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--space-20);
-    .login__email {
+    .create-password__preferred-name {
         grid-column: 1 / 3;
     }
 
-    .login__password {
+    .create-password__email {
         grid-column: 1 / 3;
     }
 
-    .login__submit-button {
+    .create-password__submit-button {
         grid-column: 1 / 3;
     }
 `;
 
-const Login = () => {
+const CreatePassword = () => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
+    const [passwordConfirm, setPasswordConfirm] = useState<string>("");
 
     const handleOnChangeEmail = (value: string) => {
         setEmail(value);
@@ -36,14 +37,22 @@ const Login = () => {
         setPassword(value);
     };
 
-    const login = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleOnChangePasswordConfirm = (value: string) => {
+        setPasswordConfirm(value);
+    };
+
+    const createPassword = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(password, email);
+        console.log(email, password, passwordConfirm);
     };
 
     return (
-        <AuthWrapper imageUrl={flatIronBuilding} pageTitle="Login">
-            <LoginForm className="login" onSubmit={login}>
+        <AuthWrapper imageUrl={teamWork} pageTitle="Create Password">
+            <Form
+                className="create-password"
+                onSubmit={createPassword}
+                noValidate
+            >
                 <Input
                     type="email"
                     placeholder="Email"
@@ -51,7 +60,7 @@ const Login = () => {
                     onChange={handleOnChangeEmail}
                     shape="rounded"
                     size="lg"
-                    className="login__email"
+                    className="create-password__email"
                 />
                 <Input
                     type="password"
@@ -60,20 +69,26 @@ const Login = () => {
                     onChange={handleOnChangePassword}
                     shape="rounded"
                     size="lg"
-                    className="login__password"
                 />
-
+                <Input
+                    type="password"
+                    placeholder="Confirm Password"
+                    value={passwordConfirm}
+                    onChange={handleOnChangePasswordConfirm}
+                    shape="rounded"
+                    size="lg"
+                />
                 <Button
                     color="primary"
                     size="lg"
                     shape="rounded"
-                    className="login__submit-button"
+                    className="create-password__submit-button"
                 >
-                    Login
+                    Create Password
                 </Button>
-            </LoginForm>
+            </Form>
         </AuthWrapper>
     );
 };
 
-export { Login as AdminLogin };
+export { CreatePassword as TeamMemberCreatePassword };

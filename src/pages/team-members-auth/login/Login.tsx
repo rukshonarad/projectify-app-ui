@@ -2,26 +2,13 @@ import { useState } from "react";
 import { Button, Input } from "../../../design-system";
 import { AuthWrapper } from "../../components";
 
-import flatIronBuilding from "../../../assets/images/team.png";
-
+import teamMemberLogin from "../../../assets/images/teamMemberLogin.jpeg";
 import styled from "styled-components";
 
-const LoginForm = styled.form`
+const Form = styled.form`
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 1fr;
     gap: var(--space-20);
-    .login__email {
-        grid-column: 1 / 3;
-    }
-
-    .login__password {
-        grid-column: 1 / 3;
-    }
-
-    .login__submit-button {
-        grid-column: 1 / 3;
-    }
 `;
 
 const Login = () => {
@@ -38,12 +25,12 @@ const Login = () => {
 
     const login = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(password, email);
+        console.log(email, password);
     };
 
     return (
-        <AuthWrapper imageUrl={flatIronBuilding} pageTitle="Login">
-            <LoginForm className="login" onSubmit={login}>
+        <AuthWrapper imageUrl={teamMemberLogin} pageTitle="Login">
+            <Form onSubmit={login} noValidate>
                 <Input
                     type="email"
                     placeholder="Email"
@@ -71,9 +58,9 @@ const Login = () => {
                 >
                     Login
                 </Button>
-            </LoginForm>
+            </Form>
         </AuthWrapper>
     );
 };
 
-export { Login as AdminLogin };
+export { Login as TeamMemberLogin };
