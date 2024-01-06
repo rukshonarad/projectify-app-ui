@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Input } from "../../../design-system";
 import { PasswordWrapper } from "../../components";
-import "./Team-member-reset-password.css";
+import "./Reset-password.css";
 import resetPassword from "../../../assets/images/resetPassword.svg";
-const TeamMemberResetPassword = () => {
+const ResetPassword = () => {
     const [email, setEmail] = useState<string>("");
 
     const handleOnChangeEmail = (value: string) => {
@@ -44,4 +44,4 @@ const TeamMemberResetPassword = () => {
     );
 };
 
-export { TeamMemberResetPassword };
+export { ResetPassword as AdminResaetPassword };

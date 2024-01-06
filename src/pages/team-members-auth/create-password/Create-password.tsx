@@ -3,9 +3,9 @@ import { Button, Input } from "../../../design-system";
 import { AuthWrapper } from "../../components";
 
 import teamWork from "../../../assets/images/teamMemberLogin.jpeg";
-import "./Team-member-create-password.css";
+import "./Create-password.css";
 
-const TeamMemberCreatePassword = () => {
+const CreatePassword = () => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [passwordConfirm, setPasswordConfirm] = useState<string>("");
@@ -72,4 +72,4 @@ const TeamMemberCreatePassword = () => {
     );
 };
 
-export { TeamMemberCreatePassword };
+export { CreatePassword };
