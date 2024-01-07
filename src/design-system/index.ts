@@ -6,3 +6,4 @@ export * from "./Modal";
 export * from "./Logo";
 export * from "./Toggle";
 export * from "./utils";
+export * from "./Icon";
