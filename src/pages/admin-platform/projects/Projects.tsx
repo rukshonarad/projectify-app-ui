@@ -2,7 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { Input, Modal, Typography, Button } from "../../../design-system";
 import { NoDataPlaceholder } from "../../components";
-import noProject from "../../../assets/images/project.svg";
+import noProject from "../../../assets/illustrations/project.svg";
 
 const PageBase = styled.div`
     position: relative;
