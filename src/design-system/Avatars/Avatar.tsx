@@ -1,20 +1,15 @@
-import React, { FC } from "react";
-import { trimWhiteSpaces, getNameInitials } from "../utils";
+import React from "react";
 import "./Avatar.css";
-
-type AvatarSize = "sm" | "md" | "lg";
-type AvatarShape = "rounded" | "circle";
-type AvatarType = "initial" | "photo";
+import { trimWhiteSpaces } from "../utils";
 
 type AvatarProps = {
-    size?: AvatarSize;
-    shape?: AvatarShape;
-    type?: AvatarType;
-    disabled?: boolean;
-    className?: string;
-    children: React.ReactNode;
-    onClick?: () => void;
+    firstName: string;
+    lastName: string;
+    shape?: "rounded" | "circle";
+    size?: "sm" | "md" | "lg";
     imageUrl?: string;
+    className?: string;
+    onClick?: () => void;
 };
 
 const sizeClassNames = {
@@ -28,40 +23,30 @@ const shapeClassNames = {
     circle: "avatar-circle"
 };
 
-const Avatar: FC<AvatarProps> = (props) => {
-    const {
-        size,
-        shape,
-        type,
-        disabled,
-        className,
-        children,
-        onClick,
-        imageUrl
-    } = props;
-
-    const sizeClassName = size ? sizeClassNames[size] : "";
-    const shapeClassName = shape ? shapeClassNames[shape] : "";
-    let typeElement: React.ReactNode = children;
-
-    if (type === "initial") {
-        const initials = getNameInitials(children as string);
-        typeElement = <span>{initials}</span>;
-    } else if (type === "photo") {
-        typeElement = <img src={imageUrl} alt="Avatar" />;
-    }
-
-    const finalClassNames = `avatar ${sizeClassName} ${shapeClassName} ${
+const Avatar: React.FC<AvatarProps> = ({
+    firstName,
+    lastName,
+    shape,
+    size,
+    imageUrl,
+    onClick,
+    className
+}) => {
+    const sizeClassName = size !== undefined ? sizeClassNames[size] : "";
+    const shapeClassName = shape !== undefined ? shapeClassNames[shape] : "";
+    const finalClassNames = `avatar ${sizeClassName} ${shapeClassName} $ ${
         className || ""
     }`;
 
     return (
-        <button
-            className={trimWhiteSpaces(finalClassNames)}
-            disabled={disabled}
-            onClick={onClick}
-        >
-            {typeElement}
+        <button className={trimWhiteSpaces(finalClassNames)} onClick={onClick}>
+            {imageUrl ? (
+                <img src={imageUrl} alt={`${firstName} ${lastName}`} />
+            ) : (
+                `${firstName ? firstName[0].toUpperCase() : ""}${
+                    lastName ? lastName[0].toUpperCase() : ""
+                }`
+            )}
         </button>
     );
 };
