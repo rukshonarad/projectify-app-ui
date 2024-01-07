@@ -24,6 +24,11 @@ export const router = createBrowserRouter(
                 path="/admin/reset-password"
                 element={<AdminResetPassword />}
             />
+            <Route path="/platform">
+                <Route path="stories" element={<h1>Stories</h1>} />
+                <Route path="personal-tasks" element={<h1>Admin tasks</h1>} />
+                <Route path="team-members" element={<h1>Members</h1>} />
+            </Route>
         </>
     )
 );
