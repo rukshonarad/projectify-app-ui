@@ -12,12 +12,12 @@
       </g>
     </g>
   </symbol>
-  <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="team-member">
+  <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="members">
     <g id="outline-user-02-multiple">
       <path id="icon" d="M1 21V19C1 16.7909 2.79086 15 5 15H13C15.2091 15 17 16.7909 17 19V21M23 21V19C23 16.7909 21.2091 15 19 15H18.75M14.7461 3.00793C14.8301 3.00267 14.9147 3 15 3C17.2091 3 19 4.79086 19 7C19 9.20914 17.2091 11 15 11C14.9147 11 14.8301 10.9973 14.7461 10.9921M13 7C13 9.20914 11.2091 11 9 11C6.79086 11 5 9.20914 5 7C5 4.79086 6.79086 3 9 3C11.2091 3 13 4.79086 13 7Z" stroke="#817D8F" stroke-width="2" stroke-linecap="round"></path>
     </g>
   </symbol>
-  <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="personal-tasks">
+  <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="tasks">
     <g id="outline-list view-02">
       <path id="icon" d="M10 4H22M10 12H22M10 20H22M4 22C2.89543 22 2 21.1046 2 20C2 18.8954 2.89543 18 4 18C5.10457 18 6 18.8954 6 20C6 21.1046 5.10457 22 4 22ZM4 14C2.89543 14 2 13.1046 2 12C2 10.8954 2.89543 10 4 10C5.10457 10 6 10.8954 6 12C6 13.1046 5.10457 14 4 14ZM4 6C2.89543 6 2 5.10457 2 4C2 2.89543 2.89543 2 4 2C5.10457 2 6 2.89543 6 4C6 5.10457 5.10457 6 4 6Z" stroke="#817D8F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
     </g>
