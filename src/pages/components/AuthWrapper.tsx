@@ -1,5 +1,5 @@
 import { FC, ReactNode } from "react";
-import { Logo } from "../../../design-system/Logo";
+import { Logo } from "../../design-system/Logo";
 import styled from "styled-components";
 
 const Wrapper = styled.main`

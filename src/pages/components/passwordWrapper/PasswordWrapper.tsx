@@ -1,5 +1,5 @@
 import { FC, ReactNode } from "react";
-import "./Password-wrapper.css";
+import "./PasswordWrapper.css";
 import { Button, Typography } from "../../../design-system";
 
 type PasswordWrapperProps = {
