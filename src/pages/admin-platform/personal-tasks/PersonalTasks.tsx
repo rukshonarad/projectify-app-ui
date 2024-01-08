@@ -71,7 +71,7 @@ const Tasks = () => {
                         size="lg"
                         shape="rounded"
                         variant="outlined"
-                        fullWidth
+                        fullWidth={true}
                         onClick={() => setShowCreateTaskModal(false)}
                     >
                         Cancel

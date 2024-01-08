@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Typography } from "../Typography";
 import { Icon } from "../Icon";
 import { NavLink } from "react-router-dom";
+
 type SideBarLink = {
     linkText: string;
     linkTo: string;
