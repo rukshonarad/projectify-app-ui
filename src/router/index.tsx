@@ -12,6 +12,9 @@ import {
     AdminPlatform,
     AdminProjects,
     AdminTasks,
+    TeamMemberLogin,
+    TeamMemberForgotPassword,
+    TeamMemberResetPassword,
     TeamMembers,
     TeamMemberPlatform,
     TeamMemberProjects,
@@ -23,7 +26,7 @@ export const router = createBrowserRouter(
         <>
             <Route path="/" element={<App />} />
             <Route path="/admin/sign-up" element={<AdminSignup />} />
-            <Route path="/admin/sign-in" element={<AdminLogin />} />
+            <Route path="/admin/login" element={<AdminLogin />} />
             <Route
                 path="/admin/forgot-password"
                 element={<AdminForgotPassword />}
@@ -33,7 +36,7 @@ export const router = createBrowserRouter(
                 element={<AdminResetPassword />}
             />
 
-            <Route path="/platform" element={<AdminPlatform />}>
+            <Route path="/admin-platform" element={<AdminPlatform />}>
                 <Route path="projects" element={<AdminProjects />} />
                 <Route path="stories" element={<h1>Stories</h1>} />
                 <Route path="personal-tasks" element={<AdminTasks />} />
@@ -41,15 +44,24 @@ export const router = createBrowserRouter(
             </Route>
 
             <Route
+                path="/team-member/team-member-login"
+                element={<TeamMemberLogin />}
+            />
+            <Route
+                path="/team-member/team-member-forgot-password"
+                element={<TeamMemberForgotPassword />}
+            />
+            <Route
+                path="/team-member/team-member-reset-password"
+                element={<TeamMemberResetPassword />}
+            />
+            <Route
                 path="team-members-platform"
                 element={<TeamMemberPlatform />}
             >
                 <Route path="projects" element={<TeamMemberProjects />} />
                 <Route path="stories" element={<h1>Stories</h1>} />
-                <Route
-                    path="team-members-tasks"
-                    element={<TeamMemberTasks />}
-                />
+                <Route path="personal-tasks" element={<TeamMemberTasks />} />
             </Route>
         </>
     )
