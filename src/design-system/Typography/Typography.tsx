@@ -5,10 +5,10 @@ import {
     weightClassNames,
     alignClassNames
 } from "./classnames";
+import { trimWhiteSpaces } from "../utils";
 
 type TypographyVariant =
     | "displayLG"
-    | "displayMD"
     | "displaySM"
     | "h1"
     | "h2"
@@ -22,6 +22,7 @@ type TypographyVariant =
     | "subtitleLG"
     | "subtitleMD"
     | "subtitleSM";
+
 type TypographyWeight = "normal" | "medium" | "semibold" | "bold";
 
 type TypographyAlign = "center" | "left" | "right" | "justify" | "inherit";
@@ -47,10 +48,11 @@ export const Typography: React.FC<TypographyProps> = ({
 
     const alignClassName = align !== undefined ? alignClassNames[align] : "";
 
-    const finalClassName =
+    const finalClassName = trimWhiteSpaces(
         `${variantClassName} ${weightClassName} ${alignClassName} ${
             className || ""
-        }`.trim();
+        }`
+    );
 
     if (
         variant === "displayLG" ||
