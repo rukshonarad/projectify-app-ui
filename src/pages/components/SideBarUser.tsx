@@ -48,7 +48,7 @@ const SideBarUser: React.FC<UserProps> = ({ details, onClick }) => {
             />
             <UserDetails>
                 <Typography variant="paragraphSM" weight="medium">
-                    {details.firstName} {details.firstName}
+                    {details.firstName} {details.lastName}
                 </Typography>
                 <EmailTypography variant="subtitleSM" weight="medium">
                     {details.email}
