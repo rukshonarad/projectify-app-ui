@@ -18,6 +18,12 @@ const Form = styled.form`
         grid-column: 1 / 3;
     }
 
+    .sign-up__company-name {
+        grid-column: 1 / 2;
+    }
+    .sign-up__position {
+        grid-column: 2 / 3;
+    }
     .sign-up__submit-button {
         grid-column: 1 / 3;
     }
@@ -26,6 +32,8 @@ const Form = styled.form`
 const Signup = () => {
     const [firstName, setFirstName] = useState<string>("");
     const [lastName, setLastName] = useState<string>("");
+    const [companyName, setCompanyName] = useState<string>("");
+    const [position, setPosition] = useState<string>("");
     const [preferredName, setPreferredName] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
@@ -38,7 +46,12 @@ const Signup = () => {
     const handleOnChangeLastName = (value: string) => {
         setLastName(value);
     };
-
+    const handleOnchangeCompanyName = (value: string) => {
+        setCompanyName(value);
+    };
+    const handleOnChangePosition = (value: string) => {
+        setPosition(value);
+    };
     const handleOnChangeName = (value: string) => {
         setPreferredName(value);
     };
@@ -60,6 +73,8 @@ const Signup = () => {
         console.log(
             firstName,
             lastName,
+            companyName,
+            position,
             preferredName,
             password,
             passwordConfirm,
@@ -94,6 +109,24 @@ const Signup = () => {
                     shape="rounded"
                     size="lg"
                     className="sign-up__preferred-name"
+                />
+                <Input
+                    type="text"
+                    placeholder="Company Name"
+                    value={companyName}
+                    onChange={handleOnchangeCompanyName}
+                    shape="rounded"
+                    size="lg"
+                    className="sign-up__company-name"
+                />
+                <Input
+                    type="text"
+                    placeholder="Position"
+                    value={position}
+                    onChange={handleOnChangePosition}
+                    shape="rounded"
+                    size="lg"
+                    className="sign-up__position"
                 />
                 <Input
                     type="email"
