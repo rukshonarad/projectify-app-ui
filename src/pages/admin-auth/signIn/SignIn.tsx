@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Input, Toaster } from "../../../design-system";
-import { AuthWrapper } from "../../components";
+import { AuthWrapper, AuthActionLink } from "../../components";
 import toast from "react-hot-toast";
 import signInTeam from "../../../assets/images/team.png";
 
@@ -66,7 +66,7 @@ const SignIn = () => {
 
     return (
         <>
-            <AuthWrapper imageUrl={signInTeam} pageTitle="SignIn">
+            <AuthWrapper imageUrl={signInTeam} pageTitle="Sign In">
                 <SignInForm className="signIn" onSubmit={signIn}>
                     <Input
                         type="email"
@@ -94,11 +94,25 @@ const SignIn = () => {
                         size="lg"
                         shape="rounded"
                         className="signIn__submit-button"
-                        disabled={isFormSubmitting}
+                        disabled={isFormSubmitting || !isFormSubmittable}
                     >
-                        SignIn
+                        Sign In
                     </Button>
                 </SignInForm>
+                <div
+                    style={{ marginTop: "auto", display: "grid", gap: "1rem" }}
+                >
+                    <AuthActionLink
+                        linkText="Click"
+                        hintText="Forgot Password?"
+                        linkTo="../admin/forgot-password"
+                    />
+                    <AuthActionLink
+                        linkText="Sign Up"
+                        hintText="Don't have an account?"
+                        linkTo="../admin/sign-up"
+                    />
+                </div>
             </AuthWrapper>
             <Toaster />
         </>

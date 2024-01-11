@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button, Input, Toaster } from "../../../design-system";
-import { AuthWrapper } from "../../components";
+import { AuthWrapper, AuthActionLink } from "../../components";
 import styled from "styled-components";
 import toast from "react-hot-toast";
 import { admin } from "../../../api";
@@ -193,6 +193,13 @@ const SignUp = () => {
                         Sign Up
                     </Button>
                 </Form>
+                <div style={{ marginTop: "auto" }}>
+                    <AuthActionLink
+                        linkText="Sign in"
+                        hintText="Already have an account?"
+                        linkTo="../admin/signIn"
+                    />
+                </div>
             </AuthWrapper>
             <Toaster />
         </>
