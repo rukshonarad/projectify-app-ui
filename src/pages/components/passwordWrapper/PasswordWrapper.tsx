@@ -6,14 +6,12 @@ type PasswordWrapperProps = {
     pageTitle: string;
     imagePath: string;
     children: ReactNode;
-    btnText: string;
 };
 
 const PasswordWrapper: FC<PasswordWrapperProps> = ({
     pageTitle,
     imagePath,
-    children,
-    btnText
+    children
 }) => {
     return (
         <main className="password-wrapper">
@@ -23,14 +21,6 @@ const PasswordWrapper: FC<PasswordWrapperProps> = ({
                 </Typography>
                 <img src={imagePath} alt={pageTitle} />
                 {children}
-                <Button
-                    shape="rounded"
-                    color="primary"
-                    size="lg"
-                    fullWidth={true}
-                >
-                    {btnText}
-                </Button>
             </div>
         </main>
     );

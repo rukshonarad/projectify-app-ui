@@ -23,11 +23,7 @@ const ResetPassword = () => {
     };
 
     return (
-        <PasswordWrapper
-            pageTitle="Reset Password"
-            imagePath={resetPassword}
-            btnText="Reset My Password"
-        >
+        <PasswordWrapper pageTitle="Reset Password" imagePath={resetPassword}>
             <Form onSubmit={sendInstructions}>
                 <Input
                     type="password"

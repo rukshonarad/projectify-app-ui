@@ -25,7 +25,6 @@ const ForgotPassword = () => {
         <PasswordWrapper
             pageTitle="Forgot Password?"
             imagePath={forgotPassword}
-            btnText="Get Instructions"
         >
             <Form onSubmit={sendInstructions}>
                 <Input
