@@ -35,4 +35,17 @@
       <path id="icon" d="M14 2H8C5.79086 2 4 3.79086 4 6V18C4 20.2091 5.79086 22 8 22H16C18.2091 22 20 20.2091 20 18V8M14 2V6C14 7.10457 14.8954 8 16 8H20M14 2L20 8M9 13H15M9 17H12" stroke="#817D8F" stroke-width="2" stroke-linecap="round"></path>
     </g>
   </symbol>
+ 
+  <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="log-out">
+    <g id="outline-log out - 8">
+      <path id="icon" d="M7 8L3 12L7 16M10.9985 21H16.9985C19.2077 21 20.9985 19.2091 20.9985 17V7C20.9985 4.79086 19.2077 3 16.9985 3H10.9985M3.0013 12H16.0013" stroke="#FC4130" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    </g>
+  </symbol>
+
+  <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="chevron-right">
+    <g id="outline-arrow-03-right">
+      <path id="icon" d="M10.5 7L15.5 12L10.5 17" stroke="#A29FB2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    </g>
+  </symbol>
+
 </svg>

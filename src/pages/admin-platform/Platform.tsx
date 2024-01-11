@@ -58,7 +58,7 @@ const Platform = () => {
                         email: "info@email.com"
                     }}
                 />
-                <SideBarLinks links={links} />
+                <SideBarLinks links={links} loggedOutLink="/admin/sign-in" />
             </SideBar>
             <AppContent>
                 <Outlet />

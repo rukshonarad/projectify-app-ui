@@ -4,6 +4,7 @@ import { AuthWrapper } from "../../components";
 
 import flatIronBuilding from "../../../assets/images/team.png";
 import styled from "styled-components";
+import { admin } from "../../../api";
 
 const Form = styled.form`
     width: 100%;
@@ -18,6 +19,12 @@ const Form = styled.form`
         grid-column: 1 / 3;
     }
 
+    .sign-up__company-name {
+        grid-column: 1 / 2;
+    }
+    .sign-up__position {
+        grid-column: 2 / 3;
+    }
     .sign-up__submit-button {
         grid-column: 1 / 3;
     }
@@ -26,10 +33,15 @@ const Form = styled.form`
 const Signup = () => {
     const [firstName, setFirstName] = useState<string>("");
     const [lastName, setLastName] = useState<string>("");
-    const [preferredName, setPreferredName] = useState<string>("");
+    const [companyName, setCompanyName] = useState<string>("");
+    const [position, setPosition] = useState<string>("");
+    const [preferredFirstName, setPreferredFirstName] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [passwordConfirm, setPasswordConfirm] = useState<string>("");
+
+    const [isFormSubmitting, setIsFormSubmitting] = useState<boolean>(false);
+    const [isError, setIsError] = useState<boolean>(false);
 
     const handleOnChangeFirstName = (value: string) => {
         setFirstName(value);
@@ -38,9 +50,14 @@ const Signup = () => {
     const handleOnChangeLastName = (value: string) => {
         setLastName(value);
     };
-
+    const handleOnchangeCompanyName = (value: string) => {
+        setCompanyName(value);
+    };
+    const handleOnChangePosition = (value: string) => {
+        setPosition(value);
+    };
     const handleOnChangeName = (value: string) => {
-        setPreferredName(value);
+        setPreferredFirstName(value);
     };
 
     const handleOnChangeEmail = (value: string) => {
@@ -55,16 +72,34 @@ const Signup = () => {
         setPasswordConfirm(value);
     };
 
-    const createAccount = (e: React.FormEvent<HTMLFormElement>) => {
+    const createAccount = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(
-            firstName,
-            lastName,
-            preferredName,
-            password,
-            passwordConfirm,
-            email
-        );
+        try {
+            setIsFormSubmitting(true);
+
+            await admin.signUp({
+                firstName,
+                lastName,
+                email,
+                password,
+                preferredFirstName,
+                company: {
+                    name: "Turan Tech",
+                    position: "Student"
+                }
+            });
+
+            setIsFormSubmitting(false);
+            setFirstName("");
+            setLastName("");
+            setPreferredFirstName("");
+            setEmail("");
+            setPassword("");
+            setPasswordConfirm("");
+        } catch (error) {
+            setIsFormSubmitting(false);
+            setIsError(true);
+        }
     };
 
     return (
@@ -77,6 +112,7 @@ const Signup = () => {
                     onChange={handleOnChangeFirstName}
                     shape="rounded"
                     size="lg"
+                    disabled={isFormSubmitting}
                 />
                 <Input
                     type="text"
@@ -85,15 +121,37 @@ const Signup = () => {
                     onChange={handleOnChangeLastName}
                     shape="rounded"
                     size="lg"
+                    disabled={isFormSubmitting}
                 />
                 <Input
                     type="text"
                     placeholder="Preferred First Name"
-                    value={preferredName}
+                    value={preferredFirstName}
                     onChange={handleOnChangeName}
                     shape="rounded"
                     size="lg"
                     className="sign-up__preferred-name"
+                    disabled={isFormSubmitting}
+                />
+                <Input
+                    type="text"
+                    placeholder="Company Name"
+                    value={companyName}
+                    onChange={handleOnchangeCompanyName}
+                    shape="rounded"
+                    size="lg"
+                    className="sign-up__company-name"
+                    disabled={isFormSubmitting}
+                />
+                <Input
+                    type="text"
+                    placeholder="Position"
+                    value={position}
+                    onChange={handleOnChangePosition}
+                    shape="rounded"
+                    size="lg"
+                    className="sign-up__position"
+                    disabled={isFormSubmitting}
                 />
                 <Input
                     type="email"
@@ -103,6 +161,7 @@ const Signup = () => {
                     shape="rounded"
                     size="lg"
                     className="sign-up__email"
+                    disabled={isFormSubmitting}
                 />
                 <Input
                     type="password"
@@ -111,6 +170,7 @@ const Signup = () => {
                     onChange={handleOnChangePassword}
                     shape="rounded"
                     size="lg"
+                    disabled={isFormSubmitting}
                 />
                 <Input
                     type="password"
@@ -119,6 +179,7 @@ const Signup = () => {
                     onChange={handleOnChangePasswordConfirm}
                     shape="rounded"
                     size="lg"
+                    disabled={isFormSubmitting}
                 />
                 <Button
                     color="primary"

@@ -5,14 +5,14 @@ import {
 } from "react-router-dom";
 import { App } from "../App";
 import {
-    AdminLogin,
+    AdminSignIn,
     AdminSignup,
     AdminForgotPassword,
     AdminResetPassword,
     AdminPlatform,
     AdminProjects,
     AdminTasks,
-    TeamMemberLogin,
+    TeamMemberSignIn,
     TeamMemberForgotPassword,
     TeamMemberResetPassword,
     TeamMembers,
@@ -26,7 +26,7 @@ export const router = createBrowserRouter(
         <>
             <Route path="/" element={<App />} />
             <Route path="/admin/sign-up" element={<AdminSignup />} />
-            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route path="/admin/signIn" element={<AdminSignIn />} />
             <Route
                 path="/admin/forgot-password"
                 element={<AdminForgotPassword />}
@@ -36,7 +36,7 @@ export const router = createBrowserRouter(
                 element={<AdminResetPassword />}
             />
 
-            <Route path="/admin-platform" element={<AdminPlatform />}>
+            <Route path="/admin/platform" element={<AdminPlatform />}>
                 <Route path="projects" element={<AdminProjects />} />
                 <Route path="stories" element={<h1>Stories</h1>} />
                 <Route path="personal-tasks" element={<AdminTasks />} />
@@ -44,8 +44,8 @@ export const router = createBrowserRouter(
             </Route>
 
             <Route
-                path="/team-member/team-member-login"
-                element={<TeamMemberLogin />}
+                path="/team-member/team-member-signIn"
+                element={<TeamMemberSignIn />}
             />
             <Route
                 path="/team-member/team-member-forgot-password"
