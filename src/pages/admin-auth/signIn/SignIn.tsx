@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button, Input } from "../../../design-system";
 import { AuthWrapper } from "../../components";
 
@@ -37,16 +38,19 @@ const SignIn = () => {
     };
     const [isFormSubmitting, setIsFormSubmitting] = useState<boolean>(false);
     const [isError, setIsError] = useState<boolean>(false);
+    const navigate = useNavigate();
 
     const signIn = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
             setIsFormSubmitting(true);
-            await admin.signIn({
+            const { token } = await admin.signIn({
                 email,
                 password
             });
-            setIsFormSubmitting(false);
+            localStorage.setItem("authToken", token);
+
+            navigate("/admin/platform");
             setEmail("");
             setPassword("");
         } catch (error) {
@@ -66,6 +70,7 @@ const SignIn = () => {
                     shape="rounded"
                     size="lg"
                     className="signIn__email"
+                    disabled={isFormSubmitting}
                 />
                 <Input
                     type="password"
@@ -75,6 +80,7 @@ const SignIn = () => {
                     shape="rounded"
                     size="lg"
                     className="signIn__password"
+                    disabled={isFormSubmitting}
                 />
 
                 <Button
@@ -82,6 +88,7 @@ const SignIn = () => {
                     size="lg"
                     shape="rounded"
                     className="signIn__submit-button"
+                    disabled={isFormSubmitting}
                 >
                     SignIn
                 </Button>

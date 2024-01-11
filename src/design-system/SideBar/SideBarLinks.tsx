@@ -20,9 +20,9 @@ type SideBarLinksProps = { links: SideBarLinksGroup[] };
 const SideBarLinks: React.FC<SideBarLinksProps> = ({ links }) => {
     return (
         <>
-            {links.map((group) => {
+            {links.map((group, idx) => {
                 return (
-                    <div className="side-bar__link-group">
+                    <div className="side-bar__link-group" key={idx}>
                         <Typography
                             variant="subtitleMD"
                             weight="semibold"
@@ -31,9 +31,12 @@ const SideBarLinks: React.FC<SideBarLinksProps> = ({ links }) => {
                             {group.title.toUpperCase()}
                         </Typography>
                         <ul className="side-bar__links">
-                            {group.links.map((link) => {
+                            {group.links.map((link, idx) => {
                                 return (
-                                    <li className="side-bar__link-item">
+                                    <li
+                                        className="side-bar__link-item"
+                                        key={idx}
+                                    >
                                         <NavLink
                                             to={link.linkTo}
                                             className="side-bar__link"

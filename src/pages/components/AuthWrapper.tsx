@@ -2,7 +2,14 @@ import { FC, ReactNode } from "react";
 import { Logo } from "../../design-system/Logo";
 import styled from "styled-components";
 
-const Wrapper = styled.main`
+type AuthWrapperProps = {
+    imageUrl: string;
+    children: ReactNode;
+    pageTitle: string;
+    switchLayout?: boolean;
+};
+
+const AuthWrapperBase = styled.main`
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 100vh;
@@ -23,10 +30,10 @@ const AuthContent = styled.div`
     flex-direction: column;
     align-items: center;
     gap: var(--space-50);
-    flex-basis: 57rem;
+    flex-basis: 47rem;
 `;
 
-const AuthImgWrapper = styled.section<{ $switchLayout?: boolean }>`
+const AuthImageWrapper = styled.section<{ $switchLayout?: boolean }>`
     grid-row: 1 / 2;
     grid-column: ${(props) => (props.$switchLayout ? "1 / 2" : "2 / 3")};
     padding: var(--space-50);
@@ -46,29 +53,24 @@ const AuthImage = styled.img.attrs({
     }
 `;
 
-type AuthWrapperProps = {
-    imageUrl: string;
-    children: ReactNode;
-    pageTitle: string;
-};
-
 const AuthWrapper: FC<AuthWrapperProps> = ({
     imageUrl,
     pageTitle,
+    switchLayout,
     children
 }) => {
     return (
-        <Wrapper className="auth-wrapper">
-            <AuthForm>
+        <AuthWrapperBase>
+            <AuthForm $switchLayout={switchLayout}>
                 <AuthContent>
                     <Logo layout="vertical" size="lg" customText={pageTitle} />
                     {children}
                 </AuthContent>
             </AuthForm>
-            <AuthImgWrapper>
+            <AuthImageWrapper $switchLayout={switchLayout}>
                 <AuthImage src={imageUrl} />
-            </AuthImgWrapper>
-        </Wrapper>
+            </AuthImageWrapper>
+        </AuthWrapperBase>
     );
 };
 
