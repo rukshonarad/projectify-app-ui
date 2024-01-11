@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Input } from "../../../design-system";
+import { Button, Input, Toaster } from "../../../design-system";
 import { AuthWrapper } from "../../components";
-
-import flatIronBuilding from "../../../assets/images/team.png";
+import toast from "react-hot-toast";
+import signInTeam from "../../../assets/images/team.png";
 
 import styled from "styled-components";
 import { admin } from "../../../api";
@@ -37,63 +37,71 @@ const SignIn = () => {
         setPassword(value);
     };
     const [isFormSubmitting, setIsFormSubmitting] = useState<boolean>(false);
+
     const [isError, setIsError] = useState<boolean>(false);
     const navigate = useNavigate();
-
+    const isFormSubmittable = email && password;
     const signIn = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
             setIsFormSubmitting(true);
-            const { token } = await admin.signIn({
+            const response = await admin.signIn({
                 email,
                 password
             });
-            localStorage.setItem("authToken", token);
+            localStorage.setItem("authToken", response.token);
 
             navigate("/admin/platform");
             setEmail("");
             setPassword("");
+            toast.success(response.message);
         } catch (error) {
-            setIsFormSubmitting(false);
-            setIsError(true);
+            if (error instanceof Error) {
+                setIsFormSubmitting(false);
+
+                toast.error(error.message);
+            }
         }
     };
 
     return (
-        <AuthWrapper imageUrl={flatIronBuilding} pageTitle="SignIn">
-            <SignInForm className="signIn" onSubmit={signIn}>
-                <Input
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={handleOnChangeEmail}
-                    shape="rounded"
-                    size="lg"
-                    className="signIn__email"
-                    disabled={isFormSubmitting}
-                />
-                <Input
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={handleOnChangePassword}
-                    shape="rounded"
-                    size="lg"
-                    className="signIn__password"
-                    disabled={isFormSubmitting}
-                />
+        <>
+            <AuthWrapper imageUrl={signInTeam} pageTitle="SignIn">
+                <SignInForm className="signIn" onSubmit={signIn}>
+                    <Input
+                        type="email"
+                        placeholder="Email"
+                        value={email}
+                        onChange={handleOnChangeEmail}
+                        shape="rounded"
+                        size="lg"
+                        className="signIn__email"
+                        disabled={isFormSubmitting}
+                    />
+                    <Input
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={handleOnChangePassword}
+                        shape="rounded"
+                        size="lg"
+                        className="signIn__password"
+                        disabled={isFormSubmitting}
+                    />
 
-                <Button
-                    color="primary"
-                    size="lg"
-                    shape="rounded"
-                    className="signIn__submit-button"
-                    disabled={isFormSubmitting}
-                >
-                    SignIn
-                </Button>
-            </SignInForm>
-        </AuthWrapper>
+                    <Button
+                        color="primary"
+                        size="lg"
+                        shape="rounded"
+                        className="signIn__submit-button"
+                        disabled={isFormSubmitting}
+                    >
+                        SignIn
+                    </Button>
+                </SignInForm>
+            </AuthWrapper>
+            <Toaster />
+        </>
     );
 };
 
