@@ -1,9 +1,10 @@
 import { useState } from "react";
+import styled from "styled-components";
+import toast, { Toaster } from "react-hot-toast";
 import { Button, Input } from "../../../design-system";
 import { AuthWrapper } from "../../components";
 
 import flatIronBuilding from "../../../assets/images/team.png";
-import styled from "styled-components";
 import { admin } from "../../../api";
 
 const Form = styled.form`
@@ -71,22 +72,19 @@ const Signup = () => {
     const handleOnChangePasswordConfirm = (value: string) => {
         setPasswordConfirm(value);
     };
-
+    const isFormSubmittable =
+        firstName && lastName && password && email && passwordConfirm;
     const createAccount = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
             setIsFormSubmitting(true);
 
-            await admin.signUp({
+            const response = await admin.signUp({
                 firstName,
                 lastName,
                 email,
                 password,
-                preferredFirstName,
-                company: {
-                    name: "Turan Tech",
-                    position: "Student"
-                }
+                preferredFirstName
             });
 
             setIsFormSubmitting(false);
@@ -96,101 +94,109 @@ const Signup = () => {
             setEmail("");
             setPassword("");
             setPasswordConfirm("");
+            toast.success(response.message);
         } catch (error) {
-            setIsFormSubmitting(false);
-            setIsError(true);
+            if (error instanceof Error) {
+                setIsFormSubmitting(false);
+                setIsError(true);
+                toast.error(error.message);
+            }
         }
     };
 
     return (
-        <AuthWrapper imageUrl={flatIronBuilding} pageTitle="Sign Up">
-            <Form onSubmit={createAccount}>
-                <Input
-                    type="text"
-                    placeholder="First Name"
-                    value={firstName}
-                    onChange={handleOnChangeFirstName}
-                    shape="rounded"
-                    size="lg"
-                    disabled={isFormSubmitting}
-                />
-                <Input
-                    type="text"
-                    placeholder="Last Name"
-                    value={lastName}
-                    onChange={handleOnChangeLastName}
-                    shape="rounded"
-                    size="lg"
-                    disabled={isFormSubmitting}
-                />
-                <Input
-                    type="text"
-                    placeholder="Preferred First Name"
-                    value={preferredFirstName}
-                    onChange={handleOnChangeName}
-                    shape="rounded"
-                    size="lg"
-                    className="sign-up__preferred-name"
-                    disabled={isFormSubmitting}
-                />
-                <Input
-                    type="text"
-                    placeholder="Company Name"
-                    value={companyName}
-                    onChange={handleOnchangeCompanyName}
-                    shape="rounded"
-                    size="lg"
-                    className="sign-up__company-name"
-                    disabled={isFormSubmitting}
-                />
-                <Input
-                    type="text"
-                    placeholder="Position"
-                    value={position}
-                    onChange={handleOnChangePosition}
-                    shape="rounded"
-                    size="lg"
-                    className="sign-up__position"
-                    disabled={isFormSubmitting}
-                />
-                <Input
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={handleOnChangeEmail}
-                    shape="rounded"
-                    size="lg"
-                    className="sign-up__email"
-                    disabled={isFormSubmitting}
-                />
-                <Input
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={handleOnChangePassword}
-                    shape="rounded"
-                    size="lg"
-                    disabled={isFormSubmitting}
-                />
-                <Input
-                    type="password"
-                    placeholder="Password Confirmation"
-                    value={passwordConfirm}
-                    onChange={handleOnChangePasswordConfirm}
-                    shape="rounded"
-                    size="lg"
-                    disabled={isFormSubmitting}
-                />
-                <Button
-                    color="primary"
-                    size="lg"
-                    shape="rounded"
-                    className="sign-up__submit-button"
-                >
-                    Sign Up
-                </Button>
-            </Form>
-        </AuthWrapper>
+        <>
+            <AuthWrapper imageUrl={flatIronBuilding} pageTitle="Sign Up">
+                <Form onSubmit={createAccount}>
+                    <Input
+                        type="text"
+                        placeholder="First Name"
+                        value={firstName}
+                        onChange={handleOnChangeFirstName}
+                        shape="rounded"
+                        size="lg"
+                        disabled={isFormSubmitting}
+                    />
+                    <Input
+                        type="text"
+                        placeholder="Last Name"
+                        value={lastName}
+                        onChange={handleOnChangeLastName}
+                        shape="rounded"
+                        size="lg"
+                        disabled={isFormSubmitting}
+                    />
+                    <Input
+                        type="text"
+                        placeholder="Preferred First Name"
+                        value={preferredFirstName}
+                        onChange={handleOnChangeName}
+                        shape="rounded"
+                        size="lg"
+                        className="sign-up__preferred-name"
+                        disabled={isFormSubmitting}
+                    />
+                    <Input
+                        type="text"
+                        placeholder="Company Name"
+                        value={companyName}
+                        onChange={handleOnchangeCompanyName}
+                        shape="rounded"
+                        size="lg"
+                        className="sign-up__company-name"
+                        disabled={isFormSubmitting}
+                    />
+                    <Input
+                        type="text"
+                        placeholder="Position"
+                        value={position}
+                        onChange={handleOnChangePosition}
+                        shape="rounded"
+                        size="lg"
+                        className="sign-up__position"
+                        disabled={isFormSubmitting}
+                    />
+                    <Input
+                        type="email"
+                        placeholder="Email"
+                        value={email}
+                        onChange={handleOnChangeEmail}
+                        shape="rounded"
+                        size="lg"
+                        className="sign-up__email"
+                        disabled={isFormSubmitting}
+                    />
+                    <Input
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={handleOnChangePassword}
+                        shape="rounded"
+                        size="lg"
+                        disabled={isFormSubmitting}
+                    />
+                    <Input
+                        type="password"
+                        placeholder="Password Confirmation"
+                        value={passwordConfirm}
+                        onChange={handleOnChangePasswordConfirm}
+                        shape="rounded"
+                        size="lg"
+                        disabled={isFormSubmitting}
+                    />
+                    <Button
+                        color="primary"
+                        size="lg"
+                        shape="rounded"
+                        className="sign-up__submit-button"
+                        disabled={isFormSubmitting}
+                    >
+                        Sign Up
+                    </Button>
+                </Form>
+            </AuthWrapper>
+            <Toaster />
+        </>
     );
 };
 
