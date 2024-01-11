@@ -1,48 +1,35 @@
 import { useState } from "react";
-import styled from "styled-components";
-import toast, { Toaster } from "react-hot-toast";
-import { Button, Input } from "../../../design-system";
+import { Button, Input, Toaster } from "../../../design-system";
 import { AuthWrapper } from "../../components";
-
-import flatIronBuilding from "../../../assets/images/team.png";
+import styled from "styled-components";
+import toast from "react-hot-toast";
 import { admin } from "../../../api";
+import team from "../../../assets/images/team.png";
 
 const Form = styled.form`
     width: 100%;
     display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: var(--space-20);
 
-    .sign-up__preferred-name {
-        grid-column: 1 / 3;
-    }
-
-    .sign-up__email {
-        grid-column: 1 / 3;
-    }
-
-    .sign-up__company-name {
-        grid-column: 1 / 2;
-    }
-    .sign-up__position {
-        grid-column: 2 / 3;
-    }
+    .sign-up__preferred-name,
+    .sign-up__email,
     .sign-up__submit-button {
         grid-column: 1 / 3;
     }
 `;
 
-const Signup = () => {
+const SignUp = () => {
     const [firstName, setFirstName] = useState<string>("");
     const [lastName, setLastName] = useState<string>("");
-    const [companyName, setCompanyName] = useState<string>("");
-    const [position, setPosition] = useState<string>("");
     const [preferredFirstName, setPreferredFirstName] = useState<string>("");
+    const [companyName, setCompanyName] = useState<string>("");
+    const [companyPosition, setCompanyPosition] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [passwordConfirm, setPasswordConfirm] = useState<string>("");
 
     const [isFormSubmitting, setIsFormSubmitting] = useState<boolean>(false);
-    const [isError, setIsError] = useState<boolean>(false);
 
     const handleOnChangeFirstName = (value: string) => {
         setFirstName(value);
@@ -51,14 +38,17 @@ const Signup = () => {
     const handleOnChangeLastName = (value: string) => {
         setLastName(value);
     };
-    const handleOnchangeCompanyName = (value: string) => {
+
+    const handleOnChangePreferredFirstName = (value: string) => {
+        setPreferredFirstName(value);
+    };
+
+    const handleOnChangeCompanyName = (value: string) => {
         setCompanyName(value);
     };
-    const handleOnChangePosition = (value: string) => {
-        setPosition(value);
-    };
-    const handleOnChangeName = (value: string) => {
-        setPreferredFirstName(value);
+
+    const handleOnChangeCompanyPosition = (value: string) => {
+        setCompanyPosition(value);
     };
 
     const handleOnChangeEmail = (value: string) => {
@@ -72,10 +62,13 @@ const Signup = () => {
     const handleOnChangePasswordConfirm = (value: string) => {
         setPasswordConfirm(value);
     };
+
     const isFormSubmittable =
-        firstName && lastName && password && email && passwordConfirm;
+        firstName && lastName && email && password && passwordConfirm;
+
     const createAccount = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
         try {
             setIsFormSubmitting(true);
 
@@ -84,21 +77,29 @@ const Signup = () => {
                 lastName,
                 email,
                 password,
-                preferredFirstName
+                passwordConfirm,
+                preferredFirstName,
+                company: {
+                    name: companyName,
+                    position: companyPosition
+                }
             });
 
             setIsFormSubmitting(false);
             setFirstName("");
             setLastName("");
             setPreferredFirstName("");
+            setCompanyName("");
+            setCompanyPosition("");
             setEmail("");
             setPassword("");
             setPasswordConfirm("");
+
             toast.success(response.message);
         } catch (error) {
             if (error instanceof Error) {
                 setIsFormSubmitting(false);
-                setIsError(true);
+
                 toast.error(error.message);
             }
         }
@@ -106,7 +107,7 @@ const Signup = () => {
 
     return (
         <>
-            <AuthWrapper imageUrl={flatIronBuilding} pageTitle="Sign Up">
+            <AuthWrapper imageUrl={team} pageTitle="Sign Up">
                 <Form onSubmit={createAccount}>
                     <Input
                         type="text"
@@ -130,7 +131,7 @@ const Signup = () => {
                         type="text"
                         placeholder="Preferred First Name"
                         value={preferredFirstName}
-                        onChange={handleOnChangeName}
+                        onChange={handleOnChangePreferredFirstName}
                         shape="rounded"
                         size="lg"
                         className="sign-up__preferred-name"
@@ -140,20 +141,18 @@ const Signup = () => {
                         type="text"
                         placeholder="Company Name"
                         value={companyName}
-                        onChange={handleOnchangeCompanyName}
+                        onChange={handleOnChangeCompanyName}
                         shape="rounded"
                         size="lg"
-                        className="sign-up__company-name"
                         disabled={isFormSubmitting}
                     />
                     <Input
                         type="text"
-                        placeholder="Position"
-                        value={position}
-                        onChange={handleOnChangePosition}
+                        placeholder="Company Position"
+                        value={companyPosition}
+                        onChange={handleOnChangeCompanyPosition}
                         shape="rounded"
                         size="lg"
-                        className="sign-up__position"
                         disabled={isFormSubmitting}
                     />
                     <Input
@@ -189,7 +188,7 @@ const Signup = () => {
                         size="lg"
                         shape="rounded"
                         className="sign-up__submit-button"
-                        disabled={isFormSubmitting}
+                        disabled={isFormSubmitting || !isFormSubmittable}
                     >
                         Sign Up
                     </Button>
@@ -200,4 +199,4 @@ const Signup = () => {
     );
 };
 
-export { Signup as AdminSignup };
+export { SignUp as AdminSignup };
