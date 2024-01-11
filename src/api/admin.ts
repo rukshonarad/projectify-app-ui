@@ -44,7 +44,7 @@ class Admin {
 
     async signIn(input: SignInInput): Promise<{ token: string }> {
         try {
-            const response = await fetch(`${this.url}/login`, {
+            const response = await fetch(`${this.url}/signin`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

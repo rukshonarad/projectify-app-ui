@@ -39,8 +39,10 @@ const Signup = () => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [passwordConfirm, setPasswordConfirm] = useState<string>("");
+
     const [isFormSubmitting, setIsFormSubmitting] = useState<boolean>(false);
     const [isError, setIsError] = useState<boolean>(false);
+
     const handleOnChangeFirstName = (value: string) => {
         setFirstName(value);
     };

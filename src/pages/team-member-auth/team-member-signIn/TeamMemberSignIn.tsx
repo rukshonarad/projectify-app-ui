@@ -6,25 +6,25 @@ import team from "../../../assets/images/teamMemberLogin.jpeg";
 
 import styled from "styled-components";
 
-const LoginForm = styled.form`
+const SignInForm = styled.form`
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--space-20);
-    .login__email {
+    .signIn__email {
         grid-column: 1 / 3;
     }
 
-    .login__password {
+    .signIn__password {
         grid-column: 1 / 3;
     }
 
-    .login__submit-button {
+    .signIn__submit-button {
         grid-column: 1 / 3;
     }
 `;
 
-const Login = () => {
+const SignIn = () => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
 
@@ -36,14 +36,14 @@ const Login = () => {
         setPassword(value);
     };
 
-    const login = (e: React.FormEvent<HTMLFormElement>) => {
+    const signIn = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log(password, email);
     };
 
     return (
-        <AuthWrapper imageUrl={team} pageTitle="Login">
-            <LoginForm className="login" onSubmit={login}>
+        <AuthWrapper imageUrl={team} pageTitle="SignIn">
+            <SignInForm className="signIn" onSubmit={signIn}>
                 <Input
                     type="email"
                     placeholder="Email"
@@ -51,7 +51,7 @@ const Login = () => {
                     onChange={handleOnChangeEmail}
                     shape="rounded"
                     size="lg"
-                    className="login__email"
+                    className="signIn__email"
                 />
                 <Input
                     type="password"
@@ -60,20 +60,20 @@ const Login = () => {
                     onChange={handleOnChangePassword}
                     shape="rounded"
                     size="lg"
-                    className="login__password"
+                    className="signIn__password"
                 />
 
                 <Button
                     color="primary"
                     size="lg"
                     shape="rounded"
-                    className="login__submit-button"
+                    className="signIn__submit-button"
                 >
-                    Login
+                    SignIn
                 </Button>
-            </LoginForm>
+            </SignInForm>
         </AuthWrapper>
     );
 };
 
-export { Login as TeamMemberLogin };
+export { SignIn as TeamMemberSignIn };
