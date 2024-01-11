@@ -23,7 +23,7 @@ const App = () => {
             <Link to="team-member/team-member-reset-password">
                 Team Member Reset Password
             </Link>
-            <Link to="admin-platform">Admin Platform</Link>
+            <Link to="admin/platform">Admin Platform</Link>
             <Link to="team-members-platform">Team Member PLatform</Link>
         </div>
     );
