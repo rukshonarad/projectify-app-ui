@@ -24,7 +24,7 @@ const App = () => {
                 Team Member Reset Password
             </Link>
             <Link to="admin/platform">Admin Platform</Link>
-            <Link to="team-members-platform">Team Member PLatform</Link>
+            <Link to="team-members/platform">Team Member PLatform</Link>
         </div>
     );
 };

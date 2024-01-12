@@ -1,7 +1,10 @@
 import { useState } from "react";
-import { Input } from "../../../design-system";
+import { Input, Button } from "../../../design-system";
 import { PasswordWrapper } from "../../components";
-import resetPassword from "../../../assets/images/resetPassword.svg";
+import toast from "react-hot-toast";
+import { useSearchParams, useNavigate } from "react-router-dom";
+import { admin } from "../../../api";
+import resetPasswordImg from "../../../assets/images/resetPassword.svg";
 import styled from "styled-components";
 
 const Form = styled.form`
@@ -11,43 +14,77 @@ const Form = styled.form`
 `;
 
 const ResetPassword = () => {
-    const [email, setEmail] = useState<string>("");
+    const [newPassword, setNewPassword] = useState<string>("");
+    const [newPasswordConfirm, setNewPasswordConfirm] = useState<string>("");
+    const [searchParams] = useSearchParams();
+    const passwordResetToken = searchParams.get("passwordResetToken");
 
-    const handleOnChangeEmail = (value: string) => {
-        setEmail(value);
+    const handleOnChangeNewPassword = (value: string) => {
+        setNewPassword(value);
     };
 
-    const sendInstructions = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleOnChangeNewPasswordConfirm = (value: string) => {
+        setNewPasswordConfirm(value);
+    };
+
+    const resetPassword = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(email);
+
+        try {
+            const response = await admin.resetPassword(
+                newPassword,
+                newPasswordConfirm,
+                passwordResetToken as string
+            );
+
+            setNewPassword("");
+            setNewPasswordConfirm("");
+
+            toast.success(response.message);
+            // setTimeout(() => {
+            //     navigate("/admin/login");
+            // }, 4000);
+        } catch (error) {
+            if (error instanceof Error) {
+                toast.error(error.message);
+            }
+        }
     };
 
     return (
-        <PasswordWrapper
-            pageTitle="Reset Password"
-            imagePath={resetPassword}
-            btnText="Reset My Password"
-        >
-            <Form onSubmit={sendInstructions}>
-                <Input
-                    type="password"
-                    placeholder="New Password"
-                    value={email}
-                    onChange={handleOnChangeEmail}
-                    shape="rounded"
-                    size="lg"
-                />
-                <Input
-                    type="password"
-                    placeholder="Confirm Password"
-                    value={email}
-                    onChange={handleOnChangeEmail}
-                    shape="rounded"
-                    size="lg"
-                />
-            </Form>
-        </PasswordWrapper>
+        <>
+            <PasswordWrapper
+                pageTitle="Reset Password"
+                imagePath={resetPasswordImg}
+            >
+                <Form onSubmit={resetPassword}>
+                    <Input
+                        type="password"
+                        placeholder="New Password"
+                        value={newPassword}
+                        onChange={handleOnChangeNewPassword}
+                        shape="rounded"
+                        size="lg"
+                    />
+                    <Input
+                        type="password"
+                        placeholder="Confirm Password"
+                        value={newPasswordConfirm}
+                        onChange={handleOnChangeNewPasswordConfirm}
+                        shape="rounded"
+                        size="lg"
+                    />
+                    <Button
+                        color="primary"
+                        size="lg"
+                        shape="rounded"
+                        fullWidth={true}
+                    >
+                        Reset My Password
+                    </Button>
+                </Form>
+            </PasswordWrapper>
+        </>
     );
 };
-
 export { ResetPassword as AdminResetPassword };

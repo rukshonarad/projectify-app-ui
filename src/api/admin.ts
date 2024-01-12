@@ -115,5 +115,4 @@ class Admin {
         }
     }
 }
-
 export const admin = new Admin();

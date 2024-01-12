@@ -1,7 +1,9 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { Input } from "../../../design-system";
+import toast from "react-hot-toast";
+import { Button, Input, Toaster } from "../../../design-system";
 import { PasswordWrapper } from "../../components";
+import { admin } from "../../../api";
 import forgotPassword from "../../../assets/images/forgotPassword.svg";
 
 const Form = styled.form`
@@ -16,29 +18,52 @@ const ForgotPassword = () => {
     const handleOnChangeEmail = (value: string) => {
         setEmail(value);
     };
+    const [isFormSubmitting, setIsFormSubmitting] = useState<boolean>(false);
 
-    const sendInstructions = (e: React.FormEvent<HTMLFormElement>) => {
+    const isFormSubmittable = email;
+
+    const getInstructions = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(email);
+        try {
+            setIsFormSubmitting(true);
+            const response = await admin.forgotPassword(email);
+            setEmail("");
+            toast.success(response.message);
+        } catch (error) {
+            if (error instanceof Error) {
+                toast.error(error.message);
+            }
+        }
     };
     return (
-        <PasswordWrapper
-            pageTitle="Forgot Password?"
-            imagePath={forgotPassword}
-            btnText="Get Instructions"
-        >
-            <Form onSubmit={sendInstructions}>
-                <Input
-                    className="forgot-password__input"
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={handleOnChangeEmail}
-                    shape="rounded"
-                    size="lg"
-                />
-            </Form>
-        </PasswordWrapper>
+        <>
+            <PasswordWrapper
+                pageTitle="Forgot Password?"
+                imagePath={forgotPassword}
+            >
+                <Form onSubmit={getInstructions}>
+                    <Input
+                        className="forgot-password__input"
+                        type="email"
+                        placeholder="Email"
+                        value={email}
+                        onChange={handleOnChangeEmail}
+                        shape="rounded"
+                        size="lg"
+                        disabled={isFormSubmitting}
+                    />
+                    <Button
+                        color="primary"
+                        size="lg"
+                        fullWidth={true}
+                        shape="rounded"
+                        disabled={isFormSubmitting || !isFormSubmittable}
+                    >
+                        Get Instruction
+                    </Button>
+                </Form>
+            </PasswordWrapper>
+        </>
     );
 };
 
