@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Input, Button } from "../../../design-system";
-import { PasswordWrapper } from "../../components";
+import { AuthActionLink, PasswordWrapper } from "../../components";
 import toast from "react-hot-toast";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { admin } from "../../../api";
@@ -18,7 +18,7 @@ const ResetPassword = () => {
     const [newPasswordConfirm, setNewPasswordConfirm] = useState<string>("");
     const [searchParams] = useSearchParams();
     const passwordResetToken = searchParams.get("passwordResetToken");
-
+    const navigate = useNavigate();
     const handleOnChangeNewPassword = (value: string) => {
         setNewPassword(value);
     };
@@ -41,9 +41,9 @@ const ResetPassword = () => {
             setNewPasswordConfirm("");
 
             toast.success(response.message);
-            // setTimeout(() => {
-            //     navigate("/admin/login");
-            // }, 4000);
+            setTimeout(() => {
+                navigate("/admin/signIn");
+            });
         } catch (error) {
             if (error instanceof Error) {
                 toast.error(error.message);
@@ -83,6 +83,11 @@ const ResetPassword = () => {
                         Reset My Password
                     </Button>
                 </Form>
+                <AuthActionLink
+                    linkText="Forget Password"
+                    hintText="Get Instructions"
+                    linkTo="../admin/forgot-password"
+                />
             </PasswordWrapper>
         </>
     );

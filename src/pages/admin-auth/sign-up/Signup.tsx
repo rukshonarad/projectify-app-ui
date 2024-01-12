@@ -201,7 +201,6 @@ const SignUp = () => {
                     />
                 </div>
             </AuthWrapper>
-            <Toaster />
         </>
     );
 };

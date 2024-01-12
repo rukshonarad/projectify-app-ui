@@ -1,11 +1,11 @@
 import { useState } from "react";
 import styled from "styled-components";
 import toast from "react-hot-toast";
-import { Button, Input, Toaster } from "../../../design-system";
+import { Button, Input } from "../../../design-system";
 import { PasswordWrapper } from "../../components";
 import { admin } from "../../../api";
 import forgotPassword from "../../../assets/images/forgotPassword.svg";
-
+import { AuthActionLink } from "../../components";
 const Form = styled.form`
     width: 100%;
     display: flex;
