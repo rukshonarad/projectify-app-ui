@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Input, Toaster } from "../../../design-system";
+import { Button, Input } from "../../../design-system";
 import { AuthWrapper, AuthActionLink } from "../../components";
 import toast from "react-hot-toast";
 import signInTeam from "../../../assets/images/team.png";
@@ -103,7 +103,7 @@ const SignIn = () => {
                     style={{ marginTop: "auto", display: "grid", gap: "1rem" }}
                 >
                     <AuthActionLink
-                        linkText="Click"
+                        linkText="Get Help"
                         hintText="Forgot Password?"
                         linkTo="../admin/forgot-password"
                     />
@@ -114,7 +114,6 @@ const SignIn = () => {
                     />
                 </div>
             </AuthWrapper>
-            <Toaster />
         </>
     );
 };
