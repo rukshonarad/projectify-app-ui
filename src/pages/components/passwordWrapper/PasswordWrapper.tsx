@@ -4,7 +4,7 @@ import { Typography } from "../../../design-system";
 
 type PasswordWrapperProps = {
     pageTitle: string;
-    imagePath: string;
+    imagePath?: string;
     children: ReactNode;
 };
 

@@ -1,7 +1,7 @@
 import { FC, ReactNode } from "react";
 import { Logo } from "../../design-system/Logo";
 import styled from "styled-components";
-
+import toast, { Toaster } from "react-hot-toast";
 type AuthWrapperProps = {
     imageUrl: string;
     children: ReactNode;
@@ -76,6 +76,7 @@ const AuthWrapper: FC<AuthWrapperProps> = ({
                     <AuthImage src={imageUrl} />
                 </AuthImageWrapper>
             </AuthWrapperBase>
+            <Toaster />
         </>
     );
 };

@@ -63,7 +63,6 @@ const ForgotPassword = () => {
                     </Button>
                 </Form>
             </PasswordWrapper>
-            <Toaster />
         </>
     );
 };

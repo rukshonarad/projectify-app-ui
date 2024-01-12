@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { Input, Button, Toaster } from "../../../design-system";
+import { Input, Button } from "../../../design-system";
 import { PasswordWrapper } from "../../components";
 import toast from "react-hot-toast";
-import resetPassword from "../../../assets/images/resetPassword.svg";
+import { useSearchParams, useNavigate } from "react-router-dom";
+import { admin } from "../../../api";
+import resetPasswordImg from "../../../assets/images/resetPassword.svg";
 import styled from "styled-components";
 
 const Form = styled.form`
@@ -12,15 +14,36 @@ const Form = styled.form`
 `;
 
 const ResetPassword = () => {
-    const [email, setEmail] = useState<string>("");
+    const [newPassword, setNewPassword] = useState<string>("");
+    const [newPasswordConfirm, setNewPasswordConfirm] = useState<string>("");
+    const [searchParams] = useSearchParams();
+    const passwordResetToken = searchParams.get("passwordResetToken");
 
-    const handleOnChangeEmail = (value: string) => {
-        setEmail(value);
+    const handleOnChangeNewPassword = (value: string) => {
+        setNewPassword(value);
     };
 
-    const sendInstructions = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleOnChangeNewPasswordConfirm = (value: string) => {
+        setNewPasswordConfirm(value);
+    };
+
+    const resetPassword = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
         try {
+            const response = await admin.resetPassword(
+                newPassword,
+                newPasswordConfirm,
+                passwordResetToken as string
+            );
+
+            setNewPassword("");
+            setNewPasswordConfirm("");
+
+            toast.success(response.message);
+            // setTimeout(() => {
+            //     navigate("/admin/login");
+            // }, 4000);
         } catch (error) {
             if (error instanceof Error) {
                 toast.error(error.message);
@@ -32,38 +55,36 @@ const ResetPassword = () => {
         <>
             <PasswordWrapper
                 pageTitle="Reset Password"
-                imagePath={resetPassword}
+                imagePath={resetPasswordImg}
             >
-                <Form onSubmit={sendInstructions}>
+                <Form onSubmit={resetPassword}>
                     <Input
                         type="password"
                         placeholder="New Password"
-                        value={email}
-                        onChange={handleOnChangeEmail}
+                        value={newPassword}
+                        onChange={handleOnChangeNewPassword}
                         shape="rounded"
                         size="lg"
                     />
                     <Input
                         type="password"
                         placeholder="Confirm Password"
-                        value={email}
-                        onChange={handleOnChangeEmail}
+                        value={newPasswordConfirm}
+                        onChange={handleOnChangeNewPasswordConfirm}
                         shape="rounded"
                         size="lg"
                     />
                     <Button
                         color="primary"
                         size="lg"
-                        fullWidth={true}
                         shape="rounded"
+                        fullWidth={true}
                     >
-                        Get Instruction
+                        Reset My Password
                     </Button>
                 </Form>
             </PasswordWrapper>
-            <Toaster />
         </>
     );
 };
-
 export { ResetPassword as AdminResetPassword };
