@@ -1,14 +1,7 @@
 type SignUpInput = {
-    firstName: string;
-    lastName: string;
-    preferredFirstName?: string;
     email: string;
     password: string;
-    passwordConfirm?: string;
-    company?: {
-        name: string;
-        position: string;
-    };
+    passwordConfirm: string;
 };
 
 type SignInInput = {
@@ -16,7 +9,7 @@ type SignInInput = {
     password: string;
 };
 
-class Admin {
+class TeamMember {
     url: string;
     constructor() {
         this.url = `${
@@ -25,15 +18,18 @@ class Admin {
                 : process.env.REACT_APP_PROJECTIFY_API_URL
         }/team-members`;
     }
-    async signUp(input: SignUpInput) {
+    async signUp(input: SignUpInput, inviteToken: string) {
         try {
-            const response = await fetch(`${this.url}/sign-up`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(input)
-            });
+            const response = await fetch(
+                `${this.url}/create-password?inviteToken=${inviteToken}`,
+                {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(input)
+                }
+            );
             if (!response.ok) {
                 const data = await response.json();
                 throw new Error(data.message);
@@ -115,4 +111,5 @@ class Admin {
         }
     }
 }
-export const admin = new Admin();
+
+export const teamMember = new TeamMember();
