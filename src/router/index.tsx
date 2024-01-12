@@ -54,13 +54,10 @@ export const router = createBrowserRouter(
                 element={<TeamMemberForgotPassword />}
             />
             <Route
-                path="/team-member/password"
+                path="/team-member/reset-password"
                 element={<TeamMemberResetPassword />}
             />
-            <Route
-                path="team-members/platform"
-                element={<TeamMemberPlatform />}
-            >
+            <Route path="team-member/platform" element={<TeamMemberPlatform />}>
                 <Route path="projects" element={<TeamMemberProjects />} />
                 <Route path="stories" element={<h1>Stories</h1>} />
                 <Route path="personal-tasks" element={<TeamMemberTasks />} />

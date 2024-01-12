@@ -15,7 +15,7 @@ const App = () => {
             <Link to="admin/signIn">Admin SignIn</Link>
             <Link to="admin/forgot-password">Admin Forgot Password</Link>
             <Link to="admin/reset-password">Admin Reset Password</Link>
-
+            <Link to="admin/platform">Admin Platform</Link>
             <Link to="team-member/create-password">
                 Team Member Create Password
             </Link>
@@ -26,8 +26,8 @@ const App = () => {
             <Link to="team-member/reset-password">
                 Team Member Reset Password
             </Link>
-            <Link to="admin/platform">Admin Platform</Link>
-            <Link to="team-members/platform">Team Member PLatform</Link>
+
+            <Link to="team-member/platform">Team Member PLatform</Link>
         </div>
     );
 };

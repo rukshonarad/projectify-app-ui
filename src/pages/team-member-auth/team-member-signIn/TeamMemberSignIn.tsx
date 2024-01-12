@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button, Input } from "../../../design-system";
 import { AuthWrapper } from "../../components";
-
+import toast from "react-hot-toast";
 import team from "../../../assets/images/teamMemberLogin.jpeg";
 
 import styled from "styled-components";
+import { teamMember } from "../../../api";
 
 const SignInForm = styled.form`
     width: 100%;
@@ -31,14 +33,32 @@ const SignIn = () => {
     const handleOnChangeEmail = (value: string) => {
         setEmail(value);
     };
-
     const handleOnChangePassword = (value: string) => {
         setPassword(value);
     };
-
-    const signIn = (e: React.FormEvent<HTMLFormElement>) => {
+    const navigate = useNavigate();
+    const [isFormSubmitting, setIsFormSubmitting] = useState<boolean>(false);
+    const signIn = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(password, email);
+        try {
+            setIsFormSubmitting(true);
+            const response = await teamMember.signIn({
+                email,
+                password
+            });
+            localStorage.setItem("authToken", response.token);
+
+            navigate("/team-member/platform");
+            setEmail("");
+            setPassword("");
+            toast.success(response.message);
+        } catch (error) {
+            if (error instanceof Error) {
+                setIsFormSubmitting(false);
+
+                toast.error(error.message);
+            }
+        }
     };
 
     return (
