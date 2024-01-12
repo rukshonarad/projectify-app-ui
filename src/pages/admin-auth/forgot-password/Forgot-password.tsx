@@ -1,8 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
 import toast from "react-hot-toast";
-import { Input, Toaster } from "../../../design-system";
-import { PasswordWrapper, AuthActionLink } from "../../components";
+import { Button, Input, Toaster } from "../../../design-system";
+import { PasswordWrapper } from "../../components";
 import { admin } from "../../../api";
 import forgotPassword from "../../../assets/images/forgotPassword.svg";
 
@@ -18,10 +18,14 @@ const ForgotPassword = () => {
     const handleOnChangeEmail = (value: string) => {
         setEmail(value);
     };
+    const [isFormSubmitting, setIsFormSubmitting] = useState<boolean>(false);
 
-    const sendInstructions = async (e: React.FormEvent<HTMLFormElement>) => {
+    const isFormSubmittable = email;
+
+    const getInstructions = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
+            setIsFormSubmitting(true);
             const response = await admin.forgotPassword(email);
             setEmail("");
             toast.success(response.message);
@@ -37,7 +41,7 @@ const ForgotPassword = () => {
                 pageTitle="Forgot Password?"
                 imagePath={forgotPassword}
             >
-                <Form onSubmit={sendInstructions}>
+                <Form onSubmit={getInstructions}>
                     <Input
                         className="forgot-password__input"
                         type="email"
@@ -46,7 +50,17 @@ const ForgotPassword = () => {
                         onChange={handleOnChangeEmail}
                         shape="rounded"
                         size="lg"
+                        disabled={isFormSubmitting}
                     />
+                    <Button
+                        color="primary"
+                        size="lg"
+                        fullWidth={true}
+                        shape="rounded"
+                        disabled={isFormSubmitting || !isFormSubmittable}
+                    >
+                        Get Instruction
+                    </Button>
                 </Form>
             </PasswordWrapper>
             <Toaster />
