@@ -1,6 +1,6 @@
 import { FC, ReactNode } from "react";
 import "./PasswordWrapper.css";
-import { Button, Typography } from "../../../design-system";
+import { Typography } from "../../../design-system";
 
 type PasswordWrapperProps = {
     pageTitle: string;
