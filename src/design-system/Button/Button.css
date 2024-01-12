@@ -67,7 +67,7 @@
 }
 
 .btn-primary:disabled {
-    background-color: var(--jaguar-300);
+    background-color: var(--primary-300);
 }
 
 .btn-primary:focus {
