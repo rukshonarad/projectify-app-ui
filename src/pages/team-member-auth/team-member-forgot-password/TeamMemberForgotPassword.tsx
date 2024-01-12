@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { Input } from "../../../design-system";
+import { Input, Button } from "../../../design-system";
 import { PasswordWrapper } from "../../components";
 import forgotPassword from "../../../assets/images/forgotPassword.svg";
 
@@ -16,6 +16,9 @@ const ForgotPassword = () => {
     const handleOnChangeEmail = (value: string) => {
         setEmail(value);
     };
+    const [isFormSubmitting, setIsFormSubmitting] = useState<boolean>(false);
+
+    const isFormSubmittable = email;
 
     const sendInstructions = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -36,6 +39,15 @@ const ForgotPassword = () => {
                     shape="rounded"
                     size="lg"
                 />
+                <Button
+                    color="primary"
+                    size="lg"
+                    fullWidth={true}
+                    shape="rounded"
+                    disabled={isFormSubmitting || !isFormSubmittable}
+                >
+                    Get Instruction
+                </Button>
             </Form>
         </PasswordWrapper>
     );
