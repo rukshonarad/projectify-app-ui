@@ -28,7 +28,7 @@ input::placeholder,
 }
 
 .input-rounded {
-    border-radius: var(--border-radius-8);
+    border-radius: var(--border-radius-16);
 }
 
 .input-circle {
