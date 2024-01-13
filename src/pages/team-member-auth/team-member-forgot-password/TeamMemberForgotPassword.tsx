@@ -3,7 +3,8 @@ import styled from "styled-components";
 import { Input, Button } from "../../../design-system";
 import { PasswordWrapper } from "../../components";
 import forgotPassword from "../../../assets/images/forgotPassword.svg";
-
+import toast from "react-hot-toast";
+import { teamMember } from "../../../api";
 const Form = styled.form`
     width: 100%;
     display: flex;
@@ -20,9 +21,18 @@ const ForgotPassword = () => {
 
     const isFormSubmittable = email;
 
-    const sendInstructions = (e: React.FormEvent<HTMLFormElement>) => {
+    const sendInstructions = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(email);
+        try {
+            setIsFormSubmitting(true);
+            const response = await teamMember.forgotPassword(email);
+            setEmail("");
+            toast.success(response.message);
+        } catch (error) {
+            if (error instanceof Error) {
+                toast.error(error.message);
+            }
+        }
     };
     return (
         <PasswordWrapper

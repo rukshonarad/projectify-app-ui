@@ -62,7 +62,11 @@ const SideBarLinks: React.FC<SideBarLinksProps> = ({
             })}
             <div className="side-bar__log-out">
                 <Icon iconName="log-out" className="log-out-icon" />
-                <Link to="" className="side-bar__log-out-link" onClick={logOut}>
+                <Link
+                    to="/admin/sign-up"
+                    className="side-bar__log-out-link"
+                    onClick={logOut}
+                >
                     Log Out
                 </Link>
             </div>

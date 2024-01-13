@@ -38,7 +38,6 @@ const SignIn = () => {
     };
     const [isFormSubmitting, setIsFormSubmitting] = useState<boolean>(false);
 
-    const [isError, setIsError] = useState<boolean>(false);
     const navigate = useNavigate();
     const isFormSubmittable = email && password;
     const signIn = async (e: React.FormEvent<HTMLFormElement>) => {

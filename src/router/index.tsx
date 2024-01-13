@@ -12,6 +12,7 @@ import {
     AdminPlatform,
     AdminProjects,
     AdminTasks,
+    TeamMemberCreatePassword,
     TeamMemberSignIn,
     TeamMemberForgotPassword,
     TeamMemberResetPassword,
@@ -44,21 +45,19 @@ export const router = createBrowserRouter(
             </Route>
 
             <Route
-                path="/team-member/team-member-signIn"
-                element={<TeamMemberSignIn />}
+                path="/team-member/create-password"
+                element={<TeamMemberCreatePassword />}
             />
+            <Route path="/team-member/sign-in" element={<TeamMemberSignIn />} />
             <Route
-                path="/team-member/team-member-forgot-password"
+                path="/team-member/forgot-password"
                 element={<TeamMemberForgotPassword />}
             />
             <Route
-                path="/team-member/team-member-reset-password"
+                path="/team-member/reset-password"
                 element={<TeamMemberResetPassword />}
             />
-            <Route
-                path="team-members/platform"
-                element={<TeamMemberPlatform />}
-            >
+            <Route path="team-member/platform" element={<TeamMemberPlatform />}>
                 <Route path="projects" element={<TeamMemberProjects />} />
                 <Route path="stories" element={<h1>Stories</h1>} />
                 <Route path="personal-tasks" element={<TeamMemberTasks />} />
