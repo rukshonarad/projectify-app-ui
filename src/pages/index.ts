@@ -16,3 +16,4 @@ export * from "./team-member-auth/team-member-reset-password/TeamMemberResetPass
 export * from "./team-member-platform/TeamMemberPlatform";
 export * from "./team-member-platform/personal-tasks/TeamMemberTasks";
 export * from "./team-member-platform/projects/TeamMemberProjects";
+export * from "../hooks/useLocalStorage";
