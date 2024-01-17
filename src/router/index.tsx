@@ -27,7 +27,7 @@ export const router = createBrowserRouter(
         <>
             <Route path="/" element={<App />} />
             <Route path="/admin/sign-up" element={<AdminSignup />} />
-            <Route path="/admin/signIn" element={<AdminSignIn />} />
+            <Route path="/admin/sign-in" element={<AdminSignIn />} />
             <Route
                 path="/admin/forgot-password"
                 element={<AdminForgotPassword />}
