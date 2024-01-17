@@ -1,4 +1,6 @@
+import React from "react";
 import { Link } from "react-router-dom";
+import { useStore } from "./hooks";
 
 const App = () => {
     return (
@@ -11,8 +13,9 @@ const App = () => {
             }}
         >
             <h1>Home Page</h1>
+
             <Link to="admin/sign-up">Admin Sign-Up</Link>
-            <Link to="admin/signIn">Admin SignIn</Link>
+            <Link to="admin/sign-in">Admin SignIn</Link>
             <Link to="admin/forgot-password">Admin Forgot Password</Link>
             <Link to="admin/reset-password">Admin Reset Password</Link>
             <Link to="admin/platform">Admin Platform</Link>
