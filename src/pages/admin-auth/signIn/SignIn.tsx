@@ -4,7 +4,7 @@ import { Button, Input } from "../../../design-system";
 import { AuthWrapper, AuthActionLink } from "../../components";
 import toast from "react-hot-toast";
 import signInTeam from "../../../assets/images/team.png";
-
+import { useLocalStorage } from "../../../hooks";
 import styled from "styled-components";
 import { admin } from "../../../api";
 
@@ -29,7 +29,7 @@ const SignInForm = styled.form`
 const SignIn = () => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-
+    const [setItem, getItem] = useLocalStorage();
     const handleOnChangeEmail = (value: string) => {
         setEmail(value);
     };
@@ -49,7 +49,7 @@ const SignIn = () => {
                 password
             });
             localStorage.setItem("authToken", response.token);
-
+            setItem("authToken", response.token);
             navigate("/admin/platform");
             setEmail("");
             setPassword("");
