@@ -1,3 +1,4 @@
+import { UserRole, UserType } from "../types";
 type SignUpInput = {
     email: string;
     password: string;
