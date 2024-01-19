@@ -60,6 +60,7 @@ const Platform = () => {
 
     const logOut = () => {
         removeItem("authToken");
+        removeItem("userRole");
         dispatch({ type: Actions.RESET_STATE });
         navigate("/admin/sign-in");
     };

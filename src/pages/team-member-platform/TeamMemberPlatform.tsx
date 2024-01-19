@@ -1,21 +1,15 @@
-import { useEffect, useState } from "react";
-import { Outlet, Navigate, useNavigate } from "react-router-dom";
-import { SideBar, SideBarLinks, Toaster } from "../../design-system";
+import { Outlet } from "react-router-dom";
+import { SideBar, SideBarLinks } from "../../design-system";
 import { AppContent, AppLayout, SideBarUser } from "../components";
-import { GetMeResponseType, admin } from "../../api";
-import toast from "react-hot-toast";
-import { Actions, InitUserAction } from "../../store/actions";
+import { useNavigate } from "react-router-dom";
 import { useLocalStorage, useStore } from "../../hooks";
+import user from "../../assets/images/user.jpg";
+import { Actions } from "../../store";
 
 const links = [
     {
         title: "Menu",
         links: [
-            {
-                linkText: "Project",
-                linkTo: "projects",
-                iconName: "projects"
-            },
             {
                 linkText: "Stories",
                 linkTo: "stories",
@@ -25,66 +19,42 @@ const links = [
                 linkText: "Personal Tasks",
                 linkTo: "personal-tasks",
                 iconName: "tasks"
-            },
-            {
-                linkText: "Team Members",
-                linkTo: "team-members",
-                iconName: "members"
-            }
-        ]
-    },
-    {
-        title: "Settings",
-        links: [
-            {
-                linkText: "Settings",
-                linkTo: "settings",
-                iconName: "settings"
-            },
-            {
-                linkText: "Support",
-                linkTo: "support",
-                iconName: "support"
             }
         ]
     }
 ];
 
 const Platform = () => {
+    const navigate = useNavigate();
     const {
         state: { user },
         dispatch
     } = useStore();
-    const navigate = useNavigate();
     const { removeItem } = useLocalStorage();
 
     const logOut = () => {
         removeItem("authToken");
         dispatch({ type: Actions.RESET_STATE });
-        navigate("/admin/sign-in");
+        navigate("/team-member/sign-in");
     };
 
     return (
-        <>
-            <AppLayout>
-                <SideBar>
-                    <SideBarUser
-                        details={{
-                            firstName: user?.firstName || "",
-                            lastName: user?.lastName || "",
-                            imageUrl: "",
-                            email: user?.email || ""
-                        }}
-                    />
-                    <SideBarLinks links={links} logOut={logOut} />
-                </SideBar>
-                <AppContent>
-                    <Outlet />
-                </AppContent>
-            </AppLayout>
-            <Toaster />
-        </>
+        <AppLayout>
+            <SideBar>
+                <SideBarUser
+                    details={{
+                        firstName: "Asil",
+                        lastName: "Bek",
+                        email: "asilbek@gmail.com"
+                    }}
+                />
+                <SideBarLinks links={links} logOut={logOut} />
+            </SideBar>
+            <AppContent>
+                <Outlet />
+            </AppContent>
+        </AppLayout>
     );
 };
 
-export { Platform as AdminPlatform };
+export { Platform as TeamMemberPlatform };

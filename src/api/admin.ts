@@ -118,6 +118,7 @@ class Admin {
             throw error;
         }
     }
+
     async getMe(): Promise<GetMeResponseType> {
         try {
             const rawAuthToken = localStorage.getItem("authToken");
@@ -138,4 +139,5 @@ class Admin {
         }
     }
 }
+
 export const admin = new Admin();

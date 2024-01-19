@@ -1,6 +1,5 @@
 import React from "react";
-import { Link, useNavigate, NavLink } from "react-router-dom";
-import { useLocalStorage } from "../../hooks";
+import { Link, NavLink } from "react-router-dom";
 import { Typography } from "../Typography";
 import { Icon } from "../Icon";
 type SideBarLink = {
