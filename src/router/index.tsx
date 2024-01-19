@@ -21,6 +21,7 @@ import {
     TeamMemberProjects,
     TeamMemberTasks
 } from "../pages";
+import { Private } from "./Private";
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
@@ -37,7 +38,16 @@ export const router = createBrowserRouter(
                 element={<AdminResetPassword />}
             />
 
-            <Route path="/admin/platform" element={<AdminPlatform />}>
+            <Route
+                path="/admin/platform"
+                element={
+                    <Private
+                        component={<AdminPlatform />}
+                        userType="admin"
+                        to="../admin.sign-in"
+                    />
+                }
+            >
                 <Route path="projects" element={<AdminProjects />} />
                 <Route path="stories" element={<h1>Stories</h1>} />
                 <Route path="personal-tasks" element={<AdminTasks />} />
