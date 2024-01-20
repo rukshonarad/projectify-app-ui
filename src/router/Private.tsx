@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useLocalStorage, useStore } from "../hooks";
-import { admin } from "../api";
+import { admin, teamMember } from "../api";
 import { UserRole } from "../types";
 import { Actions, InitUserAction } from "../store";
 
@@ -34,6 +34,19 @@ const Private: React.FC<ProtectedRouteProps> = ({ component, userType }) => {
                         navigate("../");
                     });
             } else if (userType === UserRole.teamMember) {
+                teamMember
+                    .getMe()
+                    .then((data): void => {
+                        const action: InitUserAction = {
+                            type: Actions.INIT_USER,
+                            payload: data.data
+                        };
+                        dispatch(action);
+                        setItem("userRole", data.data.role);
+                    })
+                    .catch((error: Error) => {
+                        navigate("../");
+                    });
             }
         }
     }, [userType]);
