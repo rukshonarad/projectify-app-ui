@@ -1,7 +1,7 @@
 import React from "react";
+import { Link, NavLink } from "react-router-dom";
 import { Typography } from "../Typography";
 import { Icon } from "../Icon";
-import { Link, NavLink, useNavigate } from "react-router-dom";
 type SideBarLink = {
     linkText: string;
     linkTo: string;
@@ -13,17 +13,9 @@ type SideBarLinksGroup = {
     links: SideBarLink[];
 };
 
-type SideBarLinksProps = { links: SideBarLinksGroup[]; loggedOutLink: string };
+type SideBarLinksProps = { links: SideBarLinksGroup[]; logOut: () => void };
 
-const SideBarLinks: React.FC<SideBarLinksProps> = ({
-    links,
-    loggedOutLink
-}) => {
-    const navigate = useNavigate();
-    const logOut = () => {
-        localStorage.removeItem("authToken");
-        navigate(loggedOutLink);
-    };
+const SideBarLinks: React.FC<SideBarLinksProps> = ({ links, logOut }) => {
     return (
         <>
             {links.map((group, idx) => {
@@ -60,13 +52,10 @@ const SideBarLinks: React.FC<SideBarLinksProps> = ({
                     </div>
                 );
             })}
+
             <div className="side-bar__log-out">
                 <Icon iconName="log-out" className="log-out-icon" />
-                <Link
-                    to="/admin/sign-up"
-                    className="side-bar__log-out-link"
-                    onClick={logOut}
-                >
+                <Link to="" className="side-bar__log-out-link" onClick={logOut}>
                     Log Out
                 </Link>
             </div>

@@ -1,7 +1,11 @@
-import { Outlet, Navigate } from "react-router-dom";
-import { SideBar, SideBarLinks } from "../../design-system";
+import { useEffect, useState } from "react";
+import { Outlet, Navigate, useNavigate } from "react-router-dom";
+import { SideBar, SideBarLinks, Toaster } from "../../design-system";
 import { AppContent, AppLayout, SideBarUser } from "../components";
-import user from "../../assets/images/user.png";
+
+import toast from "react-hot-toast";
+import { Actions, InitUserAction } from "../../store/actions";
+import { useLocalStorage, useStore } from "../../hooks";
 
 const links = [
     {
@@ -47,32 +51,41 @@ const links = [
 ];
 
 const Platform = () => {
-    const isAuthenticated = false;
-    if (isAuthenticated) {
-        return (
+    const {
+        state: { user },
+        dispatch
+    } = useStore();
+    const navigate = useNavigate();
+    const { removeItem } = useLocalStorage();
+
+    const logOut = () => {
+        removeItem("authToken");
+        removeItem("userRole");
+        dispatch({ type: Actions.RESET_STATE });
+        navigate("/admin/sign-in");
+    };
+
+    return (
+        <>
             <AppLayout>
                 <SideBar>
                     <SideBarUser
                         details={{
-                            firstName: "Rukhshona",
-                            lastName: "Radjabova",
-                            imageUrl: user,
-                            email: "info@email.com"
+                            firstName: user?.firstName || "",
+                            lastName: user?.lastName || "",
+                            imageUrl: "",
+                            email: user?.email || ""
                         }}
                     />
-                    <SideBarLinks
-                        links={links}
-                        loggedOutLink="/admin/sign-in"
-                    />
+                    <SideBarLinks links={links} logOut={logOut} />
                 </SideBar>
                 <AppContent>
                     <Outlet />
                 </AppContent>
             </AppLayout>
-        );
-    } else {
-        return <Navigate to="../admin/sign-in" />;
-    }
+            <Toaster />
+        </>
+    );
 };
 
 export { Platform as AdminPlatform };

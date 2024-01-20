@@ -5,7 +5,7 @@ import {
     userReducer,
     InitUserAction,
     ActionType
-} from "../store";
+} from "../store/";
 
 type AppContextType = {
     state: GlobalState;

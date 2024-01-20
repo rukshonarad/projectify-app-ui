@@ -1,17 +1,15 @@
 import { Outlet } from "react-router-dom";
 import { SideBar, SideBarLinks } from "../../design-system";
 import { AppContent, AppLayout, SideBarUser } from "../components";
-import user from "../../assets/images/user.png";
+import { useNavigate } from "react-router-dom";
+import { useLocalStorage, useStore } from "../../hooks";
+import user from "../../assets/images/user.jpg";
+import { Actions } from "../../store";
 
 const links = [
     {
         title: "Menu",
         links: [
-            {
-                linkText: "Project",
-                linkTo: "projects",
-                iconName: "projects"
-            },
             {
                 linkText: "Stories",
                 linkTo: "stories",
@@ -23,40 +21,34 @@ const links = [
                 iconName: "tasks"
             }
         ]
-    },
-    {
-        title: "Settings",
-        links: [
-            {
-                linkText: "Settings",
-                linkTo: "settings",
-                iconName: "settings"
-            },
-            {
-                linkText: "Support",
-                linkTo: "support",
-                iconName: "support"
-            }
-        ]
     }
 ];
 
 const Platform = () => {
+    const navigate = useNavigate();
+    const {
+        state: { user },
+        dispatch
+    } = useStore();
+    const { removeItem } = useLocalStorage();
+
+    const logOut = () => {
+        removeItem("authToken");
+        dispatch({ type: Actions.RESET_STATE });
+        navigate("/team-member/sign-in");
+    };
+
     return (
         <AppLayout>
             <SideBar>
                 <SideBarUser
                     details={{
-                        firstName: "Jhon",
-                        lastName: "Anderson",
-                        imageUrl: user,
-                        email: "info@email.com"
+                        firstName: "Asil",
+                        lastName: "Bek",
+                        email: "asilbek@gmail.com"
                     }}
                 />
-                <SideBarLinks
-                    links={links}
-                    loggedOutLink="/teamMember/sign-in"
-                />
+                <SideBarLinks links={links} logOut={logOut} />
             </SideBar>
             <AppContent>
                 <Outlet />
