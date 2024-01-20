@@ -3,6 +3,9 @@ export enum UserRole {
     teamMember = "teamMember"
 }
 
+export type GetMeResponseType = {
+    data: UserType;
+};
 export interface UserType {
     firstName: string;
     lastName: string;

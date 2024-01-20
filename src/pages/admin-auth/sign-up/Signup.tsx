@@ -76,7 +76,8 @@ const Signup = () => {
                 lastName,
                 email,
                 password,
-                preferredName: preferredName
+                passwordConfirm,
+                preferredName
             });
             setIsFormSubmitting(false);
             setFirstName("");

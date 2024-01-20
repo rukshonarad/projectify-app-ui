@@ -1,4 +1,4 @@
-import { UserRole, UserType } from "../types";
+import { GetMeResponseType, UserType } from "../types";
 
 type SignUpInput = {
     firstName: string;
@@ -6,6 +6,7 @@ type SignUpInput = {
     preferredName?: string;
     email: string;
     password: string;
+    passwordConfirm: string;
     company?: {
         name: string;
         position: string;
@@ -15,10 +16,6 @@ type SignUpInput = {
 type SignInInput = {
     email: string;
     password: string;
-};
-
-export type GetMeResponseType = {
-    data: UserType;
 };
 
 class Admin {
@@ -49,7 +46,7 @@ class Admin {
         }
     }
 
-    async signIn(input: SignInInput): Promise<{ token: string }> {
+    async signIn(input: SignInInput) {
         try {
             const response = await fetch(`${this.url}/login`, {
                 method: "POST",
@@ -94,14 +91,15 @@ class Admin {
     async resetPassword(
         password: string,
         passwordConfirm: string,
-        token: string
+        passwordResetToken: string
     ) {
         try {
+            console.log(this.url);
             const response = await fetch(`${this.url}/reset-password`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
-                    authorization: `Bearer ${token}`
+                    authorization: `Bearer ${passwordResetToken}`
                 },
                 body: JSON.stringify({
                     password,
