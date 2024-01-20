@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Input } from "../../../design-system";
-import { PasswordWrapper } from "../../components";
-import resetPassword from "../../../assets/images/resetPassword.svg";
+import { Button, Input } from "../../../design-system";
+import { PasswordWrapper, AuthActionLink } from "../../components";
+import resetPasswordImg from "../../../assets/images/resetPassword.svg";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import styled from "styled-components";
@@ -16,17 +16,20 @@ const Form = styled.form`
 const ResetPassword = () => {
     const [newPassword, setNewPassword] = useState<string>("");
     const [newPasswordConfirm, setNewPasswordConfirm] = useState<string>("");
-    const [email, setEmail] = useState<string>("");
-
-    const handleOnChangeEmail = (value: string) => {
-        setEmail(value);
-    };
     const [searchParams] = useSearchParams();
     const passwordResetToken = searchParams.get("passwordResetToken");
     const navigate = useNavigate();
+    const handleOnChangeNewPassword = (value: string) => {
+        setNewPassword(value);
+    };
 
-    const sendInstructions = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleOnChangeNewPasswordConfirm = (value: string) => {
+        setNewPasswordConfirm(value);
+    };
+
+    const resetPassword = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
         try {
             const response = await teamMember.resetPassword(
                 newPassword,
@@ -49,26 +52,44 @@ const ResetPassword = () => {
     };
 
     return (
-        <PasswordWrapper pageTitle="Reset Password" imagePath={resetPassword}>
-            <Form onSubmit={sendInstructions}>
-                <Input
-                    type="password"
-                    placeholder="New Password"
-                    value={email}
-                    onChange={handleOnChangeEmail}
-                    shape="rounded"
-                    size="lg"
+        <>
+            <PasswordWrapper
+                pageTitle="Reset Password"
+                imagePath={resetPasswordImg}
+            >
+                <Form onSubmit={resetPassword}>
+                    <Input
+                        type="password"
+                        placeholder="New Password"
+                        value={newPassword}
+                        onChange={handleOnChangeNewPassword}
+                        shape="rounded"
+                        size="lg"
+                    />
+                    <Input
+                        type="password"
+                        placeholder="Confirm Password"
+                        value={newPasswordConfirm}
+                        onChange={handleOnChangeNewPasswordConfirm}
+                        shape="rounded"
+                        size="lg"
+                    />
+                    <Button
+                        color="primary"
+                        size="lg"
+                        shape="rounded"
+                        fullWidth={true}
+                    >
+                        Reset My Password
+                    </Button>
+                </Form>
+                <AuthActionLink
+                    linkText="Forgot Password"
+                    hintText="Get Instructions"
+                    linkTo="../team-member/forgot-password"
                 />
-                <Input
-                    type="password"
-                    placeholder="Confirm Password"
-                    value={email}
-                    onChange={handleOnChangeEmail}
-                    shape="rounded"
-                    size="lg"
-                />
-            </Form>
-        </PasswordWrapper>
+            </PasswordWrapper>
+        </>
     );
 };
 

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { Button, Input } from "../../../design-system";
+import toast from "react-hot-toast";
 import { AuthActionLink, AuthWrapper } from "../../components";
 import styled from "styled-components";
 import { useLocalStorage } from "../../../hooks";
@@ -45,7 +46,7 @@ const Signin = () => {
                 email,
                 password
             });
-            localStorage.setItem("authToken", token);
+
             setItem("authToken", token);
             navigate("/admin/platform");
 

@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Input } from "../../../design-system";
-import { AuthWrapper } from "../../components";
+import { AuthActionLink, AuthWrapper } from "../../components";
 import toast from "react-hot-toast";
 import team from "../../../assets/images/teamMemberLogin.jpeg";
-
+import { useLocalStorage } from "../../../hooks";
 import styled from "styled-components";
 import { teamMember } from "../../../api";
 
@@ -25,7 +25,11 @@ const SignInForm = styled.form`
         grid-column: 1 / 3;
     }
 `;
-
+const ActionLinks = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-12);
+`;
 const SignIn = () => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
@@ -37,7 +41,9 @@ const SignIn = () => {
         setPassword(value);
     };
     const navigate = useNavigate();
+    const { setItem } = useLocalStorage();
     const [isFormSubmitting, setIsFormSubmitting] = useState<boolean>(false);
+
     const signIn = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
@@ -46,7 +52,7 @@ const SignIn = () => {
                 email,
                 password
             });
-            localStorage.setItem("authToken", response.token);
+            setItem("authToken", response.token);
 
             navigate("/team-member/platform");
             setEmail("");
@@ -92,6 +98,13 @@ const SignIn = () => {
                     SignIn
                 </Button>
             </SignInForm>
+            <ActionLinks>
+                <AuthActionLink
+                    hintText="Forgot password? "
+                    linkTo="../team-member/forgot-password"
+                    linkText="Get Help"
+                />
+            </ActionLinks>
         </AuthWrapper>
     );
 };
