@@ -1,39 +1,32 @@
 import { useState } from "react";
-import { Button, Input, Toaster } from "../../../design-system";
+import { Button, Input } from "../../../design-system";
 import { AuthWrapper, AuthActionLink } from "../../components";
 import styled from "styled-components";
+
 import toast from "react-hot-toast";
 import { admin } from "../../../api";
 import team from "../../../assets/images/team.png";
+import { ShowPassword } from "../../components/ShowPassword";
 
 const Form = styled.form`
     width: 100%;
-
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--space-20);
 
-    svg {
-        color: red;
+    .sign-up__preferred-name,
+    .sign-up__email,
+    .sign-up__submit-button {
+        grid-column: 1 / 3;
     }
-`;
-
-const PreferredNameInput = styled(Input)`
-    grid-column: 1 / 3;
-`;
-
-const EmailInput = styled(Input)`
-    grid-column: 1 / 3;
-`;
-
-const SubmitButton = styled(Button)`
-    grid-column: 1 / 3;
 `;
 
 const Signup = () => {
     const [firstName, setFirstName] = useState<string>("");
     const [lastName, setLastName] = useState<string>("");
-    const [preferredName, setPreferredName] = useState<string>("");
+    const [preferredFirstName, setPreferredFirstName] = useState<string>("");
+    const [companyName, setCompanyName] = useState<string>("");
+    const [companyPosition, setCompanyPosition] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [passwordConfirm, setPasswordConfirm] = useState<string>("");
@@ -48,8 +41,16 @@ const Signup = () => {
         setLastName(value);
     };
 
-    const handleOnChangeName = (value: string) => {
-        setPreferredName(value);
+    const handleOnChangePreferredFirstName = (value: string) => {
+        setPreferredFirstName(value);
+    };
+
+    const handleOnChangeCompanyName = (value: string) => {
+        setCompanyName(value);
+    };
+
+    const handleOnChangeCompanyPosition = (value: string) => {
+        setCompanyPosition(value);
     };
 
     const handleOnChangeEmail = (value: string) => {
@@ -69,21 +70,29 @@ const Signup = () => {
 
     const createAccount = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
         try {
             setIsFormSubmitting(true);
+
             const response = await admin.signUp({
                 firstName,
                 lastName,
                 email,
                 password,
                 passwordConfirm,
-                preferredName
+                company: {
+                    name: companyName,
+                    position: companyPosition
+                }
             });
+
             setIsFormSubmitting(false);
             setFirstName("");
             setLastName("");
+            setPreferredFirstName("");
+            setCompanyName("");
+            setCompanyPosition("");
             setEmail("");
-            setPreferredName("");
             setPassword("");
             setPasswordConfirm("");
 
@@ -98,82 +107,97 @@ const Signup = () => {
     };
 
     return (
-        <>
-            <AuthWrapper imageUrl={team} pageTitle="Sign Up">
-                <Form onSubmit={createAccount}>
-                    <Input
-                        type="text"
-                        placeholder="First Name"
-                        value={firstName}
-                        onChange={handleOnChangeFirstName}
-                        shape="rounded"
-                        size="lg"
-                        disabled={isFormSubmitting}
-                    />
-                    <Input
-                        type="text"
-                        placeholder="Last Name"
-                        value={lastName}
-                        onChange={handleOnChangeLastName}
-                        shape="rounded"
-                        size="lg"
-                        disabled={isFormSubmitting}
-                    />
-                    <PreferredNameInput
-                        type="text"
-                        placeholder="Preferred First Name"
-                        value={preferredName}
-                        onChange={handleOnChangeName}
-                        shape="rounded"
-                        size="lg"
-                        disabled={isFormSubmitting}
-                    />
-                    <EmailInput
-                        type="email"
-                        placeholder="Email"
-                        value={email}
-                        onChange={handleOnChangeEmail}
-                        shape="rounded"
-                        size="lg"
-                        disabled={isFormSubmitting}
-                    />
-                    <Input
-                        type="password"
-                        placeholder="Password"
-                        value={password}
-                        onChange={handleOnChangePassword}
-                        shape="rounded"
-                        size="lg"
-                        disabled={isFormSubmitting}
-                    />
-                    <Input
-                        type="password"
-                        placeholder="Password Confirmation"
-                        value={passwordConfirm}
-                        onChange={handleOnChangePasswordConfirm}
-                        shape="rounded"
-                        size="lg"
-                        disabled={isFormSubmitting}
-                    />
-                    <SubmitButton
-                        color="primary"
-                        size="lg"
-                        shape="rounded"
-                        disabled={isFormSubmitting || !isFormSubmittable}
-                    >
-                        Sign Up
-                    </SubmitButton>
-                </Form>
-                <div style={{ marginTop: "auto" }}>
-                    <AuthActionLink
-                        linkText="Sign In"
-                        hintText="Already have an account?"
-                        linkTo="../admin/sign-in"
-                    />
-                </div>
-            </AuthWrapper>
-            <Toaster />
-        </>
+        <AuthWrapper imageUrl={team} pageTitle="Sign Up">
+            <Form onSubmit={createAccount}>
+                <Input
+                    type="text"
+                    placeholder="First Name"
+                    value={firstName}
+                    onChange={handleOnChangeFirstName}
+                    shape="rounded"
+                    size="lg"
+                    required={true}
+                    disabled={isFormSubmitting}
+                />
+                <Input
+                    type="text"
+                    placeholder="Last Name"
+                    value={lastName}
+                    onChange={handleOnChangeLastName}
+                    shape="rounded"
+                    size="lg"
+                    required={true}
+                    disabled={isFormSubmitting}
+                />
+                <Input
+                    type="text"
+                    placeholder="Preferred First Name"
+                    value={preferredFirstName}
+                    onChange={handleOnChangePreferredFirstName}
+                    shape="rounded"
+                    size="lg"
+                    className="sign-up__preferred-name"
+                    disabled={isFormSubmitting}
+                />
+                <Input
+                    type="text"
+                    placeholder="Company Name"
+                    value={companyName}
+                    onChange={handleOnChangeCompanyName}
+                    shape="rounded"
+                    size="lg"
+                    disabled={isFormSubmitting}
+                />
+                <Input
+                    type="text"
+                    placeholder="Company Position"
+                    value={companyPosition}
+                    onChange={handleOnChangeCompanyPosition}
+                    shape="rounded"
+                    size="lg"
+                    disabled={isFormSubmitting}
+                />
+                <Input
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={handleOnChangeEmail}
+                    shape="rounded"
+                    size="lg"
+                    required={true}
+                    className="sign-up__email"
+                    disabled={isFormSubmitting}
+                />
+                <ShowPassword
+                    placeholder="Password"
+                    password={password}
+                    handleOnChangePassword={handleOnChangePassword}
+                    isFormSubmitting={isFormSubmitting}
+                />
+                <ShowPassword
+                    placeholder="Password Confirm"
+                    password={passwordConfirm}
+                    handleOnChangePassword={handleOnChangePasswordConfirm}
+                    isFormSubmitting={isFormSubmitting}
+                />
+                <Button
+                    color="primary"
+                    size="lg"
+                    shape="rounded"
+                    className="sign-up__submit-button"
+                    disabled={isFormSubmitting || !isFormSubmittable}
+                >
+                    Sign Up
+                </Button>
+            </Form>
+            <div style={{ marginTop: "auto" }}>
+                <AuthActionLink
+                    linkText="Login"
+                    hintText="Already have an account?"
+                    linkTo="/admin/login"
+                />
+            </div>
+        </AuthWrapper>
     );
 };
 

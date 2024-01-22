@@ -27,8 +27,12 @@ input::placeholder,
     height: 4.8rem;
 }
 
-.input-rounded {
+/* .input-large.input-rounded {
     border-radius: var(--border-radius-16);
+} */
+
+.input-rounded {
+    border-radius: var(--border-radius-8);
 }
 
 .input-circle {
@@ -64,6 +68,7 @@ input::placeholder,
     display: flex;
     flex-direction: column;
     gap: 4px;
+    position: relative;
 }
 
 .input-wrapper label {
@@ -72,6 +77,8 @@ input::placeholder,
 
 .input-textarea {
     resize: none;
+    padding-top: var(--space-16);
+    padding-bottom: var(--space-16);
 }
 
 .input-textarea.input-small {

@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { KanbanBadge } from "./design-system/KanbanBadge";
 import { useStore } from "./hooks";
+import { StatusBadge } from "./design-system/StatusBadge";
 
 const App = () => {
     return (
@@ -31,6 +33,13 @@ const App = () => {
             </Link>
 
             <Link to="team-member/platform">Team Member PLatform</Link>
+            <KanbanBadge status="DONE" dueDate="Jan 30" />
+            <KanbanBadge status="TODO" dueDate="Jan 30" />
+            <KanbanBadge status="INPROGRESS" dueDate="Jan 30" />
+            <StatusBadge status="ACTIVE" />
+            <StatusBadge status="INACTIVE" />
+            <StatusBadge status="COMPLETED" />
+            <StatusBadge status="ARCHIVED" />
         </div>
     );
 };
