@@ -10,7 +10,10 @@ type ProtectedRouteProps = {
     userType: UserRole;
 };
 
-const Private: React.FC<ProtectedRouteProps> = ({ component, userType }) => {
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
+    component,
+    userType
+}) => {
     const { getItem, setItem } = useLocalStorage();
     const { dispatch } = useStore();
     const navigate = useNavigate();
@@ -79,4 +82,4 @@ const Private: React.FC<ProtectedRouteProps> = ({ component, userType }) => {
     return <Navigate to="../" />;
 };
 
-export { Private };
+export { ProtectedRoute };

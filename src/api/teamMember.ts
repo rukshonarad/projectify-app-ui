@@ -112,6 +112,7 @@ class TeamMember {
             throw error;
         }
     }
+
     async getMe(): Promise<GetMeResponseType> {
         try {
             const rawAuthToken = localStorage.getItem("authToken");
