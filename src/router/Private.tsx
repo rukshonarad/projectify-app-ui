@@ -33,7 +33,13 @@ const Private: React.FC<ProtectedRouteProps> = ({ component, userType }) => {
                     .catch((error: Error) => {
                         navigate("../");
                     });
-            } else if (userType === UserRole.teamMember) {
+            }
+        }
+    }, [userType]);
+
+    useEffect(() => {
+        if (isAuthTokenExists) {
+            if (userType === UserRole.teamMember) {
                 teamMember
                     .getMe()
                     .then((data): void => {
