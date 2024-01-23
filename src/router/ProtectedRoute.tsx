@@ -38,7 +38,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
                     });
             }
         }
-    }, [userType]);
+    }, []);
 
     useEffect(() => {
         if (isAuthTokenExists) {
@@ -66,8 +66,8 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     if (!isAuthTokenExists) {
         const navigateTo =
             userType === UserRole.admin
-                ? "../admin/sign-in"
-                : "../team-member/sign-in";
+                ? "../admin/login"
+                : "../team-member/login";
         return <Navigate to={navigateTo} />;
     } else if (isAuthorized) {
         return component;

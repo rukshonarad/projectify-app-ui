@@ -40,7 +40,7 @@ export const router = createBrowserRouter(
                 }
             />
             <Route
-                path="admin/sign-in"
+                path="admin/login"
                 element={
                     <Auth
                         component={<AdminSignIn />}
@@ -81,7 +81,7 @@ export const router = createBrowserRouter(
                 <Route path="team-members" element={<AdminTeamMembers />} />
             </Route>
             <Route
-                path="team-member/sign-in"
+                path="team-member/login"
                 element={
                     <Auth
                         component={<TeamMemberSignIn />}
