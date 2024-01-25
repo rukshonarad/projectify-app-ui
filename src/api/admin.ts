@@ -1,9 +1,9 @@
-import { GetMeResponseType, UserType } from "../types";
+import { GetMeResponseType } from "../types";
 
 type SignUpInput = {
     firstName: string;
     lastName: string;
-    preferredName?: string;
+    preferredFirstName?: string;
     email: string;
     password: string;
     passwordConfirm: string;
