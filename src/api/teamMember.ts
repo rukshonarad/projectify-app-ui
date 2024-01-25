@@ -1,6 +1,6 @@
 import { GetMeResponseType } from "../types";
 
-type SignUpInput = {
+type CreatePasswordInput = {
     email: string;
     password: string;
     passwordConfirm: string;
@@ -20,7 +20,7 @@ class TeamMember {
                 : process.env.REACT_APP_PROJECTIFY_API_URL
         }/team-members`;
     }
-    async signUp(input: SignUpInput, inviteToken: string) {
+    async createPassword(input: CreatePasswordInput, inviteToken: string) {
         try {
             const response = await fetch(`${this.url}/create-password`, {
                 method: "PATCH",
@@ -40,7 +40,7 @@ class TeamMember {
         }
     }
 
-    async signIn(input: SignInInput) {
+    async signIn(input: SignInInput): Promise<{ token: string }> {
         try {
             const response = await fetch(`${this.url}/login`, {
                 method: "POST",

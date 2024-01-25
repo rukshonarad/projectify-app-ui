@@ -61,12 +61,10 @@ const SignIn = () => {
 
             saveAuthToken(token);
 
+            navigate("/team-member/platform");
             setIsFormSubmitting(false);
-
             setEmail("");
             setPassword("");
-
-            navigate("../team-member/platform");
         } catch (error) {
             if (error instanceof Error) {
                 setIsFormSubmitting(false);
@@ -108,6 +106,12 @@ const SignIn = () => {
                 </Button>
             </SignInForm>
             <ActionLinks>
+                <AuthActionLink
+                    hintText="Don’t have an account?"
+                    linkTo="../team-member/sign-up"
+                    linkText="Sign Up"
+                />
+
                 <AuthActionLink
                     hintText="Forgot password? "
                     linkTo="../team-member/forgot-password"
