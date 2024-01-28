@@ -1,12 +1,13 @@
 import { useState } from "react";
+import { useNavigate } from "react-router";
 import { Button, Input } from "../../../design-system";
-import toast from "react-hot-toast";
 import { AuthActionLink, AuthWrapper } from "../../components";
 import styled from "styled-components";
 import { useLocalStorage } from "../../../hooks";
-import { Link, useNavigate } from "react-router-dom";
+
+import team from "../../../assets/images/team.png";
 import { admin } from "../../../api";
-import teamAdmin from "../../../assets/images/team.png";
+import toast from "react-hot-toast";
 
 const Form = styled.form`
     width: 100%;
@@ -24,12 +25,9 @@ const ActionLinks = styled.div`
 const Signin = () => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    const [isError, setIsError] = useState<boolean>(false);
-    const navigate = useNavigate();
-
-    const { setItem } = useLocalStorage();
-
     const [isFormSubmitting, setIsFormSubmitting] = useState<boolean>(false);
+    const navigate = useNavigate();
+    const { setItem } = useLocalStorage();
 
     const handleOnChangeEmail = (value: string) => {
         setEmail(value);
@@ -43,36 +41,31 @@ const Signin = () => {
         setItem("authToken", token);
     };
 
-    const authorizeLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    const signIn = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
         try {
             setIsFormSubmitting(true);
-
             const { token } = await admin.signIn({
                 email,
                 password
             });
 
             saveAuthToken(token);
+            navigate("/admin/platform");
 
             setIsFormSubmitting(false);
             setEmail("");
             setPassword("");
-
-            navigate("../admin/platform");
-        } catch (error) {
+        } catch (e) {
+            const error = e as Error;
             setIsFormSubmitting(false);
-            setIsError(true);
-            if (error instanceof Error) {
-                toast.error(error.message);
-            }
+            toast.error(error.message);
         }
     };
 
     return (
-        <AuthWrapper imageUrl={teamAdmin} pageTitle="Sign In">
-            <Form onSubmit={authorizeLogin}>
+        <AuthWrapper imageUrl={team} pageTitle="Sign In">
+            <Form onSubmit={signIn}>
                 <Input
                     type="email"
                     placeholder="Email"
@@ -103,12 +96,12 @@ const Signin = () => {
             <ActionLinks>
                 <AuthActionLink
                     hintText="Don’t have an account?"
-                    linkTo="/admin/sign-up"
+                    linkTo="../admin/sign-up"
                     linkText="Sign Up"
                 />
                 <AuthActionLink
                     hintText="Forgot password? "
-                    linkTo="/admin/forget-password"
+                    linkTo="../admin/forget-password"
                     linkText="Get Help"
                 />
             </ActionLinks>

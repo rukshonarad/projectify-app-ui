@@ -1,15 +1,23 @@
-import { Outlet } from "react-router-dom";
-import { SideBar, SideBarLinks } from "../../design-system";
+import { Outlet, useNavigate } from "react-router-dom";
+import {
+    SideBar,
+    SideBarLinks,
+    SideBarLinksGroup,
+    Toaster
+} from "../../design-system";
 import { AppContent, AppLayout, SideBarUser } from "../components";
-import { useNavigate } from "react-router-dom";
-import { useLocalStorage, useStore } from "../../hooks";
-import user from "../../assets/images/user.jpg";
 import { Actions } from "../../store";
+import { useLocalStorage, useStore } from "../../hooks";
 
-const links = [
+const links: SideBarLinksGroup[] = [
     {
         title: "Menu",
         links: [
+            {
+                linkText: "Projects",
+                linkTo: "projects",
+                iconName: "projects"
+            },
             {
                 linkText: "Stories",
                 linkTo: "stories",
@@ -19,43 +27,66 @@ const links = [
                 linkText: "Personal Tasks",
                 linkTo: "personal-tasks",
                 iconName: "tasks"
+            },
+            {
+                linkText: "Team Members",
+                linkTo: "team-members",
+                iconName: "members"
+            }
+        ]
+    },
+    {
+        title: "Settings",
+        links: [
+            {
+                linkText: "Settings",
+                linkTo: "../team-member/platform",
+                iconName: "settings"
+            },
+            {
+                linkText: "Support",
+                linkTo: "support",
+                iconName: "support"
             }
         ]
     }
 ];
 
 const Platform = () => {
-    const navigate = useNavigate();
     const {
         state: { user },
         dispatch
     } = useStore();
+    const navigate = useNavigate();
     const { removeItem } = useLocalStorage();
 
     const logOut = () => {
         removeItem("authToken");
         removeItem("userRole");
         dispatch({ type: Actions.RESET_STATE });
-        navigate("/team-member/login");
+        navigate("/admin/sign-in");
     };
 
     return (
-        <AppLayout>
-            <SideBar>
-                <SideBarUser
-                    details={{
-                        firstName: user?.firstName || "",
-                        lastName: user?.lastName || "",
-                        imageUrl: "",
-                        email: user?.email || ""
-                    }}
-                />
-                <SideBarLinks links={links} logOut={logOut} />
-            </SideBar>
-            <AppContent>
-                <Outlet />
-            </AppContent>
-        </AppLayout>
+        <>
+            <AppLayout>
+                <SideBar>
+                    <SideBarUser
+                        details={{
+                            firstName: user?.firstName || "",
+                            lastName: user?.lastName || "",
+                            imageUrl: "",
+                            email: user?.email || ""
+                        }}
+                    />
+                    <SideBarLinks links={links} logOut={logOut} />
+                </SideBar>
+                <AppContent>
+                    <Outlet />
+                </AppContent>
+            </AppLayout>
+            <Toaster />
+        </>
     );
 };
 
