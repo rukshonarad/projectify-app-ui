@@ -4,6 +4,8 @@ import { AuthWrapper, AuthActionLink } from "../../components";
 import team from "../../../assets/images/team.png";
 import styled from "styled-components";
 
+import { ShowPassword } from "../../components/ShowPassword";
+
 import { teamMember } from "../../../api/teamMember";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
@@ -67,7 +69,7 @@ const TeamMemberCreatePassword = () => {
             toast.success(response.message);
 
             setTimeout(() => {
-                navigate("/team-member/login");
+                navigate("../team-member/sign-in");
             }, 3000);
         } catch (error) {
             if (error instanceof Error) {
@@ -91,22 +93,17 @@ const TeamMemberCreatePassword = () => {
                     className="create-password__email"
                     disabled={isFormSubmitting}
                 />
-                <Input
-                    type="password"
+                <ShowPassword
                     placeholder="Password"
-                    value={password}
-                    onChange={handleOnChangePassword}
-                    shape="rounded"
-                    size="lg"
-                    disabled={isFormSubmitting}
+                    password={password}
+                    handleOnChangePassword={handleOnChangePassword}
+                    isFormSubmitting={isFormSubmitting}
                 />
-                <Input
-                    type="password"
-                    placeholder="Confirm Password"
-                    value={passwordConfirm}
-                    onChange={handleOnChangePasswordConfirm}
-                    shape="rounded"
-                    size="lg"
+                <ShowPassword
+                    placeholder="Password Confirm"
+                    password={passwordConfirm}
+                    handleOnChangePassword={handleOnChangePasswordConfirm}
+                    isFormSubmitting={isFormSubmitting}
                 />
                 <Button
                     color="primary"
