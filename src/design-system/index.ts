@@ -5,7 +5,10 @@ export * from "./Label";
 export * from "./Modal";
 export * from "./Logo";
 export * from "./Toggle";
-export * from "./utils";
+export * from "./SideBar";
 export * from "./Icon";
 export * from "./SideBar";
 export * from "./Toast";
+export * from "./Badge";
+
+export * from "./utils";

@@ -1,18 +1,20 @@
-import { useEffect, useState } from "react";
-import { Outlet, Navigate, useNavigate } from "react-router-dom";
-import { SideBar, SideBarLinks, Toaster } from "../../design-system";
+import { Outlet, useNavigate } from "react-router-dom";
+import {
+    SideBar,
+    SideBarLinks,
+    SideBarLinksGroup,
+    Toaster
+} from "../../design-system";
 import { AppContent, AppLayout, SideBarUser } from "../components";
-
-import toast from "react-hot-toast";
-import { Actions, InitUserAction } from "../../store/actions";
+import { Actions } from "../../store";
 import { useLocalStorage, useStore } from "../../hooks";
 
-const links = [
+const links: SideBarLinksGroup[] = [
     {
         title: "Menu",
         links: [
             {
-                linkText: "Project",
+                linkText: "Projects",
                 linkTo: "projects",
                 iconName: "projects"
             },
@@ -38,7 +40,7 @@ const links = [
         links: [
             {
                 linkText: "Settings",
-                linkTo: "settings",
+                linkTo: "../team-member/platform",
                 iconName: "settings"
             },
             {
@@ -62,7 +64,7 @@ const Platform = () => {
         removeItem("authToken");
         removeItem("userRole");
         dispatch({ type: Actions.RESET_STATE });
-        navigate("/admin/login");
+        navigate("/admin/sign-in");
     };
 
     return (
