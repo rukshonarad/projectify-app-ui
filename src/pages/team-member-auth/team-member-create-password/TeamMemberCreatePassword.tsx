@@ -49,7 +49,7 @@ const TeamMemberCreatePassword = () => {
         try {
             setIsFormSubmitting(true);
 
-            const response = await teamMember.signUp(
+            const response = await teamMember.createPassword(
                 {
                     email,
                     password,

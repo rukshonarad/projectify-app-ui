@@ -8,7 +8,7 @@ export * from "./admin-platform/projects/Projects";
 export * from "./admin-platform/personal-tasks/PersonalTasks";
 export * from "./admin-platform/team-members/AdminTeamMembers";
 
-export * from "./team-member-auth/team-member-sign-up/TeamMemberSignUp";
+export * from "./team-member-auth/team-member-create-password/TeamMemberCreatePassword";
 export * from "./team-member-auth/team-member-signIn/TeamMemberSignIn";
 
 export * from "./team-member-auth/team-member-forgot-password/TeamMemberForgotPassword";

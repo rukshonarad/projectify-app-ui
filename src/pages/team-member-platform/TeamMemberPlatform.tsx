@@ -34,6 +34,7 @@ const Platform = () => {
 
     const logOut = () => {
         removeItem("authToken");
+        removeItem("userRole");
         dispatch({ type: Actions.RESET_STATE });
         navigate("/team-member/login");
     };
@@ -43,9 +44,10 @@ const Platform = () => {
             <SideBar>
                 <SideBarUser
                     details={{
-                        firstName: "Asil",
-                        lastName: "Bek",
-                        email: "asilbek@gmail.com"
+                        firstName: user?.firstName || "",
+                        lastName: user?.lastName || "",
+                        imageUrl: "",
+                        email: user?.email || ""
                     }}
                 />
                 <SideBarLinks links={links} logOut={logOut} />

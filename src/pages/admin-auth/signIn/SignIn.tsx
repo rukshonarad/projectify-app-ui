@@ -1,13 +1,12 @@
 import { useState } from "react";
-import { useNavigate } from "react-router";
 import { Button, Input } from "../../../design-system";
 import toast from "react-hot-toast";
 import { AuthActionLink, AuthWrapper } from "../../components";
 import styled from "styled-components";
 import { useLocalStorage } from "../../../hooks";
-
-import teamAdmin from "../../../assets/images/team.png";
+import { Link, useNavigate } from "react-router-dom";
 import { admin } from "../../../api";
+import teamAdmin from "../../../assets/images/team.png";
 
 const Form = styled.form`
     width: 100%;
@@ -25,10 +24,12 @@ const ActionLinks = styled.div`
 const Signin = () => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    const [isFormSubmitting, setIsFormSubmitting] = useState<boolean>(false);
     const [isError, setIsError] = useState<boolean>(false);
     const navigate = useNavigate();
+
     const { setItem } = useLocalStorage();
+
+    const [isFormSubmitting, setIsFormSubmitting] = useState<boolean>(false);
 
     const handleOnChangeEmail = (value: string) => {
         setEmail(value);
@@ -38,32 +39,40 @@ const Signin = () => {
         setPassword(value);
     };
 
-    const signin = async (e: React.FormEvent<HTMLFormElement>) => {
+    const saveAuthToken = (token: string) => {
+        setItem("authToken", token);
+    };
+
+    const authorizeLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
         try {
             setIsFormSubmitting(true);
+
             const { token } = await admin.signIn({
                 email,
                 password
             });
 
-            setItem("authToken", token);
-            navigate("/admin/platform");
+            saveAuthToken(token);
 
             setIsFormSubmitting(false);
             setEmail("");
             setPassword("");
+
+            navigate("../admin/platform");
         } catch (error) {
+            setIsFormSubmitting(false);
+            setIsError(true);
             if (error instanceof Error) {
-                setIsFormSubmitting(false);
-                setIsError(true);
+                toast.error(error.message);
             }
         }
     };
 
     return (
         <AuthWrapper imageUrl={teamAdmin} pageTitle="Sign In">
-            <Form onSubmit={signin}>
+            <Form onSubmit={authorizeLogin}>
                 <Input
                     type="email"
                     placeholder="Email"
@@ -94,12 +103,12 @@ const Signin = () => {
             <ActionLinks>
                 <AuthActionLink
                     hintText="Don’t have an account?"
-                    linkTo="../admin/sign-up"
+                    linkTo="/admin/sign-up"
                     linkText="Sign Up"
                 />
                 <AuthActionLink
                     hintText="Forgot password? "
-                    linkTo="../admin/forget-password"
+                    linkTo="/admin/forget-password"
                     linkText="Get Help"
                 />
             </ActionLinks>

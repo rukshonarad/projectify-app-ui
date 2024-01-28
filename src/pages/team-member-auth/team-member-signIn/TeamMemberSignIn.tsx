@@ -33,6 +33,12 @@ const ActionLinks = styled.div`
 const SignIn = () => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
+    const [isFormSubmitting, setIsFormSubmitting] = useState<boolean>(false);
+    const [isError, setIsError] = useState<boolean>(false);
+
+    const navigate = useNavigate();
+
+    const { setItem } = useLocalStorage();
 
     const handleOnChangeEmail = (value: string) => {
         setEmail(value);
@@ -40,24 +46,25 @@ const SignIn = () => {
     const handleOnChangePassword = (value: string) => {
         setPassword(value);
     };
-    const navigate = useNavigate();
-    const { setItem } = useLocalStorage();
-    const [isFormSubmitting, setIsFormSubmitting] = useState<boolean>(false);
 
+    const saveAuthToken = (token: string) => {
+        setItem("authToken", token);
+    };
     const signIn = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
             setIsFormSubmitting(true);
-            const response = await teamMember.signIn({
+            const { token } = await teamMember.signIn({
                 email,
                 password
             });
-            setItem("authToken", response.token);
+
+            saveAuthToken(token);
 
             navigate("/team-member/platform");
+            setIsFormSubmitting(false);
             setEmail("");
             setPassword("");
-            toast.success(response.message);
         } catch (error) {
             if (error instanceof Error) {
                 setIsFormSubmitting(false);
@@ -99,6 +106,12 @@ const SignIn = () => {
                 </Button>
             </SignInForm>
             <ActionLinks>
+                <AuthActionLink
+                    hintText="Don’t have an account?"
+                    linkTo="../team-member/sign-up"
+                    linkText="Sign Up"
+                />
+
                 <AuthActionLink
                     hintText="Forgot password? "
                     linkTo="../team-member/forgot-password"

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useLocalStorage, useStore } from "../hooks";
 import { admin, teamMember } from "../api";
@@ -14,72 +14,72 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     component,
     userType
 }) => {
+    const [loading, setLoading] = useState(true);
     const { getItem, setItem } = useLocalStorage();
     const { dispatch } = useStore();
     const navigate = useNavigate();
-
     let isAuthTokenExists = getItem("authToken");
 
     useEffect(() => {
         if (isAuthTokenExists) {
-            if (userType === UserRole.admin) {
-                admin
-                    .getMe()
-                    .then((data): void => {
-                        const action: InitUserAction = {
-                            type: Actions.INIT_USER,
-                            payload: data.data
-                        };
-                        dispatch(action);
-                        setItem("userRole", data.data.role);
-                    })
-                    .catch((error: Error) => {
-                        navigate("../");
-                    });
-            }
-        }
-    }, []);
+            const user = {
+                admin: admin,
+                teamMember: teamMember
+            };
 
-    useEffect(() => {
-        if (isAuthTokenExists) {
-            if (userType === UserRole.teamMember) {
-                teamMember
-                    .getMe()
-                    .then((data): void => {
-                        const action: InitUserAction = {
-                            type: Actions.INIT_USER,
-                            payload: data.data
-                        };
-                        dispatch(action);
-                        setItem("userRole", data.data.role);
-                    })
-                    .catch((error: Error) => {
-                        navigate("../");
-                    });
-            }
+            user[userType]
+                .getMe()
+                .then((data): void => {
+                    const action: InitUserAction = {
+                        type: Actions.INIT_USER,
+                        payload: data.data
+                    };
+                    dispatch(action);
+                    setItem("userRole", data.data.role);
+                    setLoading(false);
+                })
+                .catch((error: Error) => {
+                    setLoading(false);
+                    const userRole = getItem("userRole");
+                    let to = "../";
+                    if (userRole) {
+                        const navigateTo =
+                            userRole === UserRole.admin
+                                ? "../admin/platform"
+                                : "../team-member/platform";
+                        to = navigateTo;
+                    }
+
+                    navigate(to);
+                });
         }
     }, [userType]);
-
-    const userRole = getItem("userRole");
-    const isAuthorized = userType === userRole;
 
     if (!isAuthTokenExists) {
         const navigateTo =
             userType === UserRole.admin
-                ? "../admin/login"
-                : "../team-member/login";
-        return <Navigate to={navigateTo} />;
-    } else if (isAuthorized) {
-        return component;
-    } else if (!isAuthorized) {
-        const navigateTo =
-            userRole === UserRole.admin
-                ? "../admin/platform"
-                : "../team-member/platform";
+                ? "../admin/sign-in"
+                : "../team-member/sign-in";
         return <Navigate to={navigateTo} />;
     }
+
+    if (loading) {
+        return <h1>Loading</h1>;
+    }
+
+    const userRole = getItem("userRole");
+    const isAuthorized = userType === userRole;
+
+    if (isAuthorized) {
+        return component;
+    }
+
+    console.log("I am runnning");
 
     return <Navigate to="../" />;
 };
 
 export { ProtectedRoute };
+
+// If not token, navigate to signin page - done
+//
