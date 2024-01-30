@@ -80,59 +80,6 @@ export const router = createBrowserRouter(
                 <Route path="personal-tasks" element={<AdminPersonalTasks />} />
                 <Route path="team-members" element={<AdminTeamMembers />} />
             </Route>
-            {/* <Route
-                path="team-member/login"
-                element={
-                    <Auth
-                        component={<TeamMemberSignIn />}
-                        userType={UserRole.teamMember}
-                    />
-                }
-            />
-            <Route
-                path="team-member/forgot-password"
-                element={
-                    <Auth
-                        component={<TeamMemberForgotPassword />}
-                        userType={UserRole.teamMember}
-                    />
-                }
-            />
-            <Route
-                path="team-member/reset-password"
-                element={
-                    <Auth
-                        component={<TeamMemberResetPassword />}
-                        userType={UserRole.teamMember}
-                    />
-                }
-            />
-            <Route
-                path="team-member/create-password"
-                element={
-                    <Auth
-                        component={<TeamMemberCreatePassword />}
-                        userType={UserRole.teamMember}
-                    />
-                }
-            />
-            <Route
-                path="team-member/platform"
-                element={
-                    <ProtectedRoute
-                        component={<TeamMemberPlatform />}
-                        userType={UserRole.teamMember}
-                    />
-                }
-            >
-                <Route path="stories" element={<h1>Stories</h1>} />
-                <Route
-                    path="personal-tasks"
-                    element={<h1>Personal Tasks</h1>}
-                />
-                <Route path="team-members" element={<h1>Members</h1>} />
-            </Route>
-        </> */}
 
             <Route path="team-member/sign-in" element={<TeamMemberSignIn />} />
             <Route

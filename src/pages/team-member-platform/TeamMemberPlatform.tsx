@@ -27,11 +27,6 @@ const links: SideBarLinksGroup[] = [
                 linkText: "Personal Tasks",
                 linkTo: "personal-tasks",
                 iconName: "tasks"
-            },
-            {
-                linkText: "Team Members",
-                linkTo: "team-members",
-                iconName: "members"
             }
         ]
     },
