@@ -2,8 +2,10 @@ import { useState } from "react";
 import styled from "styled-components";
 import { Input, Modal, Typography, Button } from "../../../design-system";
 import { NoDataPlaceholder } from "../../components";
-import noTask from "../../../assets/illustrations/task.svg";
 
+import noTask from "../../../assets/illustrations/task.svg";
+import { adminPersonalTasks } from "../../../api";
+import toast from "react-hot-toast";
 const PageBase = styled.div`
     position: relative;
     width: 100%;
@@ -31,6 +33,51 @@ const AdminPersonalTasks = () => {
     const [showCreateTaskModal, setShowCreateTaskModal] =
         useState<boolean>(false);
 
+    const [title, setTitle] = useState<string>("");
+    const [due, setDue] = useState<string>("");
+    const [description, setDescription] = useState<string>("");
+
+    const [isFormSubmitting, setIsFormSubmitting] = useState<boolean>(false);
+
+    const isFormSubmittable = title && due && description;
+
+    const handleOnChangeTitle = (value: string) => {
+        setTitle(value);
+    };
+
+    const handleOnChangeDue = (value: string) => {
+        setDue(value);
+    };
+    const handleOnChangeDescription = (value: string) => {
+        setDescription(value);
+    };
+    const createPersonalTask = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        try {
+            setIsFormSubmitting(true);
+
+            const response = await adminPersonalTasks.createTask({
+                title,
+                description,
+                due
+            });
+
+            setIsFormSubmitting(false);
+            setTitle("");
+            setDue("");
+            setShowCreateTaskModal(false);
+
+            // toast.success();
+        } catch (error) {
+            if (error instanceof Error) {
+                setIsFormSubmitting(false);
+
+                toast.error(error.message);
+            }
+        }
+    };
+
     return (
         <PageBase>
             {!personalTasks.length ? (
@@ -44,50 +91,60 @@ const AdminPersonalTasks = () => {
                 <h1>personal tasks</h1>
             )}
 
-            <Modal show={showCreateTaskModal} position="center">
-                <CreateProjectModalTitle variant="paragraphLG" weight="medium">
-                    New Task
-                </CreateProjectModalTitle>
-                <Inputs>
-                    <Input
-                        placeholder="Title"
-                        value=""
-                        onChange={() => {}}
-                        shape="rounded"
-                        size="lg"
-                    />
-                    <Input
-                        type="textarea"
-                        placeholder="Description"
-                        value=""
-                        onChange={() => {}}
-                        shape="rounded"
-                        size="lg"
-                    />
-                    <Input
-                        placeholder="Due Date"
-                        value=""
-                        onChange={() => {}}
-                        shape="rounded"
-                        size="lg"
-                    />
-                </Inputs>
-                <Buttons>
-                    <Button
-                        color="secondary"
-                        size="lg"
-                        shape="rounded"
-                        variant="outlined"
-                        fullWidth
-                        onClick={() => setShowCreateTaskModal(false)}
+            <form onSubmit={createPersonalTask}>
+                <Modal show={showCreateTaskModal} position="center">
+                    <CreateProjectModalTitle
+                        variant="paragraphLG"
+                        weight="medium"
                     >
-                        Cancel
-                    </Button>
-                    <Button size="lg" shape="rounded" color="primary" fullWidth>
-                        Save
-                    </Button>
-                </Buttons>
-            </Modal>
+                        New Task
+                    </CreateProjectModalTitle>
+                    <Inputs>
+                        <Input
+                            placeholder="Title"
+                            value={title}
+                            onChange={handleOnChangeTitle}
+                            shape="rounded"
+                            size="lg"
+                        />
+                        <Input
+                            type="textarea"
+                            placeholder="Description"
+                            value={description}
+                            onChange={handleOnChangeDescription}
+                            shape="rounded"
+                            size="lg"
+                        />
+                        <Input
+                            placeholder="Due Date"
+                            value={due}
+                            onChange={handleOnChangeDue}
+                            shape="rounded"
+                            size="lg"
+                        />
+                    </Inputs>
+                    <Buttons>
+                        <Button
+                            color="secondary"
+                            size="lg"
+                            shape="rounded"
+                            variant="outlined"
+                            fullWidth
+                            onClick={() => setShowCreateTaskModal(false)}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            size="lg"
+                            shape="rounded"
+                            color="primary"
+                            fullWidth
+                        >
+                            Save
+                        </Button>
+                    </Buttons>
+                </Modal>
+            </form>
         </PageBase>
     );
 };

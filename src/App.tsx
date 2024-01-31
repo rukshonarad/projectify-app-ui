@@ -17,7 +17,7 @@ const App = () => {
             <h1>Home Page</h1>
 
             <Link to="admin/sign-up">Admin Sign-Up</Link>
-            <Link to="admin/sign-in">Admin Login</Link>
+            <Link to="admin/login">Admin Login</Link>
             <Link to="admin/forgot-password">Admin Forgot Password</Link>
             <Link to="admin/reset-password">Admin Reset Password</Link>
             <Link to="admin/platform">Admin Platform</Link>
