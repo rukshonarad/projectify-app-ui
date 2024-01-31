@@ -18,7 +18,8 @@ import {
     TeamMemberResetPassword,
     TeamMemberCreatePassword,
     TeamMemberPlatform,
-    TeamMemberTasks
+    TeamMemberTasks,
+    TeamMemberProjects
 } from "../pages";
 import { UserRole } from "../types";
 import { ProtectedRoute } from "./ProtectedRoute";
@@ -104,11 +105,9 @@ export const router = createBrowserRouter(
                 }
             >
                 <Route path="stories" element={<h1>Stories</h1>} />
-                {/* <Route
-                    path="personal-tasks"
-                    element={<TeamMemberPersonalTasks />}
-                /> */}
-                <Route path="team-members" element={<h1>Members</h1>} />
+
+                <Route path="personal-tasks" element={<TeamMemberTasks />} />
+                <Route path="projects" element={<TeamMemberProjects />} />
             </Route>
         </>
     )
