@@ -1,4 +1,4 @@
-import { Task, TaskStatus } from "../types";
+import { Task } from "../types";
 
 interface GroupedTasks {
     [status: string]: Task[];
