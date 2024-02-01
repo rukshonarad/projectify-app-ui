@@ -1,11 +1,11 @@
 import { Task } from "../types";
 
-type TaskCreateInput = Omit<Task, "id" | "status">;
-type TaskUpdateInput = Omit<Task, "id">;
+export type TaskCreateInput = Omit<Task, "id" | "status">;
+export type TaskUpdateInput = Omit<Task, "id">;
 
 interface GetAllTasksResponse {
     data: {
-        tasks: Task[] | [];
+        tasks: Task[];
     };
 }
 
