@@ -12,3 +12,4 @@ export * from "./Toast";
 export * from "./Badge";
 export * from "./DatePicker";
 export * from "./utils";
+export * from "./Bar";
