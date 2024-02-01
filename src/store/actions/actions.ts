@@ -8,7 +8,7 @@ export enum Actions {
 }
 
 export interface InitUserAction {
-    type: Actions.INIT_USER;
+    type: Actions;
     payload: AdminUser | TeamMemberUser;
 }
 
@@ -18,7 +18,7 @@ export interface ResetStateAction {
 
 export interface PopulateTasksAction {
     type: Actions.POPULATE_TASKS;
-    payload: Task[] | null;
+    payload: Task[];
 }
 
 export interface AddTaskAction {
