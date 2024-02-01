@@ -7,13 +7,30 @@ import {
     Button,
     DatePickerV1
 } from "../../../design-system";
-import { NoDataPlaceholder, TaskCard, TaskCardProps } from "../../components";
+import { NoDataPlaceholder, TaskCard } from "../../components";
 import noTask from "../../../assets/illustrations/task.svg";
-import { adminPersonalTasks as adminPersonalTasksService } from "../../../api";
+import {
+    TaskCreateInput,
+    adminPersonalTasks as adminPersonalTasksService
+} from "../../../api";
 
 import { useStore } from "../../../hooks";
-import { Actions, PopulateTasksAction } from "../../../store";
+import { Actions, AddTaskAction, PopulateTasksAction } from "../../../store";
 import { groupTasksByStatus } from "../../../utils";
+import { TaskStatus } from "../../../types";
+import toast from "react-hot-toast";
+
+enum StatusToTitle {
+    TODO = "To Do",
+    INPROGRESS = "In Progress",
+    DONE = "Done"
+}
+
+enum StatusToColor {
+    TODO = "var(--jaguar-500)",
+    INPROGRESS = "var(--sunglow-700)",
+    DONE = "var(--green-500)"
+}
 
 const PageBase = styled.main`
     position: relative;
@@ -42,6 +59,10 @@ const PageContent = styled.section`
     margin: 0 auto;
 `;
 
+const PageHeader = styled.header`
+    display: flex;
+    justify-content: space-between;
+`;
 const PageTitle = styled(Typography)`
     margin-bottom: var(--space-36);
 `;
@@ -50,7 +71,7 @@ const TasksColumns = styled.div`
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: var(--space-30);
-    height: 100%;
+    height: calc(100vh - 12.8rem);
 `;
 
 const TasksColumn = styled.div`
@@ -60,13 +81,9 @@ const TasksColumn = styled.div`
     border: 0.15rem solid var(--jaguar-100);
 `;
 
-const TasksColumnTitle = styled(Typography)`
+const TasksColumnTitle = styled(Typography)<{ color: string }>`
     margin-bottom: var(--space-16);
-    color: var(--jaguar-500);
-
-    span {
-        color: var(--jaguar-900);
-    }
+    color: ${(props) => props.color};
 `;
 
 const Tasks = () => {
@@ -74,6 +91,7 @@ const Tasks = () => {
     const [taskTitle, setTaskTitle] = useState<string>("");
     const [taskDescription, setTaskDescription] = useState<string>("");
     const [isTasksFetching, setIsTasksFetching] = useState(true);
+    const [isFormSubmitting, setIsFormSubmitting] = useState(false);
     const {
         state: { adminPersonalTasks },
         dispatch
@@ -103,6 +121,40 @@ const Tasks = () => {
         return null;
     }
 
+    const createTask = () => {
+        setIsFormSubmitting(true);
+        const input: TaskCreateInput = {
+            title: taskTitle,
+            description: taskDescription,
+            due: taskDue!
+        };
+
+        adminPersonalTasksService
+            .createTask(input)
+            .then((data) => {
+                const action: AddTaskAction = {
+                    type: Actions.ADD_TASK,
+                    payload: data.data
+                };
+                dispatch(action);
+                setIsFormSubmitting(false);
+                closeCreateTaskModal();
+                toast.success("Task has been successfully created!");
+            })
+            .catch((e) => {
+                setIsFormSubmitting(false);
+                const error = e as Error;
+                toast.error(error.message);
+            });
+    };
+
+    const closeCreateTaskModal = () => {
+        setTaskTitle("");
+        setTaskDescription("");
+        setTaskDue(undefined);
+        setShowCreateTaskModal(false);
+    };
+
     const groupedTasks = groupTasksByStatus(adminPersonalTasks);
 
     return (
@@ -116,9 +168,21 @@ const Tasks = () => {
                 />
             ) : (
                 <PageContent>
-                    <PageTitle variant="h6" weight="medium">
-                        Personal Tasks
-                    </PageTitle>
+                    <PageHeader>
+                        <PageTitle variant="h6" weight="medium">
+                            Personal Tasks
+                        </PageTitle>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            size="md"
+                            shape="rounded"
+                            onClick={() => setShowCreateTaskModal(true)}
+                        >
+                            Create A Task
+                        </Button>
+                    </PageHeader>
+
                     <TasksColumns>
                         {Object.keys(groupedTasks).map((groupName) => {
                             return (
@@ -126,15 +190,25 @@ const Tasks = () => {
                                     <TasksColumnTitle
                                         variant="paragraphSM"
                                         weight="semibold"
+                                        color={
+                                            StatusToColor[
+                                                groupName as TaskStatus
+                                            ]
+                                        }
                                     >
-                                        {groupName}{" "}
+                                        {StatusToTitle[groupName as TaskStatus]}{" "}
                                         <span>
                                             ({groupedTasks[groupName].length})
                                         </span>
                                     </TasksColumnTitle>
 
                                     {groupedTasks[groupName].map((task) => {
-                                        return <TaskCard task={task} />;
+                                        return (
+                                            <TaskCard
+                                                key={task.id}
+                                                task={task}
+                                            />
+                                        );
                                     })}
                                 </TasksColumn>
                             );
@@ -180,11 +254,19 @@ const Tasks = () => {
                         shape="rounded"
                         variant="outlined"
                         fullWidth
-                        onClick={() => setShowCreateTaskModal(false)}
+                        onClick={closeCreateTaskModal}
+                        disabled={isFormSubmitting}
                     >
                         Cancel
                     </Button>
-                    <Button size="lg" shape="rounded" color="primary" fullWidth>
+                    <Button
+                        size="lg"
+                        shape="rounded"
+                        color="primary"
+                        fullWidth
+                        onClick={createTask}
+                        disabled={isFormSubmitting}
+                    >
                         Save
                     </Button>
                 </Buttons>
