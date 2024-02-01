@@ -46,7 +46,7 @@ class AdminPersonalTasks {
         }
     }
 
-    async getTasks(): Promise<{ data: GetAllTasksResponse }> {
+    async getTasks(): Promise<GetAllTasksResponse> {
         try {
             const rawAuthToken = localStorage.getItem("authToken");
             const authToken = rawAuthToken ? JSON.parse(rawAuthToken) : "";
