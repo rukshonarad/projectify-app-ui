@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Badge, Icon, DatePicker } from "./design-system";
+import { Badge, Icon, DatePickerV1 } from "./design-system";
 import { useStore } from "./hooks";
 import { StatusBadge } from "./design-system/StatusBadge";
 import { useState } from "react";
@@ -36,7 +36,7 @@ const App = () => {
             <Link to="team-member/platform">Team Member PLatform</Link>
 
             <div>
-                <DatePicker
+                <DatePickerV1
                     selected={date}
                     onChange={(date) => setDate(date)}
                     placeholder="Select Deadline"

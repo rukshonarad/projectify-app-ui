@@ -5,7 +5,7 @@ type TaskUpdateInput = Omit<Task, "id">;
 
 interface GetAllTasksResponse {
     data: {
-        tasks: Task[] | [];
+        tasks: Task[];
     };
 }
 
