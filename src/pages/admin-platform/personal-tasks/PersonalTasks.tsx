@@ -15,7 +15,12 @@ import {
 } from "../../../api";
 
 import { useStore } from "../../../hooks";
-import { Actions, AddTaskAction, PopulateTasksAction } from "../../../store";
+import {
+    Actions,
+    AddTaskAction,
+    ChangeTaskStatusAction,
+    PopulateTasksAction
+} from "../../../store";
 import { groupTasksByStatus } from "../../../utils";
 import { TaskStatus } from "../../../types";
 import toast from "react-hot-toast";
@@ -86,12 +91,13 @@ const TasksColumnTitle = styled(Typography)<{ color: string }>`
     color: ${(props) => props.color};
 `;
 
-const Tasks = () => {
+const AdminPersonalTasks = () => {
     const [taskDue, setTaskDue] = useState<Date>();
     const [taskTitle, setTaskTitle] = useState<string>("");
     const [taskDescription, setTaskDescription] = useState<string>("");
     const [isTasksFetching, setIsTasksFetching] = useState(true);
     const [isFormSubmitting, setIsFormSubmitting] = useState(false);
+
     const {
         state: { adminPersonalTasks },
         dispatch
@@ -155,6 +161,30 @@ const Tasks = () => {
         setShowCreateTaskModal(false);
     };
 
+    const onDrop = (e: React.DragEvent<HTMLDivElement>, status: TaskStatus) => {
+        const task = JSON.parse(e.dataTransfer.getData("application/json"));
+
+        adminPersonalTasksService
+            .updateTask(task.id, { status: status })
+            .then((_) => {
+                const action: ChangeTaskStatusAction = {
+                    type: Actions.CHANGE_TASK_STATUS,
+                    payload: {
+                        id: task.id,
+                        status: status
+                    }
+                };
+                dispatch(action);
+            })
+            .catch((e) => {
+                toast.error("Something went wrong! Try Later.");
+            });
+    };
+
+    const onSelectTaskCardMenuAction = (value: string, taskId: string) => {
+        console.log(value, taskId);
+    };
+
     const groupedTasks = groupTasksByStatus(adminPersonalTasks);
 
     return (
@@ -186,7 +216,13 @@ const Tasks = () => {
                     <TasksColumns>
                         {Object.keys(groupedTasks).map((groupName) => {
                             return (
-                                <TasksColumn key={groupName}>
+                                <TasksColumn
+                                    key={groupName}
+                                    onDragOver={(e) => e.preventDefault()}
+                                    onDrop={(e) =>
+                                        onDrop(e, groupName as TaskStatus)
+                                    }
+                                >
                                     <TasksColumnTitle
                                         variant="paragraphSM"
                                         weight="semibold"
@@ -207,6 +243,23 @@ const Tasks = () => {
                                             <TaskCard
                                                 key={task.id}
                                                 task={task}
+                                                menuActions={[
+                                                    {
+                                                        label: "Edit",
+                                                        value: "editTask",
+                                                        variant: "primary",
+                                                        iconName: "edit"
+                                                    },
+                                                    {
+                                                        label: "Delete",
+                                                        value: "deleteTask",
+                                                        variant: "danger",
+                                                        iconName: "delete"
+                                                    }
+                                                ]}
+                                                onSelectMenuAction={
+                                                    onSelectTaskCardMenuAction
+                                                }
                                             />
                                         );
                                     })}
@@ -275,4 +328,4 @@ const Tasks = () => {
     );
 };
 
-export { Tasks as AdminPersonalTasks };
+export { AdminPersonalTasks };
