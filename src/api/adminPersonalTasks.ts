@@ -1,7 +1,12 @@
-import { Task } from "../types";
+import { Task, TaskStatus } from "../types";
 
 export type TaskCreateInput = Omit<Task, "id" | "status">;
-export type TaskUpdateInput = Omit<Task, "id">;
+export type TaskUpdateInput = {
+    title?: string;
+    description?: string;
+    due?: Date;
+    status?: TaskStatus;
+};
 
 interface GetAllTasksResponse {
     data: {
@@ -94,6 +99,7 @@ class AdminPersonalTasks {
             const response = await fetch(`${this.url}/tasks/${taskId}`, {
                 method: "PATCH",
                 headers: {
+                    "Content-Type": "application/json",
                     authorization: `Bearer ${authToken}`
                 },
                 body: JSON.stringify(input)
