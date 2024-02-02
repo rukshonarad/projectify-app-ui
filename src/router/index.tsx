@@ -25,8 +25,6 @@ import { UserRole } from "../types";
 import { ProtectedRoute } from "./ProtectedRoute";
 import { Auth } from "./Auth";
 
-// import { AdminPersonalTasks } from "../pages/admin-platform/personal-tasks/AdminPersonalTasks";
-
 export const router = createBrowserRouter(
     createRoutesFromElements(
         <>

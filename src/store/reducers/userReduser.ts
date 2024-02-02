@@ -2,6 +2,7 @@ import {
     ActionType,
     Actions,
     AddTaskAction,
+    ChangeTaskStatusAction,
     PopulateTasksAction
 } from "../actions";
 import { GlobalState, initialState } from "../state";
@@ -38,6 +39,20 @@ export const userReducer = (
                 adminPersonalTasks: [payload]
             };
         }
+    } else if (action.type === Actions.CHANGE_TASK_STATUS) {
+        const payload = action.payload as ChangeTaskStatusAction["payload"];
+        const updatedTasks = state.adminPersonalTasks.map((task) => {
+            if (task.id === payload.id) {
+                return { ...task, status: payload.status };
+            } else {
+                return { ...task };
+            }
+        });
+
+        return {
+            ...state,
+            adminPersonalTasks: updatedTasks
+        };
     }
 
     return state;

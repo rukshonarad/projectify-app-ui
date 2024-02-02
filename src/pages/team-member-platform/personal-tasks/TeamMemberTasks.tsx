@@ -156,7 +156,9 @@ const TeamMemberTasks = () => {
     };
 
     const groupedTasks = groupTasksByStatus(adminPersonalTasks);
-
+    const onSelectTaskCardMenuAction = (value: string, taskId: string) => {
+        console.log(value, taskId);
+    };
     return (
         <PageBase>
             {!adminPersonalTasks.length ? (
@@ -207,6 +209,23 @@ const TeamMemberTasks = () => {
                                             <TaskCard
                                                 key={task.id}
                                                 task={task}
+                                                menuActions={[
+                                                    {
+                                                        label: "Edit",
+                                                        value: "editTask",
+                                                        variant: "primary",
+                                                        iconName: "edit"
+                                                    },
+                                                    {
+                                                        label: "Delete",
+                                                        value: "deleteTask",
+                                                        variant: "danger",
+                                                        iconName: "delete"
+                                                    }
+                                                ]}
+                                                onSelectMenuAction={
+                                                    onSelectTaskCardMenuAction
+                                                }
                                             />
                                         );
                                     })}
