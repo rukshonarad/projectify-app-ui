@@ -32,8 +32,8 @@ export interface TeamMemberUser extends User {
 export interface Task {
     id: string;
     title: string;
-    description?: string;
-    due: string;
+    description: string;
+    due: Date;
     status: TaskStatus;
 }
 
