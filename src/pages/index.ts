@@ -9,11 +9,15 @@ export * from "./admin-platform/personal-tasks/PersonalTasks";
 export * from "./admin-platform/team-members/AdminTeamMembers";
 
 export * from "./team-member-auth/team-member-create-password/TeamMemberCreatePassword";
+
 export * from "./team-member-auth/team-member-signIn/TeamMemberSignIn";
 
 export * from "./team-member-auth/team-member-forgot-password/TeamMemberForgotPassword";
+
 export * from "./team-member-auth/team-member-reset-password/TeamMemberResetPassword";
+
 export * from "./team-member-platform/TeamMemberPlatform";
 export * from "./team-member-platform/personal-tasks/TeamMemberTasks";
+
 export * from "./team-member-platform/projects/TeamMemberProjects";
 export * from "../hooks/useLocalStorage";

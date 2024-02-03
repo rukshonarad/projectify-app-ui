@@ -18,7 +18,7 @@ import {
     TeamMemberResetPassword,
     TeamMemberCreatePassword,
     TeamMemberPlatform,
-    TeamMemberTasks,
+    TeamMemberPersonalTasks,
     TeamMemberProjects
 } from "../pages";
 import { UserRole } from "../types";
@@ -83,15 +83,30 @@ export const router = createBrowserRouter(
             <Route path="team-member/sign-in" element={<TeamMemberSignIn />} />
             <Route
                 path="team-member/forgot-password"
-                element={<TeamMemberForgotPassword />}
+                element={
+                    <Auth
+                        component={<TeamMemberForgotPassword />}
+                        userType={UserRole.teamMember}
+                    />
+                }
             />
             <Route
                 path="team-member/reset-password"
-                element={<TeamMemberResetPassword />}
+                element={
+                    <Auth
+                        component={<TeamMemberResetPassword />}
+                        userType={UserRole.teamMember}
+                    />
+                }
             />
             <Route
                 path="team-member/create-password"
-                element={<TeamMemberCreatePassword />}
+                element={
+                    <Auth
+                        component={<TeamMemberCreatePassword />}
+                        userType={UserRole.teamMember}
+                    />
+                }
             />
             <Route
                 path="team-member/platform"
@@ -104,8 +119,24 @@ export const router = createBrowserRouter(
             >
                 <Route path="stories" element={<h1>Stories</h1>} />
 
-                <Route path="personal-tasks" element={<TeamMemberTasks />} />
-                <Route path="projects" element={<TeamMemberProjects />} />
+                <Route
+                    path="personal-tasks"
+                    element={
+                        <Auth
+                            component={<TeamMemberPersonalTasks />}
+                            userType={UserRole.teamMember}
+                        />
+                    }
+                />
+                <Route
+                    path="projects"
+                    element={
+                        <Auth
+                            component={<TeamMemberProjects />}
+                            userType={UserRole.teamMember}
+                        />
+                    }
+                />
             </Route>
         </>
     )

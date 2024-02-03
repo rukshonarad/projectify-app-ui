@@ -1,11 +1,16 @@
-import { Task } from "../types";
+import { Task, TaskStatus } from "../types";
 
-type TaskCreateInput = Omit<Task, "id" | "status">;
-type TaskUpdateInput = Omit<Task, "id">;
+export type TeamMemberTaskCreateInput = Omit<Task, "id" | "status">;
+export type TeamMemberTaskUpdateInput = {
+    title?: string;
+    description?: string;
+    due?: Date;
+    status?: TaskStatus;
+};
 
 interface GetAllTasksResponse {
     data: {
-        tasks: Task[] | [];
+        tasks: Task[];
     };
 }
 
@@ -23,7 +28,9 @@ class TeamMemberPersonalTasks {
         }/team-members/me`;
     }
 
-    async createTask(input: TaskCreateInput): Promise<TaskCreateResponse> {
+    async createTask(
+        input: TeamMemberTaskCreateInput
+    ): Promise<TaskCreateResponse> {
         try {
             const rawAuthToken = localStorage.getItem("authToken");
             const authToken = rawAuthToken ? JSON.parse(rawAuthToken) : "";
@@ -86,7 +93,7 @@ class TeamMemberPersonalTasks {
         }
     }
 
-    async updateTask(taskId: string, input: TaskUpdateInput) {
+    async updateTask(taskId: string, input: TeamMemberTaskUpdateInput) {
         try {
             const rawAuthToken = localStorage.getItem("authToken");
             const authToken = rawAuthToken ? JSON.parse(rawAuthToken) : "";
@@ -94,6 +101,7 @@ class TeamMemberPersonalTasks {
             const response = await fetch(`${this.url}/tasks/${taskId}`, {
                 method: "PATCH",
                 headers: {
+                    "Content-Type": "application/json",
                     authorization: `Bearer ${authToken}`
                 },
                 body: JSON.stringify(input)
@@ -108,4 +116,4 @@ class TeamMemberPersonalTasks {
     }
 }
 
-export const teamMemberPersonalTasks = new TeamMemberPersonalTasks();
+export { TeamMemberPersonalTasks };

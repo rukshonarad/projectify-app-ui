@@ -86,7 +86,7 @@ const TasksColumnTitle = styled(Typography)<{ color: string }>`
     color: ${(props) => props.color};
 `;
 
-const TeamMemberTasks = () => {
+const TeamMemberPersonalTasks = () => {
     const [taskDue, setTaskDue] = useState<Date>();
     const [taskTitle, setTaskTitle] = useState<string>("");
     const [taskDescription, setTaskDescription] = useState<string>("");
@@ -294,4 +294,4 @@ const TeamMemberTasks = () => {
     );
 };
 
-export { TeamMemberTasks };
+export { TeamMemberPersonalTasks };

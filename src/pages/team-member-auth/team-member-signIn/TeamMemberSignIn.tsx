@@ -108,7 +108,7 @@ const SignIn = () => {
             <ActionLinks>
                 <AuthActionLink
                     hintText="Don’t have an account?"
-                    linkTo="../team-member/sign-up"
+                    linkTo="../team-member/create-password"
                     linkText="Sign Up"
                 />
 
