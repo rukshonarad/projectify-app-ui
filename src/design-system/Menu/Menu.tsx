@@ -4,7 +4,7 @@ import "./Menu.css";
 import { Icon } from "../Icon";
 import { trimWhiteSpaces } from "../utils";
 
-const variantClassNames = {
+const colorClassNames = {
     primary: "menu__item--primary",
     danger: "menu__item--danger"
 };
@@ -45,7 +45,7 @@ const Menu: React.FC<MenuProps> = ({
                 handleOutsideClick(e, menuRef, setShow)
             );
         };
-    }, [menuRef, show]);
+    }, [show]);
 
     const handleOnSelect = (value: string) => {
         setShow(false);
@@ -71,8 +71,8 @@ const Menu: React.FC<MenuProps> = ({
                                 key={item.label}
                                 className={trimWhiteSpaces(
                                     `menu__item ${
-                                        item.variant
-                                            ? variantClassNames[item.variant]
+                                        item.color
+                                            ? colorClassNames[item.color]
                                             : ""
                                     }`
                                 )}

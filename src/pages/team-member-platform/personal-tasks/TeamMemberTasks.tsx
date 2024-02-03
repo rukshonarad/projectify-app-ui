@@ -213,13 +213,13 @@ const TeamMemberPersonalTasks = () => {
                                                     {
                                                         label: "Edit",
                                                         value: "editTask",
-                                                        variant: "primary",
+
                                                         iconName: "edit"
                                                     },
                                                     {
                                                         label: "Delete",
                                                         value: "deleteTask",
-                                                        variant: "danger",
+
                                                         iconName: "delete"
                                                     }
                                                 ]}
