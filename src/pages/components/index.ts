@@ -7,3 +7,5 @@ export * from "./AuthActionLinks";
 export * from "./ShowPassword";
 export * from "./taskCard/TaskCard";
 export * from "./taskCard/types";
+export * from "./KanbanCard";
+export * from "./ConfirmationModal";
