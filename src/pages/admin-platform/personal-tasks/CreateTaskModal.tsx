@@ -9,10 +9,7 @@ import {
     Button
 } from "../../../design-system";
 
-import {
-    TaskCreateInput,
-    adminPersonalTasks as adminPersonalTasksService
-} from "../../../api";
+import { TaskCreateInput, adminTasksServise } from "../../../api";
 import { useStore } from "../../../hooks";
 import { Actions, AddTaskAction } from "../../../store";
 
@@ -42,8 +39,8 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
     closeModal
 }) => {
     const [taskDue, setTaskDue] = useState<Date>();
-    const [taskTitle, setTaskTitle] = useState<string>("");
-    const [taskDescription, setTaskDescription] = useState<string>("");
+    const [taskTitle, setTaskTitle] = useState("");
+    const [taskDescription, setTaskDescription] = useState("");
     const [isFormSubmitting, setIsFormSubmitting] = useState(false);
 
     const { dispatch } = useStore();
@@ -56,7 +53,7 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
             due: taskDue!
         };
 
-        adminPersonalTasksService
+        adminTasksServise
             .createTask(input)
             .then((data) => {
                 const action: AddTaskAction = {
