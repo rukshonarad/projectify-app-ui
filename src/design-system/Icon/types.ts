@@ -8,10 +8,15 @@ export type IconName =
     | "log-out"
     | "chevron-right"
     | "flag"
-    | "check"
+    | "arrow-left"
+    | "password-eye"
     | "password-eye-off"
-    | "password-eye";
-
+    | "check"
+    | "three-dots"
+    | "edit"
+    | "delete"
+    | "chevron-down"
+    | "calendar";
 export type IconProps = {
     iconName: IconName;
     className?: string;

@@ -59,7 +59,7 @@ const Platform = () => {
         removeItem("authToken");
         removeItem("userRole");
         dispatch({ type: Actions.RESET_STATE });
-        navigate("/admin/sign-in");
+        navigate("/team-member/sign-in");
     };
 
     return (

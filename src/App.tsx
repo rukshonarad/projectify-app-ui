@@ -1,11 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Badge, Icon, DatePickerV1 } from "./design-system";
+import {
+    Badge,
+    Icon,
+    DatePickerV1,
+    Select,
+    OptionValue
+} from "./design-system";
 import { useStore } from "./hooks";
 import { StatusBadge } from "./design-system/StatusBadge";
 import { useState } from "react";
 const App = () => {
     const [date, setDate] = useState<Date>();
+    const [value, setValue] = useState<OptionValue>("");
     return (
         <div
             style={{
@@ -40,6 +47,23 @@ const App = () => {
                     selected={date}
                     onChange={(date) => setDate(date)}
                     placeholder="Select Deadline"
+                />
+            </div>
+            <div>
+                <Select
+                    options={[
+                        { label: "Option1", value: "option1" },
+                        { label: "Option2", value: "option2" },
+                        { label: "Option3", value: "option3" },
+                        { label: "Option4", value: "option4" },
+                        { label: "Option5", value: "option5" },
+                        { label: "Option6", value: "option6" }
+                    ]}
+                    headerPlaceholder="Select Option"
+                    onSelect={(option) => setValue(option.value)}
+                    size="md"
+                    shape="circle"
+                    value={value}
                 />
             </div>
         </div>

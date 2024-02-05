@@ -27,6 +27,7 @@
     width: 3.6rem;
     color: var(--jaguar-900);
     border-radius: 0;
+    user-select: none;
 }
 
 .v1-date-picker--rounded .react-datepicker__day.v1-date-picker__day-wrapper {
@@ -39,6 +40,10 @@
 
 .react-datepicker__day.v1-date-picker__day-wrapper:hover {
     background-color: var(--primary-50);
+}
+
+.v1-date-picker .react-datepicker__day--outside-month {
+    visibility: hidden;
 }
 
 .v1-date-picker__day {
@@ -121,6 +126,7 @@
     justify-content: center;
     font-size: var(--font-size-14);
     color: var(--jaguar-400);
+    user-select: none;
 }
 
 .v1-date-picker
@@ -134,4 +140,22 @@
 .v1-date-picker .react-datepicker__navigation-icon::after {
     border-color: var(--primary-500);
     border-width: 2px 2px 0 0;
+}
+
+.react-datepicker__view-calendar-icon .input {
+    padding: 0 var(--space-16);
+}
+
+.v1-date-picker__calendar-icon.react-datepicker__calendar-icon {
+    padding: 0;
+    right: var(--space-12);
+    top: 50%;
+    transform: translateY(-50%);
+    height: 2rem;
+    width: 2rem;
+    fill: var(--jaguar-500);
+}
+
+.v1-date-picker__calendar-icon.react-datepicker__calendar-icon:hover + input {
+    border-color: var(--primary-500) !important;
 }
