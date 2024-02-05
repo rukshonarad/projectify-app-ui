@@ -9,16 +9,13 @@ import {
 } from "../../../design-system";
 import { NoDataPlaceholder, TaskCard } from "../../components";
 import noTask from "../../../assets/illustrations/task.svg";
-import {
-    TaskCreateInput,
-    adminPersonalTasks as adminPersonalTasksService
-} from "../../../api";
 
 import { useStore } from "../../../hooks";
 import { Actions, AddTaskAction, PopulateTasksAction } from "../../../store";
 import { groupTasksByStatus } from "../../../utils";
 import { TaskStatus } from "../../../types";
 import toast from "react-hot-toast";
+import { TaskCreateInput, teamMemberTasksServise } from "../../../api";
 
 enum StatusToTitle {
     TODO = "To Do",
@@ -93,7 +90,7 @@ const TeamMemberPersonalTasks = () => {
     const [isTasksFetching, setIsTasksFetching] = useState(true);
     const [isFormSubmitting, setIsFormSubmitting] = useState(false);
     const {
-        state: { adminPersonalTasks },
+        state: { teamMemberPersonalTasks },
         dispatch
     } = useStore();
 
@@ -101,7 +98,7 @@ const TeamMemberPersonalTasks = () => {
         useState<boolean>(false);
 
     useEffect(() => {
-        adminPersonalTasksService
+        teamMemberTasksServise
             .getTasks()
             .then((data) => {
                 setIsTasksFetching(false);
@@ -129,7 +126,7 @@ const TeamMemberPersonalTasks = () => {
             due: taskDue!
         };
 
-        adminPersonalTasksService
+        teamMemberTasksServise
             .createTask(input)
             .then((data) => {
                 const action: AddTaskAction = {
@@ -155,13 +152,13 @@ const TeamMemberPersonalTasks = () => {
         setShowCreateTaskModal(false);
     };
 
-    const groupedTasks = groupTasksByStatus(adminPersonalTasks);
+    const groupedTasks = groupTasksByStatus(teamMemberPersonalTasks);
     const onSelectTaskCardMenuAction = (value: string, taskId: string) => {
         console.log(value, taskId);
     };
     return (
         <PageBase>
-            {!adminPersonalTasks.length ? (
+            {!teamMemberPersonalTasks.length ? (
                 <NoDataPlaceholder
                     illustrationUrl={noTask}
                     text="You don’t have any tasks yet!"

@@ -17,8 +17,7 @@ interface GetAllTasksResponse {
 interface TaskCreateResponse {
     data: Task;
 }
-
-class TeamMemberPersonalTasks {
+class TeamMemberTasksServise {
     url: string;
     constructor() {
         this.url = `${
@@ -115,5 +114,4 @@ class TeamMemberPersonalTasks {
         }
     }
 }
-
-export { TeamMemberPersonalTasks };
+export const teamMemberTasksServise = new TeamMemberTasksServise();

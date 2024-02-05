@@ -18,7 +18,7 @@ import {
     TeamMemberResetPassword,
     TeamMemberCreatePassword,
     TeamMemberPlatform,
-    TeamMemberPersonalTasks,
+    // TeamMemberPersonalTasks,
     TeamMemberProjects
 } from "../pages";
 import { UserRole } from "../types";
@@ -119,7 +119,7 @@ export const router = createBrowserRouter(
             >
                 <Route path="stories" element={<h1>Stories</h1>} />
 
-                <Route
+                {/* <Route
                     path="personal-tasks"
                     element={
                         <Auth
@@ -127,7 +127,7 @@ export const router = createBrowserRouter(
                             userType={UserRole.teamMember}
                         />
                     }
-                />
+                /> */}
                 <Route
                     path="projects"
                     element={

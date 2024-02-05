@@ -116,7 +116,6 @@ const Signup = () => {
                     onChange={handleOnChangeFirstName}
                     shape="rounded"
                     size="lg"
-                    required={true}
                     disabled={isFormSubmitting}
                 />
                 <Input
@@ -126,7 +125,6 @@ const Signup = () => {
                     onChange={handleOnChangeLastName}
                     shape="rounded"
                     size="lg"
-                    required={true}
                     disabled={isFormSubmitting}
                 />
                 <Input
@@ -164,7 +162,6 @@ const Signup = () => {
                     onChange={handleOnChangeEmail}
                     shape="rounded"
                     size="lg"
-                    required={true}
                     className="sign-up__email"
                     disabled={isFormSubmitting}
                 />
