@@ -6,10 +6,10 @@
     border: none;
     outline: none;
 
-    /* display: flex;
+    display: flex;
     align-items: center;
     justify-content: center;
-    gap: 20px; */
+    gap: 20px;
 
     height: 3.6rem;
     padding: 0 var(--space-16);
@@ -134,7 +134,7 @@
 
 .btn-secondary.btn-outlined {
     background-color: var(--white);
-    border: 0.15rem solid var(--jaguar-500);
+    border: 0.15rem solid var(--jaguar-200);
     color: var(--jaguar-500);
 }
 

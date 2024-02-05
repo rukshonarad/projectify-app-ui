@@ -14,3 +14,4 @@ export * from "./DatePicker";
 export * from "./utils";
 export * from "./Bar";
 export * from "./Menu";
+export * from "./Select";
