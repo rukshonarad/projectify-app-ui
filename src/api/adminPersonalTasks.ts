@@ -18,7 +18,7 @@ interface TaskCreateResponse {
     data: Task;
 }
 
-class AdminPersonalTasks {
+class AdminTasksService {
     url: string;
     constructor() {
         this.url = `${
@@ -114,4 +114,4 @@ class AdminPersonalTasks {
     }
 }
 
-export const adminPersonalTasks = new AdminPersonalTasks();
+export const adminTasksServise = new AdminTasksService();
