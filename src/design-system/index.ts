@@ -1,3 +1,5 @@
+import { from } from "stylis";
+
 export * from "./Typography";
 export * from "./Button";
 export * from "./Input";
@@ -15,3 +17,5 @@ export * from "./utils";
 export * from "./Bar";
 export * from "./Menu";
 export * from "./Select";
+export * from "./Checkbox";
+export * from "./Switch";
