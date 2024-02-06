@@ -75,7 +75,7 @@ const SignIn = () => {
     };
 
     return (
-        <AuthWrapper imageUrl={team} pageTitle="SignIn">
+        <AuthWrapper imageUrl={team} pageTitle="Sign In">
             <SignInForm className="signIn" onSubmit={signIn}>
                 <Input
                     type="email"
@@ -102,7 +102,7 @@ const SignIn = () => {
                     shape="rounded"
                     className="signIn__submit-button"
                 >
-                    SignIn
+                    Sign In
                 </Button>
             </SignInForm>
             <ActionLinks>
