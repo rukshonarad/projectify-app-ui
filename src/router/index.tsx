@@ -126,15 +126,7 @@ export const router = createBrowserRouter(
                     element={<TeamMemberTasksPage />}
                 />
 
-                <Route
-                    path="projects"
-                    element={
-                        <Auth
-                            component={<TeamMemberProjects />}
-                            userType={UserRole.teamMember}
-                        />
-                    }
-                />
+                <Route path="projects" element={<TeamMemberProjects />} />
             </Route>
         </>
     )
