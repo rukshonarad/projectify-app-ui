@@ -5,7 +5,10 @@ import { NoDataPlaceholder } from "../../components";
 import noTask from "../../../assets/illustrations/task.svg";
 import { teamMemberTasksServise } from "../../../api";
 import { useStore } from "../../../hooks";
-import { Actions, PopulateTasksAction } from "../../../store";
+import {
+    TeamMemberActions,
+    TeamMemberPopulateTasksAction
+} from "../../../store";
 import { groupTasksByStatus } from "../../../utils";
 import { CreateTaskModal } from "./CreateTaskModal";
 import { Kanban } from "./Kanban";
@@ -37,8 +40,8 @@ const TeamMemberTasksPage = () => {
             .getTasks()
             .then((data) => {
                 setIsTasksFetching(false);
-                const action: PopulateTasksAction = {
-                    type: Actions.POPULATE_TASKS,
+                const action: TeamMemberPopulateTasksAction = {
+                    type: TeamMemberActions.TEAM_MEMBER_POPULATE_TASKS,
                     payload: data.data.tasks
                 };
                 dispatch(action);

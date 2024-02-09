@@ -11,7 +11,7 @@ import {
 
 import { TaskCreateInput, teamMemberTasksServise } from "../../../api";
 import { useStore } from "../../../hooks";
-import { Actions, AddTaskAction } from "../../../store";
+import { TeamMemberActions, TeamMemberAddTaskAction } from "../../../store";
 
 type CreateTaskModalProps = {
     show: boolean;
@@ -56,8 +56,8 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
         teamMemberTasksServise
             .createTask(input)
             .then((data) => {
-                const action: AddTaskAction = {
-                    type: Actions.ADD_TASK,
+                const action: TeamMemberAddTaskAction = {
+                    type: TeamMemberActions.TEAM_MEMBER_ADD_TASK,
                     payload: data.data
                 };
                 dispatch(action);

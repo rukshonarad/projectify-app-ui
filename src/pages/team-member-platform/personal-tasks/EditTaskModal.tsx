@@ -12,9 +12,13 @@ import {
 } from "../../../design-system";
 import { useStore } from "../../../hooks";
 import { TaskStatus } from "../../../types";
-import { TaskUpdateInput, teamMemberTasksServise } from "../../../api";
+import {
+    TaskUpdateInput,
+    TeamMemberTaskUpdateInput,
+    teamMemberTasksServise
+} from "../../../api";
 import toast from "react-hot-toast";
-import { Actions, UpdateTaskAction } from "../../../store";
+import { TeamMemberActions, TeamMemberUpdateTaskAction } from "../../../store";
 
 type EditTaskModalProps = {
     show: boolean;
@@ -66,20 +70,20 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
     const [isFormSubmitting, setIsFormSubmitting] = useState(false);
 
     useEffect(() => {
-        teamMemberPersonalTasks.find((task) => task.id === taskId);
+        const task = teamMemberPersonalTasks.find((task) => task.id === taskId);
 
-        // if (task) {
-        //     setTaskDue(parseISO((task?.due).toString()));
-        //     setTaskDescription(task.description);
-        //     setTaskTitle(task?.title);
-        //     setSelectedStatus({ value: task.status, label: task.status });
-        // }
+        if (task) {
+            setTaskDue(parseISO((task?.due).toString()));
+            setTaskDescription(task.description);
+            setTaskTitle(task?.title);
+            setSelectedStatus({ value: task.status, label: task.status });
+        }
 
         /* Task Id, We setting task id in Kanban.tsx when someone clicks the menu. So, initially taskId would be undefined when component mounts. But, when taskId is set, then we want to make sure this useEffect will run and set inputs default fields.   */
     }, [taskId]);
 
     const updateTask = () => {
-        const updatedTask: TaskUpdateInput = {
+        const updatedTask: TeamMemberTaskUpdateInput = {
             title: taskTitle,
             description: taskDescription,
             due: taskDue,
@@ -90,8 +94,8 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
             .updateTask(taskId, updatedTask)
             .then((_) => {
                 setIsFormSubmitting(false);
-                const action: UpdateTaskAction = {
-                    type: Actions.UPDATE_TASK,
+                const action: TeamMemberUpdateTaskAction = {
+                    type: TeamMemberActions.TEAM_MEMBER_UPDATE_TASK,
                     payload: {
                         id: taskId,
                         title: taskTitle,
