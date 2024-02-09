@@ -6,7 +6,7 @@ import {
     Toaster
 } from "../../design-system";
 import { AppContent, AppLayout, SideBarUser } from "../components";
-import { Actions } from "../../store";
+import { TeamMemberActions } from "../../store";
 import { useLocalStorage, useStore } from "../../hooks";
 
 const links: SideBarLinksGroup[] = [
@@ -58,7 +58,7 @@ const Platform = () => {
     const logOut = () => {
         removeItem("authToken");
         removeItem("userRole");
-        dispatch({ type: Actions.RESET_STATE });
+        dispatch({ type: TeamMemberActions.TEAM_MEMBER_RESET_STATE });
         navigate("/team-member/sign-in");
     };
 
