@@ -33,6 +33,7 @@ const teamMemberTasksReducer = produce(
                     const task = draft[i];
                     if (task.id === payload.id) {
                         task.status = payload.status;
+                        break;
                     }
                 }
                 return draft;
@@ -45,6 +46,7 @@ const teamMemberTasksReducer = produce(
                     const task = draft[i];
                     if (task.id === payload.id) {
                         draft[i] = payload;
+                        break;
                     }
                 }
                 return draft;
