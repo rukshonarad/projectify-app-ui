@@ -1,16 +1,5 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import {
-    Badge,
-    Icon,
-    DatePickerV1,
-    Select,
-    OptionValue,
-    Checkbox,
-    Switch
-} from "./design-system";
-import { useStore } from "./hooks";
-import { StatusBadge } from "./design-system/StatusBadge";
+import { Checkbox, Switch, LinearProgress } from "./design-system";
 import { useState } from "react";
 const App = () => {
     const [date, setDate] = useState<Date>();
@@ -59,6 +48,29 @@ const App = () => {
                     onSwitch={(value) => setValue(value)}
                     shape="circle"
                 />
+                <LinearProgress
+                    value={40}
+                    color="red"
+                    shape="rounded"
+                    size="md"
+                />
+                <LinearProgress value={100} />
+                <LinearProgress value={40} color="green" error shape="sharp" />
+                <LinearProgress value={100} />
+                <LinearProgress
+                    value={70}
+                    color="blue"
+                    size="lg"
+                    shape="rounded"
+                />
+                <LinearProgress value={100} />
+                <LinearProgress
+                    value={40}
+                    color="red"
+                    size="lg"
+                    shape="rounded"
+                />
+                <LinearProgress value={100} />
             </div>
         </div>
     );
