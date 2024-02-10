@@ -14,10 +14,11 @@ interface GetAllTasksResponse {
     };
 }
 
-interface TaskCreateResponse {
+interface TeamMemberTaskCreateResponse {
     data: Task;
 }
-class TeamMemberTasksServise {
+
+class TeamMemberTasksService {
     url: string;
     constructor() {
         this.url = `${
@@ -29,7 +30,7 @@ class TeamMemberTasksServise {
 
     async createTask(
         input: TeamMemberTaskCreateInput
-    ): Promise<TaskCreateResponse> {
+    ): Promise<TeamMemberTaskCreateResponse> {
         try {
             const rawAuthToken = localStorage.getItem("authToken");
             const authToken = rawAuthToken ? JSON.parse(rawAuthToken) : "";
@@ -91,7 +92,6 @@ class TeamMemberTasksServise {
             throw error;
         }
     }
-
     async updateTask(taskId: string, input: TeamMemberTaskUpdateInput) {
         try {
             const rawAuthToken = localStorage.getItem("authToken");
@@ -114,4 +114,5 @@ class TeamMemberTasksServise {
         }
     }
 }
-export const teamMemberTasksServise = new TeamMemberTasksServise();
+
+export const teamMemberTasksServise = new TeamMemberTasksService();

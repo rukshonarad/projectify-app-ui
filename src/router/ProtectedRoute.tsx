@@ -3,7 +3,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { useLocalStorage, useStore } from "../hooks";
 import { admin, teamMember } from "../api";
 import { UserRole } from "../types";
-import { Actions, InitUserAction } from "../store";
+import { Actions, InitUserAction, TeamMemberActions } from "../store";
 
 type ProtectedRouteProps = {
     component: React.ReactElement;
