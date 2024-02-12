@@ -18,7 +18,7 @@ import {
     teamMemberTasksServise
 } from "../../../api";
 import toast from "react-hot-toast";
-import { TeamMemberActions, TeamMemberUpdateTaskAction } from "../../../store";
+import { Actions, TeamMemberUpdateTaskAction } from "../../../store";
 
 type EditTaskModalProps = {
     show: boolean;
@@ -95,7 +95,7 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
             .then((_) => {
                 setIsFormSubmitting(false);
                 const action: TeamMemberUpdateTaskAction = {
-                    type: TeamMemberActions.TEAM_MEMBER_UPDATE_TASK,
+                    type: Actions.TEAM_MEMBER_UPDATE_TASK,
                     payload: {
                         id: taskId,
                         title: taskTitle,
