@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { useLocalStorage } from "../../../hooks";
 
 import team from "../../../assets/images/team.png";
-import { admin } from "../../../api";
+import { adminService } from "../../../api";
 import toast from "react-hot-toast";
 
 const Form = styled.form`
@@ -45,7 +45,7 @@ const Signin = () => {
         e.preventDefault();
         try {
             setIsFormSubmitting(true);
-            const { token } = await admin.signIn({
+            const { token } = await adminService.signIn({
                 email,
                 password
             });

@@ -9,7 +9,7 @@ import {
     Button
 } from "../../../design-system";
 
-import { TaskCreateInput, adminTasksServise } from "../../../api";
+import { TaskCreateInput, adminTasksService } from "../../../api";
 import { useStore } from "../../../hooks";
 import { Actions, AddTaskAction } from "../../../store";
 
@@ -18,7 +18,7 @@ type CreateTaskModalProps = {
     closeModal: () => void;
 };
 
-const CreateTaskModalTitle = styled(Typography)`
+const ModalTitle = styled(Typography)`
     margin-bottom: var(--space-24);
 `;
 
@@ -53,7 +53,7 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
             due: taskDue!
         };
 
-        adminTasksServise
+        adminTasksService
             .createTask(input)
             .then((data) => {
                 const action: AddTaskAction = {
@@ -81,9 +81,9 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
 
     return (
         <Modal show={show} position="center">
-            <CreateTaskModalTitle variant="paragraphLG" weight="medium">
+            <ModalTitle variant="paragraphLG" weight="medium">
                 New Task
-            </CreateTaskModalTitle>
+            </ModalTitle>
             <Inputs>
                 <Input
                     placeholder="Task Name"

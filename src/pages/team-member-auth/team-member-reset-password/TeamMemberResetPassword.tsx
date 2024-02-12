@@ -5,7 +5,7 @@ import resetPasswordImg from "../../../assets/images/resetPassword.svg";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import styled from "styled-components";
-import { teamMember } from "../../../api";
+import { teamMemberService } from "../../../api";
 
 const Form = styled.form`
     width: 100%;
@@ -31,7 +31,7 @@ const ResetPassword = () => {
         e.preventDefault();
 
         try {
-            const response = await teamMember.resetPassword(
+            const response = await teamMemberService.resetPassword(
                 newPassword,
                 newPasswordConfirm,
                 passwordResetToken as string

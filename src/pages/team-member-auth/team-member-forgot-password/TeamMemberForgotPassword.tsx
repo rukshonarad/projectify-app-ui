@@ -4,7 +4,7 @@ import { Input, Button } from "../../../design-system";
 import { PasswordWrapper } from "../../components";
 import forgotPassword from "../../../assets/images/forgotPassword.svg";
 import toast from "react-hot-toast";
-import { teamMember } from "../../../api";
+import { teamMemberService } from "../../../api";
 const Form = styled.form`
     width: 100%;
     display: flex;
@@ -25,7 +25,7 @@ const ForgotPassword = () => {
         e.preventDefault();
         try {
             setIsFormSubmitting(true);
-            const response = await teamMember.forgotPassword(email);
+            const response = await teamMemberService.forgotPassword(email);
             setEmail("");
             toast.success(response.message);
         } catch (error) {

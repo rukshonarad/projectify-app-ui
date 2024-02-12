@@ -3,7 +3,7 @@ import styled from "styled-components";
 import toast from "react-hot-toast";
 import { Button, Input } from "../../../design-system";
 import { PasswordWrapper } from "../../components";
-import { admin } from "../../../api";
+import { adminService } from "../../../api";
 import forgotPassword from "../../../assets/images/forgotPassword.svg";
 
 const Form = styled.form`
@@ -26,7 +26,7 @@ const ForgotPassword = () => {
         e.preventDefault();
         try {
             setIsFormSubmitting(true);
-            const response = await admin.forgotPassword(email);
+            const response = await adminService.forgotPassword(email);
             setEmail("");
             toast.success(response.message);
         } catch (error) {

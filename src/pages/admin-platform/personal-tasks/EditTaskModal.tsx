@@ -12,7 +12,7 @@ import {
 } from "../../../design-system";
 import { useStore } from "../../../hooks";
 import { TaskStatus } from "../../../types";
-import { TaskUpdateInput, adminTasksServise } from "../../../api";
+import { TaskUpdateInput, adminTasksService } from "../../../api";
 import toast from "react-hot-toast";
 import { Actions, UpdateTaskAction } from "../../../store";
 
@@ -86,7 +86,7 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
             status: selectedStatus?.value as TaskStatus
         };
         setIsFormSubmitting(true);
-        adminTasksServise
+        adminTasksService
             .updateTask(taskId, updatedTask)
             .then((_) => {
                 setIsFormSubmitting(false);

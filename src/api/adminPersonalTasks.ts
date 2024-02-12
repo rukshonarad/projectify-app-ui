@@ -114,4 +114,4 @@ class AdminTasksService {
     }
 }
 
-export const adminTasksServise = new AdminTasksService();
+export const adminTasksService = new AdminTasksService();

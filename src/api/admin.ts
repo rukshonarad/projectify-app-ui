@@ -18,7 +18,7 @@ type SignInInput = {
     password: string;
 };
 
-class Admin {
+class AdminService {
     url: string;
     constructor() {
         this.url = `${
@@ -138,4 +138,4 @@ class Admin {
     }
 }
 
-export const admin = new Admin();
+export const adminService = new AdminService();

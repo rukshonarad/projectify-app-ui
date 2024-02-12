@@ -4,7 +4,7 @@ import { AuthWrapper, AuthActionLink } from "../../components";
 import styled from "styled-components";
 
 import toast from "react-hot-toast";
-import { admin } from "../../../api";
+import { adminService } from "../../../api";
 import team from "../../../assets/images/team.png";
 import { ShowPassword } from "../../components/ShowPassword";
 
@@ -74,7 +74,7 @@ const Signup = () => {
         try {
             setIsFormSubmitting(true);
 
-            const response = await admin.signUp({
+            const response = await adminService.signUp({
                 firstName,
                 lastName,
                 email,

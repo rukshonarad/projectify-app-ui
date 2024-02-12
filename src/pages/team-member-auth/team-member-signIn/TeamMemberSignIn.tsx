@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import team from "../../../assets/images/teamMemberLogin.jpeg";
 import { useLocalStorage } from "../../../hooks";
 import styled from "styled-components";
-import { teamMember } from "../../../api";
+import { teamMemberService } from "../../../api";
 
 const SignInForm = styled.form`
     width: 100%;
@@ -54,7 +54,7 @@ const SignIn = () => {
         e.preventDefault();
         try {
             setIsFormSubmitting(true);
-            const { token } = await teamMember.signIn({
+            const { token } = await teamMemberService.signIn({
                 email,
                 password
             });

@@ -6,7 +6,7 @@ import styled from "styled-components";
 
 import { ShowPassword } from "../../components/ShowPassword";
 
-import { teamMember } from "../../../api/teamMember";
+import { teamMemberService } from "../../../api/teamMember";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
@@ -51,7 +51,7 @@ const TeamMemberCreatePassword = () => {
         try {
             setIsFormSubmitting(true);
 
-            const response = await teamMember.createPassword(
+            const response = await teamMemberService.createPassword(
                 {
                     email,
                     password,
