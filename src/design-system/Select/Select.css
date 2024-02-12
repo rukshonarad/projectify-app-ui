@@ -3,6 +3,7 @@
     width: 100%;
 }
 
+/* Header */
 .btn-secondary.select__header {
     background-color: var(--white);
     justify-content: space-between;
@@ -23,20 +24,38 @@
     border-color: var(--primary-500);
     background-color: var(--white);
 }
+
+/* Header Icon */
+.select__icon {
+    transition: 0.3s;
+    fill: var(--jaguar-500);
+}
+
+.select__icon--expanded {
+    transform: rotate(180deg);
+}
+
+/* Body */
 .select__body {
     position: absolute;
     top: calc(100% + var(--space-4));
     list-style-type: none;
-    border: var(--jaguar-100);
-    box-shadow: var(--shadow-m);
+    border: 0.15rem solid var(--jaguar-100);
     width: 100%;
     padding: var(--space-4);
     background-color: var(--white);
     z-index: 2;
 
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
+    max-height: 14.5rem;
+    overflow-y: auto;
+}
+
+.select-medium .select__body {
+    max-height: 16.1rem;
+}
+
+.select-large .select__body {
+    max-height: 17.7rem;
 }
 
 .select-rounded .select__body {
@@ -51,16 +70,20 @@
     border-radius: var(--border-radius-24);
 }
 
+/* Select Item */
 .select__item {
     height: 3.2rem;
     color: var(--jaguar-900);
     font-size: var(--font-size-16);
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 2rem;
     align-items: center;
     padding: 0 var(--space-12);
     transition: all 0.3s;
-
     cursor: pointer;
+}
+.select__item:not(:last-child) {
+    margin-bottom: var(--space-2);
 }
 
 .select__item:hover {
@@ -91,11 +114,49 @@
     background-color: var(--jaguar-100);
 }
 
-.select__icon {
-    transition: 0.3s;
-    fill: var(--jaguar-500);
+.select__selected-icon {
+    fill: var(--primary-500);
 }
 
-.select__icon--expanded {
-    transform: rotate(180deg);
+/* Scroll Bar */
+
+.select__body::-webkit-scrollbar {
+    width: 0.8rem;
+    border-radius: var(--border-radius-0);
+}
+
+.select__body::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: var(--border-radius-0);
+}
+
+.select__body::-webkit-scrollbar-thumb {
+    background: var(--jaguar-100);
+    border-radius: var(--border-radius-0);
+}
+
+.select-rounded .select__body::-webkit-scrollbar {
+    border-radius: var(--border-radius-8);
+}
+
+.select-rounded .select__body::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: var(--border-radius-8);
+}
+
+.select-rounded .select__body::-webkit-scrollbar-thumb {
+    background: var(--jaguar-100);
+    border-radius: var(--border-radius-8);
+}
+
+.select-circle .select__body::-webkit-scrollbar {
+    display: none;
+}
+
+.select-circle .select__body::-webkit-scrollbar-track {
+    display: none;
+}
+
+.select-circle .select__body::-webkit-scrollbar-thumb {
+    display: none;
 }

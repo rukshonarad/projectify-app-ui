@@ -1,5 +1,5 @@
 import { Option, OptionValue, SelectProps } from "./types";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { Label } from "../Label";
 import { Button } from "../Button";
 import "./Select.css";
@@ -104,6 +104,14 @@ const Select: React.FC<SelectProps> = (props) => {
                                 onClick={() => onSelectItem(option)}
                             >
                                 {option.label}
+                                {value === option.value && (
+                                    <Icon
+                                        iconName={
+                                            shape ? "check" : "check-sharp"
+                                        }
+                                        className="select__selected-icon"
+                                    />
+                                )}
                             </li>
                         );
                     })}
