@@ -15,7 +15,11 @@ const FiltersBase = styled.section`
         grid-column: 3 / 4;
     }
 `;
-
+const statusOptions = [
+    { label: "Active", value: "ACTIVE" },
+    { label: "Inactive", value: "INACTIVE" },
+    { label: "Deactivated", value: "DEACTIVATED" }
+];
 const TeamMemberFilters = () => {
     return (
         <FiltersBase>
@@ -31,7 +35,7 @@ const TeamMemberFilters = () => {
             <Select
                 value=""
                 onSelect={() => {}}
-                options={[]}
+                options={statusOptions}
                 shape="rounded"
                 size="md"
                 headerPlaceholder="By Status"

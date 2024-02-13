@@ -24,11 +24,11 @@ const AdminTeamMembersPage = () => {
         teamMemberService
             .getAll()
             .then((data) => {
-                // const action: AdminPopulateTeamMembersAction = {
-                //     type: Actions.ADMIN_POPULATE_TEAM_MEMBERS,
-                //     payload: data.data
-                // };
-                // dispatch(action);
+                const action: AdminPopulateTeamMembersAction = {
+                    type: Actions.ADMIN_POPULATE_TEAM_MEMBERS,
+                    payload: data.data
+                };
+                dispatch(action);
                 setIsTeamMembersFetching(false);
             })
             .catch((e) => {

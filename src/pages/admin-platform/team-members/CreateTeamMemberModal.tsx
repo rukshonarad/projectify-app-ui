@@ -98,11 +98,11 @@ const CreateTeamMemberModal: React.FC<ModalProps> = ({ show, closeModal }) => {
             teamMemberService
                 .create(input)
                 .then((data) => {
-                    // const action: AdminAddTeamMemberAction = {
-                    //     type: Actions.ADMIN_ADD_TEAM_MEMBER,
-                    //     payload: data.data
-                    // };
-                    // dispatch(action);
+                    const action: AdminAddTeamMemberAction = {
+                        type: Actions.ADMIN_ADD_TEAM_MEMBER,
+                        payload: data.data
+                    };
+                    dispatch(action);
                     resetFields();
                     closeModal();
                     toast.success("Team Member has been successfully created");

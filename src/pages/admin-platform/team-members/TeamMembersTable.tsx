@@ -14,7 +14,7 @@ type TeamMembersTableProps = {
     data: TeamMember[];
 };
 
-const columns = ["15%", "15%", "22.5%", "20%", "15%", "12.5%"];
+const columns = ["15%", "15%", "20%", "24%", "15%", "12.5%"];
 
 const mapsStatusToBadgeColors = {
     ACTIVE: "blue",
@@ -82,22 +82,17 @@ const TeamMembersTable: React.FC<TeamMembersTableProps> = ({ data }) => {
                                 </Typography>
                             </TableBodyCell>
                             <TableBodyCell>
-                                <Typography
-                                    variant="paragraphSM"
-                                    weight="medium"
-                                >
-                                    <Badge
-                                        color={
-                                            mapsStatusToBadgeColors[
-                                                teamMember.status
-                                            ] as BadgeColors
-                                        }
-                                        label={teamMember.status}
-                                        variant="outlined"
-                                        shape="rounded"
-                                        status
-                                    />
-                                </Typography>
+                                <Badge
+                                    color={
+                                        mapsStatusToBadgeColors[
+                                            teamMember.status
+                                        ] as BadgeColors
+                                    }
+                                    label={teamMember.status}
+                                    variant="outlined"
+                                    shape="rounded"
+                                    status
+                                />
                             </TableBodyCell>
                         </TableRow>
                     );
