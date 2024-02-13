@@ -2,8 +2,8 @@ import {
     AdminUser,
     Task,
     TaskStatus,
-    TeamMemberUser,
-    TeamMember
+    TeamMember,
+    TeamMemberUser
 } from "../../types";
 
 export enum Actions {
@@ -14,15 +14,9 @@ export enum Actions {
     CHANGE_TASK_STATUS = "CHANGE_TASK_STATUS",
     UPDATE_TASK = "UPDATE_TASK",
     REMOVE_TASK = "REMOVE_TASK",
+
     ADMIN_ADD_TEAM_MEMBER = "ADMIN_ADD_TEAM_MEMBER",
-    ADMIN_POPULATE_TEAM_MEMBERS = "ADMIN_POPULATE_TEAM_MEMBERS",
-    TEAM_MEMBER_INIT_USER = "TEAM_MEMBER_INIT_USER",
-    TEAM_MEMBER_RESET_STATE = "TEAM_MEMBER_RESET_STATE",
-    TEAM_MEMBER_POPULATE_TASKS = "TEAM_MEMBER_POPULATE_TASKS",
-    TEAM_MEMBER_ADD_TASK = "TEAM_MEMBER_ADD_TASK",
-    TEAM_MEMBER_CHANGE_TASK_STATUS = "TEAM_MEMBER_CHANGE_TASK_STATUS",
-    TEAM_MEMBER_UPDATE_TASK = "TEAM_MEMBER_UPDATE_TASK",
-    TEAM_MEMBER_REMOVE_TASK = "TEAM_MEMBER_REMOVE_TASK"
+    ADMIN_POPULATE_TEAM_MEMBERS = "ADMIN_POPULATE_TEAM_MEMBERS"
 }
 
 export interface InitUserAction {
@@ -63,6 +57,7 @@ export type RemoveTaskAction = {
         id: string;
     };
 };
+
 export type AdminAddTeamMemberAction = {
     type: Actions.ADMIN_ADD_TEAM_MEMBER;
     payload: TeamMember;
@@ -71,39 +66,6 @@ export type AdminAddTeamMemberAction = {
 export type AdminPopulateTeamMembersAction = {
     type: Actions.ADMIN_POPULATE_TEAM_MEMBERS;
     payload: TeamMember[];
-};
-export interface TeamMemberResetStateAction {
-    type: Actions.TEAM_MEMBER_RESET_STATE;
-}
-
-export interface TeamMemberPopulateTasksAction {
-    type: Actions.TEAM_MEMBER_POPULATE_TASKS;
-    payload: Task[];
-}
-
-export interface TeamMemberAddTaskAction {
-    type: Actions.TEAM_MEMBER_ADD_TASK;
-    payload: Task;
-}
-
-export type TeamMemberChangeTaskStatusAction = {
-    type: Actions.TEAM_MEMBER_CHANGE_TASK_STATUS;
-    payload: {
-        id: string;
-        status: TaskStatus;
-    };
-};
-
-export type TeamMemberUpdateTaskAction = {
-    type: Actions.TEAM_MEMBER_UPDATE_TASK;
-    payload: Task;
-};
-
-export type TeamMemberRemoveTaskAction = {
-    type: Actions.TEAM_MEMBER_REMOVE_TASK;
-    payload: {
-        id: string;
-    };
 };
 
 export type ActionType =
@@ -114,9 +76,5 @@ export type ActionType =
     | ChangeTaskStatusAction
     | UpdateTaskAction
     | RemoveTaskAction
-    | TeamMemberResetStateAction
-    | TeamMemberPopulateTasksAction
-    | TeamMemberAddTaskAction
-    | TeamMemberChangeTaskStatusAction
-    | TeamMemberUpdateTaskAction
-    | TeamMemberRemoveTaskAction;
+    | AdminAddTeamMemberAction
+    | AdminPopulateTeamMembersAction;

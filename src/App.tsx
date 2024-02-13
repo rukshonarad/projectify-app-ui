@@ -33,45 +33,6 @@ const App = () => {
             </Link>
 
             <Link to="team-member/platform">Team Member PLatform</Link>
-
-            <div>
-                <Checkbox
-                    label="Hello world"
-                    id="checkbox"
-                    checked={value}
-                    onChange={(value) => setValue(value)}
-                    shape="rounded"
-                />
-
-                <Switch
-                    checked={value}
-                    onSwitch={(value) => setValue(value)}
-                    shape="circle"
-                />
-                <LinearProgress
-                    value={40}
-                    color="red"
-                    shape="rounded"
-                    size="md"
-                />
-                <LinearProgress value={100} />
-                <LinearProgress value={40} color="green" error shape="sharp" />
-                <LinearProgress value={100} />
-                <LinearProgress
-                    value={70}
-                    color="blue"
-                    size="lg"
-                    shape="rounded"
-                />
-                <LinearProgress value={100} />
-                <LinearProgress
-                    value={40}
-                    color="red"
-                    size="lg"
-                    shape="rounded"
-                />
-                <LinearProgress value={100} />
-            </div>
         </div>
     );
 };

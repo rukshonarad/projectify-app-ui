@@ -38,7 +38,9 @@ export interface Task {
 }
 
 export type TeamMemberStatus = "ACTIVE" | "INACTIVE" | "DEACTIVATED";
+
 export type TaskStatus = "TODO" | "INPROGRESS" | "DONE";
+
 export interface TeamMember {
     id: string;
     status: TeamMemberStatus;
@@ -48,3 +50,11 @@ export interface TeamMember {
     email: string;
     joinDate: Date;
 }
+
+export interface Project {
+    id: string;
+    name: string;
+    description: string;
+    status: ProjectStatus;
+}
+export type ProjectStatus = "ACTIVE" | "ARCHIVED";

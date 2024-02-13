@@ -51,7 +51,7 @@ const TeamMemberCreatePassword = () => {
         try {
             setIsFormSubmitting(true);
 
-            const response = await teamMemberService.createPassword(
+            await teamMemberService.createPassword(
                 {
                     email,
                     password,
@@ -66,7 +66,7 @@ const TeamMemberCreatePassword = () => {
             setPassword("");
             setPasswordConfirm("");
 
-            toast.success(response.message);
+            toast.success("Success! You Can Sign In Now");
 
             setTimeout(() => {
                 navigate("../team-member/sign-in");

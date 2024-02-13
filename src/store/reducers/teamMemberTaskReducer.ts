@@ -3,34 +3,34 @@ import { produce } from "immer";
 import {
     ActionType,
     Actions,
-    TeamMemberAddTaskAction,
-    TeamMemberChangeTaskStatusAction,
-    TeamMemberPopulateTasksAction,
-    TeamMemberRemoveTaskAction,
-    TeamMemberUpdateTaskAction
+    AddTaskAction,
+    ChangeTaskStatusAction,
+    PopulateTasksAction,
+    RemoveTaskAction,
+    UpdateTaskAction
 } from "../actions";
 import { TaskState } from "../state";
 
 const teamMemberTasksReducer = produce(
     (draft: TaskState, action: ActionType): TaskState => {
         switch (action.type) {
-            case Actions.TEAM_MEMBER_POPULATE_TASKS: {
+            case Actions.POPULATE_TASKS: {
                 const payload =
-                    action.payload as TeamMemberPopulateTasksAction["payload"];
+                    action.payload as PopulateTasksAction["payload"];
                 return payload;
             }
-            case Actions.TEAM_MEMBER_ADD_TASK: {
-                const payload =
-                    action.payload as TeamMemberAddTaskAction["payload"];
+            case Actions.ADD_TASK: {
+                const payload = action.payload as AddTaskAction["payload"];
                 draft.push(payload);
                 return draft;
             }
-            case Actions.TEAM_MEMBER_CHANGE_TASK_STATUS: {
+            case Actions.CHANGE_TASK_STATUS: {
                 const payload =
-                    action.payload as TeamMemberChangeTaskStatusAction["payload"];
+                    action.payload as ChangeTaskStatusAction["payload"];
 
                 for (let i = 0; i < draft.length; i++) {
                     const task = draft[i];
+
                     if (task.id === payload.id) {
                         task.status = payload.status;
                         break;
@@ -39,9 +39,8 @@ const teamMemberTasksReducer = produce(
                 return draft;
             }
 
-            case Actions.TEAM_MEMBER_UPDATE_TASK: {
-                const payload =
-                    action.payload as TeamMemberUpdateTaskAction["payload"];
+            case Actions.UPDATE_TASK: {
+                const payload = action.payload as UpdateTaskAction["payload"];
                 for (let i = 0; i < draft.length; i++) {
                     const task = draft[i];
                     if (task.id === payload.id) {
@@ -49,16 +48,17 @@ const teamMemberTasksReducer = produce(
                         break;
                     }
                 }
+
                 return draft;
             }
-            case Actions.TEAM_MEMBER_REMOVE_TASK: {
-                const payload =
-                    action.payload as TeamMemberRemoveTaskAction["payload"];
+
+            case Actions.REMOVE_TASK: {
+                const payload = action.payload as RemoveTaskAction["payload"];
 
                 return draft.filter((task) => task.id !== payload.id);
             }
 
-            case Actions.TEAM_MEMBER_RESET_STATE: {
+            case Actions.RESET_STATE: {
                 return [];
             }
             default:
