@@ -81,8 +81,19 @@ export const router = createBrowserRouter(
 
                 <Route path="team-members" element={<AdminTeamMembersPage />} />
             </Route>
-
-            <Route path="team-member/sign-in" element={<TeamMemberSignIn />} />
+            <Route
+                path="team-member/create-password"
+                element={<TeamMemberCreatePassword />}
+            />
+            <Route
+                path="team-member/sign-in"
+                element={
+                    <Auth
+                        component={<TeamMemberSignIn />}
+                        userType={UserRole.teamMember}
+                    />
+                }
+            />
             <Route
                 path="team-member/forgot-password"
                 element={
@@ -101,15 +112,7 @@ export const router = createBrowserRouter(
                     />
                 }
             />
-            <Route
-                path="team-member/create-password"
-                element={
-                    <Auth
-                        component={<TeamMemberCreatePassword />}
-                        userType={UserRole.teamMember}
-                    />
-                }
-            />
+
             <Route
                 path="team-member/platform"
                 element={
