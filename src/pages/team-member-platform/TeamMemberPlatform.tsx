@@ -58,7 +58,7 @@ const Platform = () => {
     const logOut = () => {
         removeItem("authToken");
         removeItem("userRole");
-        dispatch({ type: Actions.TEAM_MEMBER_RESET_STATE });
+        dispatch({ type: Actions.RESET_STATE });
         navigate("/team-member/sign-in");
     };
 
