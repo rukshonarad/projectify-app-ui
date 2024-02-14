@@ -14,13 +14,14 @@ type TeamMembersTableProps = {
     data: TeamMember[];
 };
 
-const columns = ["15%", "15%", "20%", "24%", "15%", "12.5%"];
+const columns = ["15%", "15%", "25%", "25%", "15%", "12.5%"];
 
 const mapsStatusToBadgeColors = {
-    ACTIVE: "blue",
+    ACTIVE: "violet",
     INACTIVE: "gray",
     DEACTIVATED: "red"
 };
+
 const TeamMembersTable: React.FC<TeamMembersTableProps> = ({ data }) => {
     return (
         <Table>
@@ -82,17 +83,22 @@ const TeamMembersTable: React.FC<TeamMembersTableProps> = ({ data }) => {
                                 </Typography>
                             </TableBodyCell>
                             <TableBodyCell>
-                                <Badge
-                                    color={
-                                        mapsStatusToBadgeColors[
-                                            teamMember.status
-                                        ] as BadgeColors
-                                    }
-                                    label={teamMember.status}
-                                    variant="outlined"
-                                    shape="rounded"
-                                    status
-                                />
+                                <Typography
+                                    variant="paragraphSM"
+                                    weight="medium"
+                                >
+                                    <Badge
+                                        color={
+                                            mapsStatusToBadgeColors[
+                                                teamMember.status
+                                            ] as BadgeColors
+                                        }
+                                        label={teamMember.status}
+                                        variant="outlined"
+                                        shape="rounded"
+                                        status
+                                    />
+                                </Typography>
                             </TableBodyCell>
                         </TableRow>
                     );
