@@ -1,6 +1,12 @@
 import styled, { css } from "styled-components";
 import { KanbanCardProps } from "./types";
-import { Badge, Bar, Menu, Typography } from "../../../design-system";
+import {
+    Badge,
+    Bar,
+    LinearProgress,
+    Menu,
+    Typography
+} from "../../../design-system";
 import { format } from "date-fns";
 import { useState } from "react";
 
@@ -85,7 +91,7 @@ const KanbanCard: React.FC<KanbanCardProps> = ({
         >
             <KanbanCardHeader>
                 <Bar color={StatusToColor[task.status]} />
-                <Menu items={menuActions} onSelect={handleOnSelectMenuItem} />
+                <Menu options={menuActions} onSelect={handleOnSelectMenuItem} />
             </KanbanCardHeader>
             <div>
                 <TaskTitle variant="paragraphLG" weight="semibold">
