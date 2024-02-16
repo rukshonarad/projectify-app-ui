@@ -14,9 +14,11 @@ import {
     TableHeadCell,
     TableRow
 } from "../../../design-system/Table";
-import { TeamMember, TeamMemberStatus } from "../../../types";
+import { TeamMember } from "../../../types";
 import { useState } from "react";
 import { DeleteTeamMemberModal } from "./DeleteTeamMemberModal";
+
+import { EditTeamMemberModal } from "./EditTeamMemberModal";
 
 type TeamMembersTableProps = {
     data: TeamMember[];
@@ -24,10 +26,9 @@ type TeamMembersTableProps = {
 
 enum TeamMemberActions {
     edit = "edit",
-    delete = "delete",
-    reactivate = "reactivate",
-    deactivate = "deactivate"
+    delete = "delete"
 }
+
 const options: MenuOption[] = [
     { label: "Edit", iconName: "edit", value: "edit", color: "primary" },
     {
@@ -60,6 +61,8 @@ const mapsStatusToBadgeColors = {
 
 const TeamMembersTable: React.FC<TeamMembersTableProps> = ({ data }) => {
     const [selectedTeamMemberId, setSelectedTeamMemberId] = useState("");
+    const [showEditTeamMemberModal, setShowEditTeamMemberModal] =
+        useState(false);
     const [showDeleteTeamMemberModal, setShowDeleteTeamMemberModal] =
         useState(false);
 
@@ -68,14 +71,15 @@ const TeamMembersTable: React.FC<TeamMembersTableProps> = ({ data }) => {
         action: TeamMemberActions
     ) => {
         setSelectedTeamMemberId(teamMemberId);
+        if (action === "edit") {
+            setShowEditTeamMemberModal(true);
+        }
         if (action === "delete") {
             setShowDeleteTeamMemberModal(true);
         }
     };
-
     return (
         <>
-            {" "}
             <Table>
                 <TableHead>
                     <TableRow columns={columns}>
@@ -170,6 +174,11 @@ const TeamMembersTable: React.FC<TeamMembersTableProps> = ({ data }) => {
                 show={showDeleteTeamMemberModal}
                 teamMemberId={selectedTeamMemberId}
                 closeModal={() => setShowDeleteTeamMemberModal(false)}
+            />{" "}
+            <EditTeamMemberModal
+                show={showEditTeamMemberModal}
+                closeModal={() => setShowEditTeamMemberModal(false)}
+                teamMemberId={selectedTeamMemberId}
             />
         </>
     );

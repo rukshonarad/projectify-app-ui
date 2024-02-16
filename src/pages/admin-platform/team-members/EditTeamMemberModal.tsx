@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { parseISO } from "date-fns";
 import {
     Modal,
     Typography,
@@ -9,11 +10,11 @@ import {
     Select
 } from "../../../design-system";
 import { useStore } from "../../../hooks";
+import { TeamMemberStatus } from "../../../types";
 import { TeamMemberUpdateInput, teamMemberService } from "../../../api";
 import toast from "react-hot-toast";
 import { Actions, AdminUpdateTeamMemberAction } from "../../../store";
 import { positions } from "./CreateTeamMemberModal";
-import { TeamMemberStatus } from "../../../types";
 
 type EditTeamMemberModalProps = {
     show: boolean;
@@ -21,7 +22,7 @@ type EditTeamMemberModalProps = {
     teamMemberId: string;
 };
 
-const ModalTitle = styled(Typography)`
+const EditTeamMemberModalTitle = styled(Typography)`
     margin-bottom: var(--space-24);
 `;
 
@@ -36,6 +37,7 @@ const Buttons = styled.div`
     display: flex;
     gap: var(--space-10);
 `;
+
 const EditTeamMemberModal: React.FC<EditTeamMemberModalProps> = ({
     show,
     closeModal,
@@ -43,7 +45,7 @@ const EditTeamMemberModal: React.FC<EditTeamMemberModalProps> = ({
 }) => {
     const {
         dispatch,
-        state: { teamMembers }
+        state: { adminTeamMembers }
     } = useStore();
 
     const [firstName, setFirstName] = useState("");
@@ -55,7 +57,7 @@ const EditTeamMemberModal: React.FC<EditTeamMemberModalProps> = ({
     const [isFormSubmitting, setIsFormSubmitting] = useState(false);
 
     useEffect(() => {
-        const teamMember = teamMembers.find(
+        const teamMember = adminTeamMembers.find(
             (teamMember) => teamMember.id === teamMemberId
         );
 
@@ -65,7 +67,7 @@ const EditTeamMemberModal: React.FC<EditTeamMemberModalProps> = ({
             setEmail(teamMember.email);
             setStatus(teamMember.status);
             setPosition(teamMember.position);
-            setJoinDate(teamMember.joinDate);
+            setJoinDate(parseISO((teamMember?.joinDate).toString()));
         }
     }, [teamMemberId]);
 
@@ -73,13 +75,13 @@ const EditTeamMemberModal: React.FC<EditTeamMemberModalProps> = ({
         const updatedTeamMember: TeamMemberUpdateInput = {
             firstName: firstName,
             lastName: lastName,
-            email: email,
             position: position,
+            email: email,
             joinDate: joinDate
         };
         setIsFormSubmitting(true);
         teamMemberService
-            .updateTeamMember(teamMemberId, updatedTeamMember)
+            .update(teamMemberId, updatedTeamMember)
             .then((_) => {
                 setIsFormSubmitting(false);
                 const action: AdminUpdateTeamMemberAction = {
@@ -96,7 +98,6 @@ const EditTeamMemberModal: React.FC<EditTeamMemberModalProps> = ({
                 };
                 dispatch(action);
                 closeModal();
-                toast.success("Team Member has been successfully updated");
             })
             .catch((e) => {
                 const err = e as Error;
@@ -107,9 +108,9 @@ const EditTeamMemberModal: React.FC<EditTeamMemberModalProps> = ({
 
     return (
         <Modal show={show} position="center">
-            <ModalTitle variant="paragraphLG" weight="medium">
+            <EditTeamMemberModalTitle variant="paragraphLG" weight="medium">
                 Edit Team Member
-            </ModalTitle>
+            </EditTeamMemberModalTitle>
             <Inputs>
                 <Input
                     value={firstName}
@@ -140,7 +141,7 @@ const EditTeamMemberModal: React.FC<EditTeamMemberModalProps> = ({
                 <DatePickerV1
                     inputSize="lg"
                     shape="rounded"
-                    placeholder="Select Join Date"
+                    placeholder="Join Date"
                     selected={joinDate}
                     onChange={(date) => setJoinDate(date)}
                 />
@@ -165,7 +166,7 @@ const EditTeamMemberModal: React.FC<EditTeamMemberModalProps> = ({
                     onClick={updateTeamMember}
                     disabled={isFormSubmitting}
                 >
-                    Save
+                    Update
                 </Button>
             </Buttons>
         </Modal>
