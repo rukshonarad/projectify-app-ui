@@ -35,9 +35,15 @@ const adminTeamMembersReducer = produce(
                 const payload =
                     action.payload as AdminUpdateTeamMemberAction["payload"];
 
-                return draft.filter(
-                    (teamMember) => teamMember.id !== payload.id
-                );
+                for (let i = 0; i < draft.length; i++) {
+                    const teamMember = draft[i];
+
+                    if (teamMember.id === payload.id) {
+                        draft[i] = payload;
+                        break;
+                    }
+                }
+                return draft;
             }
             default:
                 return draft;

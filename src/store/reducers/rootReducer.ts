@@ -9,6 +9,10 @@ const rootReducer = (state: GlobalState, action: ActionType): GlobalState => {
     const newState: GlobalState = {
         user: userReducer(state.user, action),
         adminPersonalTasks: adminTasksReducer(state.adminPersonalTasks, action),
+        adminTeamMembers: adminTeamMembersReducer(
+            state.adminTeamMembers,
+            action
+        ),
         teamMembers: adminTeamMembersReducer(state.teamMembers, action),
         teamMemberPersonalTasks: teamMemberTasksReducer(
             state.teamMemberPersonalTasks,
