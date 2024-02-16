@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 import { PageHeader } from "../../components/";
 import { TeamMemberFilters } from "./TeamMemberFilters";
 import { TeamMembersTable } from "./TeamMembersTable";
+import { EditTaskModal } from "../../team-member-platform/personal-tasks/EditTaskModal";
 
 const AdminTeamMembersPage = () => {
     const [showCreateTeamMemberModal, setShowCreateTeamMemberModal] =
