@@ -5,7 +5,8 @@ import {
     Actions,
     AdminPopulateTeamMembersAction,
     AdminAddTeamMemberAction,
-    AdminRemoveTeamMemberAction
+    AdminRemoveTeamMemberAction,
+    AdminUpdateTeamMemberAction
 } from "../actions";
 
 const adminTeamMembersReducer = produce(
@@ -25,6 +26,14 @@ const adminTeamMembersReducer = produce(
             case Actions.ADMIN_REMOVE_TEAM_MEMBER: {
                 const payload =
                     action.payload as AdminRemoveTeamMemberAction["payload"];
+
+                return draft.filter(
+                    (teamMember) => teamMember.id !== payload.id
+                );
+            }
+            case Actions.ADMIN_UPDATE_TEAM_MEMBER: {
+                const payload =
+                    action.payload as AdminUpdateTeamMemberAction["payload"];
 
                 return draft.filter(
                     (teamMember) => teamMember.id !== payload.id
