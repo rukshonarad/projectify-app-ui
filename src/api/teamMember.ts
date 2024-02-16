@@ -211,7 +211,7 @@ class TeamMemberService {
             throw error;
         }
     }
-    async updateTeamMember(teamMemberId: string, input: TeamMemberUpdateInput) {
+    async update(teamMemberId: string, input: TeamMemberUpdateInput) {
         try {
             const rawAuthToken = localStorage.getItem("authToken");
             const authToken = rawAuthToken ? JSON.parse(rawAuthToken) : "";
