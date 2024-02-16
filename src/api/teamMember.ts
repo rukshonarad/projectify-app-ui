@@ -24,7 +24,13 @@ type CreateInputResponse = {
 type GetAllTeamMembersResponse = {
     data: TeamMember[];
 };
-
+export type TeamMemberUpdateInput = {
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    position?: string;
+    joinDate?: Date;
+};
 class TeamMemberService {
     url: string;
     constructor() {
@@ -197,6 +203,27 @@ class TeamMemberService {
                 }
             });
 
+            if (!response.ok) {
+                const data = await response.json();
+                throw new Error(data.message);
+            }
+        } catch (error) {
+            throw error;
+        }
+    }
+    async updateTeamMember(teamMemberId: string, input: TeamMemberUpdateInput) {
+        try {
+            const rawAuthToken = localStorage.getItem("authToken");
+            const authToken = rawAuthToken ? JSON.parse(rawAuthToken) : "";
+
+            const response = await fetch(`${this.url}/${teamMemberId}/update`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    authorization: `Bearer ${authToken}`
+                },
+                body: JSON.stringify(input)
+            });
             if (!response.ok) {
                 const data = await response.json();
                 throw new Error(data.message);
