@@ -3,6 +3,7 @@ import {
     Task,
     TaskStatus,
     TeamMember,
+    TeamMemberStatus,
     TeamMemberUser
 } from "../../types";
 
@@ -18,7 +19,9 @@ export enum Actions {
     ADMIN_ADD_TEAM_MEMBER = "ADMIN_ADD_TEAM_MEMBER",
     ADMIN_POPULATE_TEAM_MEMBERS = "ADMIN_POPULATE_TEAM_MEMBERS",
     ADMIN_REMOVE_TEAM_MEMBER = "ADMIN_REMOVE_TEAM_MEMBER",
-    ADMIN_UPDATE_TEAM_MEMBER = "  ADMIN_UPDATE_TEAM_MEMBER"
+    ADMIN_DEACTIVATE_TEAM_MEMBER = "ADMIN_DEACTIVATE_TEAM_MEMBER",
+    ADMIN_REACTIVATE_TEAM_MEMBER = "ADMIN_REACTIVATE_TEAM_MEMBER",
+    ADMIN_UPDATE_TEAM_MEMBER = "ADMIN_UPDATE_TEAM_MEMBER"
 }
 
 export interface InitUserAction {
@@ -69,16 +72,35 @@ export type AdminPopulateTeamMembersAction = {
     type: Actions.ADMIN_POPULATE_TEAM_MEMBERS;
     payload: TeamMember[];
 };
+
 export type AdminRemoveTeamMemberAction = {
     type: Actions.ADMIN_REMOVE_TEAM_MEMBER;
     payload: {
         id: string;
     };
 };
+
+export type AdminDeactivateTeamMemberAction = {
+    type: Actions.ADMIN_DEACTIVATE_TEAM_MEMBER;
+    payload: {
+        id: string;
+        status: TeamMemberStatus;
+    };
+};
+
+export type AdminReactivateTeamMemberAction = {
+    type: Actions.ADMIN_REACTIVATE_TEAM_MEMBER;
+    payload: {
+        id: string;
+        status: TeamMemberStatus;
+    };
+};
+
 export type AdminUpdateTeamMemberAction = {
     type: Actions.ADMIN_UPDATE_TEAM_MEMBER;
     payload: TeamMember;
 };
+
 export type ActionType =
     | InitUserAction
     | ResetStateAction
@@ -90,4 +112,6 @@ export type ActionType =
     | AdminAddTeamMemberAction
     | AdminPopulateTeamMembersAction
     | AdminRemoveTeamMemberAction
+    | AdminDeactivateTeamMemberAction
+    | AdminReactivateTeamMemberAction
     | AdminUpdateTeamMemberAction;
