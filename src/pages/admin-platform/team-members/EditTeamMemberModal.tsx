@@ -54,6 +54,9 @@ const EditTeamMemberModal: React.FC<EditTeamMemberModalProps> = ({
     const [position, setPosition] = useState("");
     const [status, setStatus] = useState<TeamMemberStatus>();
     const [joinDate, setJoinDate] = useState<Date>();
+    // const [password, setPassword] = useState("");
+    // const [newassword, setNewPassword] = useState("");
+    // const [newPasswordConfirm, setNewPasswordConfirm] = useState("");
     const [isFormSubmitting, setIsFormSubmitting] = useState(false);
 
     useEffect(() => {
