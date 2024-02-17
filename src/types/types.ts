@@ -43,12 +43,12 @@ export type TaskStatus = "TODO" | "INPROGRESS" | "DONE";
 
 export interface TeamMember {
     id: string;
+    status: TeamMemberStatus;
     firstName: string;
     lastName: string;
     position: string;
     email: string;
     joinDate: Date;
-    status: TeamMemberStatus;
 }
 
 export interface Project {
