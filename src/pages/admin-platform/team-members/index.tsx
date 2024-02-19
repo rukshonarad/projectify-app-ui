@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Page, PageContent } from "../../components/Layout";
 import { NoDataPlaceholder } from "../../components";
 import { CreateTeamMemberModal } from "./CreateTeamMemberModal";
 import noTeamMember from "../../../assets/illustrations/member.svg";
@@ -10,12 +9,15 @@ import toast from "react-hot-toast";
 import { PageHeader } from "../../components/";
 import { TeamMemberFilters } from "./TeamMemberFilters";
 import { TeamMembersTable } from "./TeamMembersTable";
-import { EditTaskModal } from "../../team-member-platform/personal-tasks/EditTaskModal";
+import { Option } from "../../../design-system";
+import { TeamMemberStatus } from "../../../types";
 
 const AdminTeamMembersPage = () => {
     const [showCreateTeamMemberModal, setShowCreateTeamMemberModal] =
         useState(false);
     const [isTeamMembersFetching, setIsTeamMembersFetching] = useState(true);
+    const [statusFilter, setStatusFilter] = useState("");
+
     const {
         state: { teamMembers },
         dispatch
@@ -39,11 +41,23 @@ const AdminTeamMembersPage = () => {
             });
     }, []);
 
+    const handleSetStatusFilter = (filter: Option) => {
+        setStatusFilter(filter.value as TeamMemberStatus);
+    };
+
     if (isTeamMembersFetching) return null;
 
+    const teamMembersArr = Object.values(teamMembers);
+    const filteredTeamMembers = teamMembersArr.filter(
+        (teamMember) =>
+            teamMember.status === statusFilter ||
+            statusFilter === "all" ||
+            statusFilter === ""
+    );
+
     return (
-        <Page>
-            {!teamMembers.length ? (
+        <>
+            {!teamMembersArr.length ? (
                 <NoDataPlaceholder
                     illustrationUrl={noTeamMember}
                     text="You don’t have any team members yet!"
@@ -51,7 +65,7 @@ const AdminTeamMembersPage = () => {
                     buttonAction={() => setShowCreateTeamMemberModal(true)}
                 ></NoDataPlaceholder>
             ) : (
-                <PageContent>
+                <>
                     <PageHeader
                         pageTitle="Team Members"
                         actionButtonText="Create A Member"
@@ -59,16 +73,19 @@ const AdminTeamMembersPage = () => {
                             setShowCreateTeamMemberModal(true)
                         }
                     />
-                    <TeamMemberFilters />
-                    <TeamMembersTable data={teamMembers} />
-                </PageContent>
+                    <TeamMemberFilters
+                        setSelectedStatus={handleSetStatusFilter}
+                        selectedStatus={statusFilter}
+                    />
+                    <TeamMembersTable data={filteredTeamMembers} />
+                </>
             )}
 
             <CreateTeamMemberModal
                 show={showCreateTeamMemberModal}
                 closeModal={() => setShowCreateTeamMemberModal(false)}
             />
-        </Page>
+        </>
     );
 };
 

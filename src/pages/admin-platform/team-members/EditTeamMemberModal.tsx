@@ -15,7 +15,7 @@ import { TeamMemberUpdateInput, teamMemberService } from "../../../api";
 import toast from "react-hot-toast";
 import { Actions, AdminUpdateTeamMemberAction } from "../../../store";
 import { positions } from "./CreateTeamMemberModal";
-
+import { toDateObj, toIso8601 } from "../../../utils";
 type EditTeamMemberModalProps = {
     show: boolean;
     closeModal: () => void;
@@ -45,7 +45,7 @@ const EditTeamMemberModal: React.FC<EditTeamMemberModalProps> = ({
 }) => {
     const {
         dispatch,
-        state: { adminTeamMembers }
+        state: { teamMembers }
     } = useStore();
 
     const [firstName, setFirstName] = useState("");
@@ -60,9 +60,7 @@ const EditTeamMemberModal: React.FC<EditTeamMemberModalProps> = ({
     const [isFormSubmitting, setIsFormSubmitting] = useState(false);
 
     useEffect(() => {
-        const teamMember = adminTeamMembers.find(
-            (teamMember) => teamMember.id === teamMemberId
-        );
+        const teamMember = teamMembers[teamMemberId];
 
         if (teamMember) {
             setFirstName(teamMember.firstName);
@@ -80,7 +78,7 @@ const EditTeamMemberModal: React.FC<EditTeamMemberModalProps> = ({
             lastName: lastName,
             position: position,
             email: email,
-            joinDate: joinDate
+            joinDate: toIso8601(joinDate!)
         };
         setIsFormSubmitting(true);
         teamMemberService
@@ -91,16 +89,18 @@ const EditTeamMemberModal: React.FC<EditTeamMemberModalProps> = ({
                     type: Actions.ADMIN_UPDATE_TEAM_MEMBER,
                     payload: {
                         id: teamMemberId,
-                        status: status!,
-                        firstName: firstName,
+
                         lastName: lastName,
+                        firstName: firstName,
+                        status: teamMemberId,
                         email: email,
                         position: position,
-                        joinDate: joinDate as Date
+                        joinDate: toIso8601(joinDate!)
                     }
                 };
                 dispatch(action);
                 closeModal();
+                toast.success("Team Member has been successfully updated");
             })
             .catch((e) => {
                 const err = e as Error;
@@ -133,14 +133,15 @@ const EditTeamMemberModal: React.FC<EditTeamMemberModalProps> = ({
                     shape="rounded"
                     size="lg"
                 />
-                <Select
-                    options={positions}
-                    onSelect={(option) => setPosition(option.label)}
+                <Input
+                    type="text"
+                    placeholder="Position"
                     value={position}
-                    size="lg"
+                    onChange={(value) => setPosition(value)}
                     shape="rounded"
-                    headerPlaceholder="Select Position"
+                    size="lg"
                 />
+
                 <DatePickerV1
                     inputSize="lg"
                     shape="rounded"

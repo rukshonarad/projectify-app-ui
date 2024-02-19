@@ -13,7 +13,7 @@ import {
 import { useStore } from "../../../hooks";
 import { Actions, AdminAddTeamMemberAction } from "../../../store";
 import { teamMemberService } from "../../../api";
-
+import { toIso8601 } from "../../../utils";
 type ModalProps = {
     show: boolean;
     closeModal: () => void;
@@ -94,7 +94,7 @@ const CreateTeamMemberModal: React.FC<ModalProps> = ({ show, closeModal }) => {
             firstName,
             lastName,
             email,
-            joinDate: joinDate!,
+            joinDate: toIso8601(joinDate!),
             position: position?.value as string
         };
         try {
@@ -157,6 +157,7 @@ const CreateTeamMemberModal: React.FC<ModalProps> = ({ show, closeModal }) => {
                     size="lg"
                     shape="rounded"
                     headerPlaceholder="Select Position"
+                    searchable
                 />
                 <DatePickerV1
                     inputSize="lg"
