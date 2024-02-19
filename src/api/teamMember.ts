@@ -1,4 +1,8 @@
-import { TeamMember, TeamMemberUser } from "../types";
+import {
+    TeamMember,
+    TeamMemberUser,
+    AdminTeamMemberStatusChange
+} from "../types";
 
 interface CreatePasswordInput {
     email: string;
@@ -29,7 +33,7 @@ export type TeamMemberUpdateInput = {
     lastName?: string;
     email?: string;
     position?: string;
-    joinDate?: Date;
+    joinDate?: string;
 };
 class TeamMemberService {
     url: string;
@@ -271,6 +275,31 @@ class TeamMemberService {
                     }
                 }
             );
+            if (!response.ok) {
+                const data = await response.json();
+                throw new Error(data.message);
+            }
+        } catch (error) {
+            throw error;
+        }
+    }
+    async changeStatus(
+        teamMemberId: string,
+        changeStatus: AdminTeamMemberStatusChange
+    ) {
+        const rawAuthToken = localStorage.getItem("authToken");
+        const authToken = rawAuthToken ? JSON.parse(rawAuthToken) : "";
+        try {
+            const response = await fetch(
+                `${this.url}/${teamMemberId}/${changeStatus}`,
+                {
+                    method: "PATCH",
+                    headers: {
+                        authorization: `Bearer ${authToken}`
+                    }
+                }
+            );
+
             if (!response.ok) {
                 const data = await response.json();
                 throw new Error(data.message);
