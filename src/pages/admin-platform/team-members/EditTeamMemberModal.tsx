@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import toast from "react-hot-toast";
 import { parseISO } from "date-fns";
 import {
     Modal,
@@ -7,14 +8,13 @@ import {
     Button,
     Input,
     DatePickerV1,
-    Select
+    Icon
 } from "../../../design-system";
 import { useStore } from "../../../hooks";
-import { TeamMemberStatus } from "../../../types";
-import { TeamMemberUpdateInput, teamMemberService } from "../../../api";
-import toast from "react-hot-toast";
+
+import { teamMemberService } from "../../../api";
 import { Actions, AdminUpdateTeamMemberAction } from "../../../store";
-import { positions } from "./CreateTeamMemberModal";
+import { ChangePasswordModal } from "./ChangePasswordModal";
 import { toDateObj, toIso8601 } from "../../../utils";
 type EditTeamMemberModalProps = {
     show: boolean;
@@ -33,6 +33,25 @@ const Inputs = styled.div`
     margin-bottom: var(--space-24);
 `;
 
+const ActionLink = styled.div`
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: var(--space-24);
+    align-items: center;
+    cursor: pointer;
+
+    .plus-icon {
+        fill: var(--primary-500);
+        height: 1.6rem;
+        width: 1.6rem;
+        margin-right: 0.6rem;
+    }
+
+    .update-password__link {
+        color: var(--primary-500);
+    }
+`;
+
 const Buttons = styled.div`
     display: flex;
     gap: var(--space-10);
@@ -43,21 +62,18 @@ const EditTeamMemberModal: React.FC<EditTeamMemberModalProps> = ({
     closeModal,
     teamMemberId
 }) => {
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [position, setPosition] = useState("");
+    const [joinDate, setJoinDate] = useState<Date>();
     const {
         dispatch,
         state: { teamMembers }
     } = useStore();
 
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [email, setEmail] = useState("");
-    const [position, setPosition] = useState("");
-    const [status, setStatus] = useState<TeamMemberStatus>();
-    const [joinDate, setJoinDate] = useState<Date>();
-    // const [password, setPassword] = useState("");
-    // const [newassword, setNewPassword] = useState("");
-    // const [newPasswordConfirm, setNewPasswordConfirm] = useState("");
-    const [isFormSubmitting, setIsFormSubmitting] = useState(false);
+    const [selectedTeamMemberId, setSelectedTeamMemberId] = useState("");
+    const [showChangePasswordModal, setShowChangePasswordModal] =
+        useState(false);
 
     useEffect(() => {
         const teamMember = teamMembers[teamMemberId];
@@ -65,38 +81,30 @@ const EditTeamMemberModal: React.FC<EditTeamMemberModalProps> = ({
         if (teamMember) {
             setFirstName(teamMember.firstName);
             setLastName(teamMember.lastName);
-            setEmail(teamMember.email);
-            setStatus(teamMember.status);
             setPosition(teamMember.position);
-            setJoinDate(parseISO((teamMember?.joinDate).toString()));
+            setJoinDate(parseISO(teamMember?.joinDate.toString()));
         }
     }, [teamMemberId]);
 
+    const handleOnClickUpdatePassword = (teamMemberId: string) => {
+        setSelectedTeamMemberId(teamMemberId);
+        setShowChangePasswordModal(true);
+    };
+
     const updateTeamMember = () => {
-        const updatedTeamMember: TeamMemberUpdateInput = {
+        const updatedTeamMember = {
             firstName: firstName,
             lastName: lastName,
             position: position,
-            email: email,
             joinDate: toIso8601(joinDate!)
         };
-        setIsFormSubmitting(true);
+
         teamMemberService
             .update(teamMemberId, updatedTeamMember)
             .then((_) => {
-                setIsFormSubmitting(false);
                 const action: AdminUpdateTeamMemberAction = {
                     type: Actions.ADMIN_UPDATE_TEAM_MEMBER,
-                    payload: {
-                        id: teamMemberId,
-
-                        lastName: lastName,
-                        firstName: firstName,
-                        status: teamMemberId,
-                        email: email,
-                        position: position,
-                        joinDate: toIso8601(joinDate!)
-                    }
+                    payload: { data: updatedTeamMember, id: teamMemberId }
                 };
                 dispatch(action);
                 closeModal();
@@ -104,7 +112,6 @@ const EditTeamMemberModal: React.FC<EditTeamMemberModalProps> = ({
             })
             .catch((e) => {
                 const err = e as Error;
-                setIsFormSubmitting(true);
                 toast.error(err.message);
             });
     };
@@ -116,20 +123,18 @@ const EditTeamMemberModal: React.FC<EditTeamMemberModalProps> = ({
             </EditTeamMemberModalTitle>
             <Inputs>
                 <Input
+                    type="text"
+                    placeholder="First Name"
                     value={firstName}
                     onChange={(value) => setFirstName(value)}
                     shape="rounded"
                     size="lg"
                 />
                 <Input
+                    type="text"
+                    placeholder="Last Name"
                     value={lastName}
                     onChange={(value) => setLastName(value)}
-                    shape="rounded"
-                    size="lg"
-                />
-                <Input
-                    value={email}
-                    onChange={(value) => setEmail(value)}
                     shape="rounded"
                     size="lg"
                 />
@@ -141,7 +146,6 @@ const EditTeamMemberModal: React.FC<EditTeamMemberModalProps> = ({
                     shape="rounded"
                     size="lg"
                 />
-
                 <DatePickerV1
                     inputSize="lg"
                     shape="rounded"
@@ -150,6 +154,22 @@ const EditTeamMemberModal: React.FC<EditTeamMemberModalProps> = ({
                     onChange={(date) => setJoinDate(date)}
                 />
             </Inputs>
+            <ActionLink
+                onClick={() => handleOnClickUpdatePassword(teamMemberId)}
+            >
+                <Icon iconName="plus" className="plus-icon" />
+                <Typography
+                    variant="paragraphSM"
+                    className="update-password__link"
+                >
+                    Update Password
+                </Typography>
+                <ChangePasswordModal
+                    show={showChangePasswordModal}
+                    teamMemberId={selectedTeamMemberId}
+                    closeModal={() => setShowChangePasswordModal(false)}
+                />
+            </ActionLink>
             <Buttons>
                 <Button
                     color="secondary"
@@ -158,7 +178,6 @@ const EditTeamMemberModal: React.FC<EditTeamMemberModalProps> = ({
                     variant="outlined"
                     fullWidth
                     onClick={closeModal}
-                    disabled={isFormSubmitting}
                 >
                     Cancel
                 </Button>
@@ -168,9 +187,8 @@ const EditTeamMemberModal: React.FC<EditTeamMemberModalProps> = ({
                     color="primary"
                     fullWidth
                     onClick={updateTeamMember}
-                    disabled={isFormSubmitting}
                 >
-                    Update
+                    Save
                 </Button>
             </Buttons>
         </Modal>

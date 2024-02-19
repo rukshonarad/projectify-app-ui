@@ -146,7 +146,9 @@ const TeamMembersTable: React.FC<TeamMembersTableProps> = ({ data }) => {
                                         weight="medium"
                                     >
                                         {format(
-                                            toDateObj(teamMember.joinDate),
+                                            toDateObj(
+                                                teamMember.joinDate.toString()
+                                            ),
                                             "MMM d, yyyy"
                                         )}
                                     </Typography>
