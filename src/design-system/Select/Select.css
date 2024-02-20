@@ -149,7 +149,7 @@
 }
 
 .select__items::-webkit-scrollbar {
-    width: 0.4rem;
+    width: 0.6rem;
     border-radius: var(--border-radius-0);
 }
 
