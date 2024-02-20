@@ -1,4 +1,5 @@
 import format from "date-fns/format";
+import styled from "styled-components";
 import {
     Badge,
     BadgeColors,
@@ -19,15 +20,19 @@ import {
     AdminTeamMemberActions,
     AdminTeamMemberStatusChange
 } from "../../../types";
+
 import { useState } from "react";
 import { DeleteTeamMemberModal } from "./DeleteTeamMemberModal";
 import { toDateObj } from "../../../utils";
 import { EditTeamMemberModal } from "./EditTeamMemberModal";
 import { ChangeTeamMemberStatusModal } from "./ChangeTeamMemberStatusModal";
-
+import { Scrollable } from "../../components";
 type TeamMembersTableProps = {
     data: TeamMember[];
 };
+const TableContainer = styled(Scrollable)`
+    height: calc(100% - 13rem);
+`;
 
 const options: MenuOption[] = [
     { label: "Edit", iconName: "edit", value: "edit", color: "primary" },
@@ -91,7 +96,7 @@ const TeamMembersTable: React.FC<TeamMembersTableProps> = ({ data }) => {
     };
 
     return (
-        <>
+        <TableContainer>
             <Table>
                 <TableHead>
                     <TableRow columns={columns}>
@@ -200,7 +205,7 @@ const TeamMembersTable: React.FC<TeamMembersTableProps> = ({ data }) => {
                 closeModal={() => setShowChangeTeamMemberStatusModal(false)}
                 changeStatus={changeStatus!}
             />
-        </>
+        </TableContainer>
     );
 };
 
