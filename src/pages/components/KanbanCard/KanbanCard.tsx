@@ -10,7 +10,7 @@ import {
 import { format } from "date-fns";
 import { useState } from "react";
 
-const KanbanCardBase = styled.div<{ $isDragging: boolean }>`
+export const KanbanCardBase = styled.div<{ $isDragging: boolean }>`
     background-color: var(--white);
     padding: var(--space-16);
     border-radius: var(--border-radius-16);
