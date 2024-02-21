@@ -11,17 +11,6 @@ import { CreateTaskModal } from "./CreateTaskModal";
 import { Kanban } from "./Kanban";
 import { PageHeader } from "./PageHeader";
 
-const PageBase = styled.main`
-    position: relative;
-    width: 100%;
-    height: 100%;
-`;
-
-const PageContent = styled.section`
-    width: 80%;
-    margin: 0 auto;
-`;
-
 const TeamMemberTasksPage = () => {
     const [isTasksFetching, setIsTasksFetching] = useState(true);
 
@@ -56,7 +45,7 @@ const TeamMemberTasksPage = () => {
     const groupedTasks = groupTasksByStatus(teamMemberPersonalTasks);
 
     return (
-        <PageBase>
+        <>
             {!teamMemberPersonalTasks.length ? (
                 <NoDataPlaceholder
                     illustrationUrl={noTask}
@@ -65,18 +54,18 @@ const TeamMemberTasksPage = () => {
                     buttonAction={() => setShowCreateTaskModal(true)}
                 />
             ) : (
-                <PageContent>
+                <>
                     <PageHeader
                         openCreateTaskModal={() => setShowCreateTaskModal(true)}
                     />
                     <Kanban groupedTasks={groupedTasks} />
-                </PageContent>
+                </>
             )}
             <CreateTaskModal
                 show={showCreateTaskModal}
                 closeModal={() => setShowCreateTaskModal(false)}
             />
-        </PageBase>
+        </>
     );
 };
 

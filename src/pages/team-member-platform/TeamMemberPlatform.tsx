@@ -5,9 +5,10 @@ import {
     SideBarLinksGroup,
     Toaster
 } from "../../design-system";
-import { AppContent, AppLayout, SideBarUser } from "../components";
+import { AppLayout, SideBarUser } from "../components";
 import { Actions } from "../../store";
 import { useLocalStorage, useStore } from "../../hooks";
+import { AppPage } from "../components/Layout";
 
 const links: SideBarLinksGroup[] = [
     {
@@ -76,9 +77,9 @@ const Platform = () => {
                     />
                     <SideBarLinks links={links} logOut={logOut} />
                 </SideBar>
-                <AppContent>
+                <AppPage>
                     <Outlet />
-                </AppContent>
+                </AppPage>
             </AppLayout>
             <Toaster />
         </>
