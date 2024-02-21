@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import toast from "react-hot-toast";
-import { parseISO } from "date-fns";
 import {
     Modal,
     Typography,
@@ -11,11 +10,14 @@ import {
     Icon
 } from "../../../design-system";
 import { useStore } from "../../../hooks";
-
-import { teamMemberService } from "../../../api";
-import { Actions, AdminUpdateTeamMemberAction } from "../../../store";
-import { ChangePasswordModal } from "./ChangePasswordModal";
+import { TeamMemberChangePasswordInput, teamMemberService } from "../../../api";
+import {
+    Actions,
+    AdminChangePasswordTeamMemberAction,
+    AdminUpdateTeamMemberAction
+} from "../../../store";
 import { toDateObj, toIso8601 } from "../../../utils";
+
 type EditTeamMemberModalProps = {
     show: boolean;
     closeModal: () => void;
@@ -66,14 +68,15 @@ const EditTeamMemberModal: React.FC<EditTeamMemberModalProps> = ({
     const [lastName, setLastName] = useState("");
     const [position, setPosition] = useState("");
     const [joinDate, setJoinDate] = useState<Date>();
+    const [newPassword, setNewPassword] = useState("");
+    const [newPasswordConfirm, setNewPasswordConfirm] = useState("");
     const {
         dispatch,
         state: { teamMembers }
     } = useStore();
 
     const [selectedTeamMemberId, setSelectedTeamMemberId] = useState("");
-    const [showChangePasswordModal, setShowChangePasswordModal] =
-        useState(false);
+    const [showPasswordInputs, setShowPasswordInputs] = useState(false);
 
     useEffect(() => {
         const teamMember = teamMembers[teamMemberId];
@@ -82,17 +85,17 @@ const EditTeamMemberModal: React.FC<EditTeamMemberModalProps> = ({
             setFirstName(teamMember.firstName);
             setLastName(teamMember.lastName);
             setPosition(teamMember.position);
-            setJoinDate(parseISO(teamMember?.joinDate.toString()));
+            setJoinDate(toDateObj(teamMember.joinDate));
         }
     }, [teamMemberId]);
 
     const handleOnClickUpdatePassword = (teamMemberId: string) => {
         setSelectedTeamMemberId(teamMemberId);
-        setShowChangePasswordModal(true);
+        setShowPasswordInputs(true);
     };
 
     const updateTeamMember = () => {
-        const updatedTeamMember = {
+        const updateData = {
             firstName: firstName,
             lastName: lastName,
             position: position,
@@ -100,15 +103,42 @@ const EditTeamMemberModal: React.FC<EditTeamMemberModalProps> = ({
         };
 
         teamMemberService
-            .update(teamMemberId, updatedTeamMember)
+            .update(teamMemberId, updateData)
             .then((_) => {
                 const action: AdminUpdateTeamMemberAction = {
                     type: Actions.ADMIN_UPDATE_TEAM_MEMBER,
-                    payload: { data: updatedTeamMember, id: teamMemberId }
+                    payload: { data: updateData, id: teamMemberId }
                 };
                 dispatch(action);
                 closeModal();
                 toast.success("Team Member has been successfully updated");
+            })
+            .catch((e) => {
+                const err = e as Error;
+                toast.error(err.message);
+            });
+    };
+
+    const changePassword = () => {
+        const updatedTeamMember: TeamMemberChangePasswordInput = {
+            newPassword: newPassword,
+            newPasswordConfirm: newPasswordConfirm
+        };
+        teamMemberService
+            .changePasswordByAdmin(teamMemberId, updatedTeamMember)
+            .then((_) => {
+                const action: AdminChangePasswordTeamMemberAction = {
+                    type: Actions.ADMIN_CHANGE_PASSWORD_TEAM_MEMBER,
+                    payload: {
+                        id: teamMemberId,
+                        password: newPassword
+                    }
+                };
+                dispatch(action);
+                closeModal();
+                toast.success(
+                    "Team Member Password has been successfully updated"
+                );
             })
             .catch((e) => {
                 const err = e as Error;
@@ -156,6 +186,7 @@ const EditTeamMemberModal: React.FC<EditTeamMemberModalProps> = ({
             </Inputs>
             <ActionLink
                 onClick={() => handleOnClickUpdatePassword(teamMemberId)}
+                style={{ display: showPasswordInputs ? "none" : "flex" }}
             >
                 <Icon iconName="plus" className="plus-icon" />
                 <Typography
@@ -164,12 +195,27 @@ const EditTeamMemberModal: React.FC<EditTeamMemberModalProps> = ({
                 >
                     Update Password
                 </Typography>
-                <ChangePasswordModal
-                    show={showChangePasswordModal}
-                    teamMemberId={selectedTeamMemberId}
-                    closeModal={() => setShowChangePasswordModal(false)}
-                />
             </ActionLink>
+            {showPasswordInputs && (
+                <Inputs>
+                    <Input
+                        type="password"
+                        value={newPassword}
+                        placeholder="New Password"
+                        onChange={(value) => setNewPassword(value)}
+                        shape="rounded"
+                        size="lg"
+                    />
+                    <Input
+                        type="password"
+                        value={newPasswordConfirm}
+                        placeholder="New Password Confirm"
+                        onChange={(value) => setNewPasswordConfirm(value)}
+                        shape="rounded"
+                        size="lg"
+                    />
+                </Inputs>
+            )}
             <Buttons>
                 <Button
                     color="secondary"
@@ -186,7 +232,12 @@ const EditTeamMemberModal: React.FC<EditTeamMemberModalProps> = ({
                     shape="rounded"
                     color="primary"
                     fullWidth
-                    onClick={updateTeamMember}
+                    onClick={() => {
+                        updateTeamMember();
+                        if (showPasswordInputs) {
+                            changePassword();
+                        }
+                    }}
                 >
                     Save
                 </Button>
