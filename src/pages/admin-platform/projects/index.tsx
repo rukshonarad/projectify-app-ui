@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { NoDataPlaceholder } from "../../components";
-import { AdminCreateProject } from "./AdminCreateProjectModal";
+import { AdminCreateProjectModal } from "./AdminCreateProjectModal";
 import noProject from "../../../assets/illustrations/member.svg";
 import { useStore } from "../../../hooks";
 import { adminProjectsService } from "../../../api";
@@ -93,7 +93,7 @@ const AdminProjectsPage = () => {
                 </>
             )}
 
-            <AdminCreateProject
+            <AdminCreateProjectModal
                 show={showCreateProjectModal}
                 closeModal={() => setShowCreateProjectModal(false)}
             />
