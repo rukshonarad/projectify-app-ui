@@ -7,7 +7,6 @@ import { adminProjectsService } from "../../../api";
 import { Actions, AdminPopulateProjectAction } from "../../../store";
 import toast from "react-hot-toast";
 import { PageHeader } from "../../components/";
-
 import { ProjectsTable } from "./ProjectsTable";
 import { Option } from "../../../design-system";
 import { ProjectStatus } from "../../../types";

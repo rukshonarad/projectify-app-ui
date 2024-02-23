@@ -38,8 +38,9 @@ const Buttons = styled.div`
 const AdminCreateProject: React.FC<ModalProps> = ({ show, closeModal }) => {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
+    const [startDate, setStartDate] = useState<Date | null>();
+    const [endDate, setEndDate] = useState<Date | null>();
 
-    const [due, setDue] = useState<Date>();
     const [isFormSubmitting, setIsFormSubmitting] = useState<boolean>(false);
 
     const { dispatch } = useStore();
@@ -52,19 +53,21 @@ const AdminCreateProject: React.FC<ModalProps> = ({ show, closeModal }) => {
         setDescription(value);
     };
 
-    const isFormSubmittable = name && description && due;
+    const isFormSubmittable = name && description && startDate && endDate;
 
     const resetFields = () => {
         setName("");
         setDescription("");
-        setDue(undefined);
+        setStartDate(undefined);
+        setEndDate(undefined);
     };
 
     const createProject = () => {
         const input = {
             name,
             description,
-            due: toIso8601(due!)
+            startDate: toIso8601(startDate!),
+            endDate: toIso8601(endDate!)
         };
         try {
             adminProjectsService
@@ -77,7 +80,7 @@ const AdminCreateProject: React.FC<ModalProps> = ({ show, closeModal }) => {
                     dispatch(action);
                     resetFields();
                     closeModal();
-                    toast.success("Team Member has been successfully created");
+                    toast.success("Project has been successfully created");
                 })
                 .catch((e) => {
                     const err = e as Error;
@@ -89,7 +92,7 @@ const AdminCreateProject: React.FC<ModalProps> = ({ show, closeModal }) => {
     return (
         <Modal show={show} position="center">
             <ModalTitle variant="paragraphLG" weight="medium">
-                New Member
+                New Project
             </ModalTitle>
             <Inputs>
                 <Input
@@ -114,9 +117,16 @@ const AdminCreateProject: React.FC<ModalProps> = ({ show, closeModal }) => {
                 <DatePickerV1
                     inputSize="lg"
                     shape="rounded"
-                    placeholder="Due"
-                    selected={due}
-                    onChange={(date) => setDue(date)}
+                    placeholder="Start Date"
+                    selected={startDate}
+                    onChange={(date) => setStartDate(date)}
+                />
+                <DatePickerV1
+                    inputSize="lg"
+                    shape="rounded"
+                    placeholder="End Date"
+                    selected={endDate}
+                    onChange={(date) => setEndDate(date)}
                 />
             </Inputs>
             <Buttons>

@@ -93,7 +93,8 @@ const ProjectsTable: React.FC<ProjectsTableProps> = ({ data }) => {
                         <TableHeadCell>Description</TableHeadCell>
                         <TableHeadCell>Status</TableHeadCell>
                         <TableHeadCell>Progress</TableHeadCell>
-                        <TableHeadCell>Due Date</TableHeadCell>
+                        <TableHeadCell>Start Date</TableHeadCell>
+                        <TableHeadCell>End Date</TableHeadCell>
                         <TableHeadCell>Team Members</TableHeadCell>
                         <TableHeadCell> </TableHeadCell>
                     </TableRow>
@@ -124,7 +125,9 @@ const ProjectsTable: React.FC<ProjectsTableProps> = ({ data }) => {
                                         weight="medium"
                                     >
                                         {format(
-                                            toDateObj(project.due.toString()),
+                                            toDateObj(
+                                                project.startDate.toString()
+                                            ),
                                             "MMM d, yyyy"
                                         )}
                                     </Typography>
