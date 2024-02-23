@@ -2,6 +2,8 @@ import { Project, ProjectStatus } from "../types";
 interface createProjectInput {
     name: string;
     description: string;
+    startDate: string;
+    endDate: string;
 }
 interface GetAllProjectsResponse {
     data: {
