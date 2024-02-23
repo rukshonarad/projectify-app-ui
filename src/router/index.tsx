@@ -10,7 +10,6 @@ import {
     AdminForgotPassword,
     AdminResetPassword,
     AdminPlatform,
-    AdminProjects,
     AdminTasksPage,
     AdminTeamMembersPage,
     TeamMemberSignIn,
@@ -24,6 +23,7 @@ import {
 import { UserRole } from "../types";
 import { ProtectedRoute } from "./ProtectedRoute";
 import { Auth } from "./Auth";
+import { AdminProjectsPage } from "../pages/admin-platform/projects";
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
@@ -74,7 +74,7 @@ export const router = createBrowserRouter(
                     />
                 }
             >
-                <Route path="projects" element={<AdminProjects />} />
+                <Route path="projects" element={<AdminProjectsPage />} />
 
                 <Route path="stories" element={<h1>Stories</h1>} />
                 <Route path="personal-tasks" element={<AdminTasksPage />} />
