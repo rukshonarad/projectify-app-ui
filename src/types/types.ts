@@ -71,7 +71,8 @@ export interface TeamMemberUpdate {
 export interface Project {
     id: string;
     name: string;
-    due: Date;
+    startDate: Date;
+    endDate: Date;
     description: string;
     status: ProjectStatus;
 }
