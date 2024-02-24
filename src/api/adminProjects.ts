@@ -6,9 +6,7 @@ interface createProjectInput {
     endDate: string;
 }
 interface GetAllProjectsResponse {
-    data: {
-        projects: Project[];
-    };
+    data: Project[];
 }
 interface ProjectCreateResponse {
     data: Project;
