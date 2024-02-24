@@ -15,7 +15,12 @@ import {
     TableHeadCell,
     TableRow
 } from "../../../design-system/Table";
-import { Project, ProjectStatus, AdminProjectActions } from "../../../types";
+import {
+    Project,
+    ProjectStatus,
+    AdminProjectActions,
+    AdminProjectStatusChange
+} from "../../../types";
 import { AdminCreateProjectAction } from "../../../store";
 import { useState } from "react";
 import { toDateObj } from "../../../utils";
@@ -29,58 +34,78 @@ const TableContainer = styled(Scrollable)`
 `;
 
 const options: MenuOption[] = [
-    { label: "Edit", iconName: "edit", value: "edit", color: "primary" },
     {
-        label: "Reactivate",
-        iconName: "check-in-circle",
-        value: "reactivate",
+        label: "Complete",
+        iconName: "x-in-circle",
+        value: "archived",
         color: "primary"
     },
+    {
+        label: "Archived",
+        iconName: "x-in-circle",
+        value: "archive",
+        color: "primary"
+    },
+
+    { label: "Edit", iconName: "edit", value: "edit", color: "primary" },
     { label: "Delete", iconName: "delete", value: "delete", color: "danger" },
     {
-        label: "Deactivate",
+        label: "On Hold",
         iconName: "x-in-circle",
-        value: "deactivate",
-        color: "danger"
+        value: "onhold",
+        color: "primary"
+    },
+    {
+        label: "Active",
+        iconName: "x-in-circle",
+        value: "archive",
+        color: "primary"
     }
 ];
 
 const allowedActions = {
-    ACTIVE: [options[0], options[3]],
+    ACTIVE: [options[0], options[6]],
+    ONHOLD: [options[0], options[5]],
+    DELETE: [options[0], options[4]],
+    EDIT: [options[0], options[3]],
     ARCHIVED: [options[0], options[2]],
     COMPLETED: [options[0], options[1]]
 };
 
-const columns = ["30%", "15%", "15%", "15%", "15%", "15%", "5%"];
+const columns = ["30%", "15%", "15%", "15%", "20%", "5%"];
 const mapsStatusToBadgeColors = {
-    ACTIVE: "blue",
+    ACTIVE: "violet",
     ARCHIVED: "gray",
-    COMPLETED: "green"
+    COMPLETED: "green",
+    ONHOLD: "orange",
+    EDIT: "orange",
+    DELETE: "delete"
 };
 
 const ProjectsTable: React.FC<ProjectsTableProps> = ({ data }) => {
     const [selectedProjectId, setSelectedProjectId] = useState("");
     const [showEditProjectModal, setShowEditProjectModal] = useState(false);
     const [showDeleteProjectModal, setShowDeleteProjectModal] = useState(false);
-    const [changeStatus, setChangeStatus] = useState<ProjectStatus>();
+    const [changeStatus, setChangeStatus] =
+        useState<AdminProjectStatusChange>();
     const [showChangeProjectStatusModal, setShowChangeProjectStatusModal] =
         useState(false);
     const onSelectActionCellMenu = (
         projectId: string,
-        action: AdminCreateProjectAction
+        action: AdminProjectActions
     ) => {
-        // setSelectedProjectId(projectId);
-        // if (action === AdminProjectActions.edit) {
-        //     setShowEditProjectModal(true);
-        // } else if (action === AdminProjectActions.delete) {
-        //     setShowDeleteProjectModal(true);
-        // } else if (
-        //     action === AdminProjectActions.deactivate ||
-        //     action === AdminProjectActions.reactivate
-        // ) {
-        //     setChangeStatus(action);
-        //     setShowChangeProjectrStatusModal(true);
-        // }
+        setSelectedProjectId(projectId);
+        if (action === AdminProjectActions.edit) {
+            setShowEditProjectModal(true);
+        } else if (action === AdminProjectActions.delete) {
+            setShowDeleteProjectModal(true);
+        } else if (
+            action === AdminProjectActions.archived ||
+            action === AdminProjectActions.complete
+        ) {
+            setChangeStatus(action);
+            setShowChangeProjectStatusModal(true);
+        }
     };
     return (
         <TableContainer>
@@ -100,19 +125,23 @@ const ProjectsTable: React.FC<ProjectsTableProps> = ({ data }) => {
                         return (
                             <TableRow key={project.id} columns={columns}>
                                 <TableBodyCell>
-                                    <Typography
-                                        variant="paragraphSM"
-                                        weight="medium"
-                                    >
-                                        {project.name}
-                                    </Typography>
+                                    <div>
+                                        <Typography
+                                            variant="paragraphLG"
+                                            weight="medium"
+                                        >
+                                            {project.name}
+                                        </Typography>
+                                    </div>
                                     <br></br>
-                                    <Typography
-                                        variant="paragraphSM"
-                                        weight="medium"
-                                    >
-                                        {project.description}
-                                    </Typography>
+                                    <div>
+                                        <Typography
+                                            variant="paragraphSM"
+                                            weight="medium"
+                                        >
+                                            {project.description}
+                                        </Typography>
+                                    </div>
                                 </TableBodyCell>
                                 <TableBodyCell>
                                     <Badge
@@ -153,8 +182,15 @@ const ProjectsTable: React.FC<ProjectsTableProps> = ({ data }) => {
                                         )}
                                     </Typography>
                                 </TableBodyCell>
-
-                                {/* <TableBodyCell>
+                                <TableBodyCell>
+                                    <Typography
+                                        variant="paragraphLG"
+                                        weight="medium"
+                                    >
+                                        {project.teamMembers}
+                                    </Typography>
+                                </TableBodyCell>
+                                <TableBodyCell>
                                     <Menu
                                         options={allowedActions[project.status]}
                                         onSelect={(value) =>
@@ -164,7 +200,7 @@ const ProjectsTable: React.FC<ProjectsTableProps> = ({ data }) => {
                                             )
                                         }
                                     />
-                                </TableBodyCell> */}
+                                </TableBodyCell>
                             </TableRow>
                         );
                     })}
