@@ -29,7 +29,7 @@ const AdminProjectsPage = () => {
             .then((data) => {
                 const action: AdminPopulateProjectAction = {
                     type: Actions.ADMIN_POPULATE_PROJECT,
-                    payload: data.data.projects
+                    payload: data.data
                 };
                 dispatch(action);
                 setIsProjectsFetching(false);

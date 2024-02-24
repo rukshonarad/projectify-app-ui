@@ -3,8 +3,9 @@ import "./Avatar.css";
 import { trimWhiteSpaces } from "../utils";
 
 type AvatarProps = {
-    firstName: string;
-    lastName: string;
+    firstName?: string;
+    lastName?: string;
+    name?: string;
     shape?: "rounded" | "circle";
     size?: "sm" | "md" | "lg";
     imageUrl?: string;
