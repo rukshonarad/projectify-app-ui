@@ -29,10 +29,11 @@ const FiltersBase = styled.section`
     }
 `;
 const statusOptions = [
+    { label: "All", value: "all" },
     { label: "Active", value: "ACTIVE" },
     { label: "Archived", value: "ARCHIVED" },
     { label: "Completed", value: "COMPLETED" },
-    { label: "All", value: "all" }
+    { label: "On Hold", value: "ONHOLD" }
 ];
 const ProjectFilters: React.FC<ProjectFiltersProps> = ({
     selectedStatus,
@@ -65,7 +66,7 @@ const ProjectFilters: React.FC<ProjectFiltersProps> = ({
                 options={[]}
                 shape="rounded"
                 size="md"
-                headerPlaceholder="By Project"
+                headerPlaceholder="End Date"
                 className="filter-by-project"
             />
         </FiltersBase>
