@@ -100,7 +100,7 @@ const AdminCreateProjectModal: React.FC<ModalProps> = ({
             <Inputs>
                 <Input
                     type="text"
-                    placeholder="Name"
+                    placeholder="Name and Description"
                     value={name}
                     onChange={handleOnChangeName}
                     shape="rounded"

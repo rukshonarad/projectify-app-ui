@@ -10,6 +10,7 @@ import { PageHeader } from "../../components/";
 import { ProjectsTable } from "./ProjectsTable";
 import { Option } from "../../../design-system";
 import { ProjectStatus } from "../../../types";
+import { ProjectFilters } from "./ProjectFilter";
 
 const AdminProjectsPage = () => {
     const [showCreateProjectModal, setShowCreateProjectModal] = useState(false);
@@ -90,6 +91,13 @@ const AdminProjectsPage = () => {
                             setShowCreateProjectModal(true)
                         }
                     />
+                    <ProjectFilters
+                        setSelectedStatus={handleSetStatusFilter}
+                        selectedStatus={statusFilter}
+                        searchText={searchText}
+                        setSearchText={setSearchText}
+                    />
+                    <ProjectsTable data={filteredProjects} />
                 </>
             )}
 

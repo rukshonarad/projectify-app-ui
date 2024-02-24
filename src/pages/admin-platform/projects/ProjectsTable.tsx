@@ -15,14 +15,12 @@ import {
     TableHeadCell,
     TableRow
 } from "../../../design-system/Table";
-import { Project, ProjectStatus } from "../../../types";
+import { Project, ProjectStatus, AdminProjectActions } from "../../../types";
 import { AdminCreateProjectAction } from "../../../store";
 import { useState } from "react";
-// import { DeleteProjectModal } from "./DeleteProjectModal";
 import { toDateObj } from "../../../utils";
-// import { EditProjectModal } from "./EditProjectModal";
-// import { ChangeProjectStatusModal } from "./ChangeProjectStatusModal";
 import { Scrollable } from "../../components";
+
 type ProjectsTableProps = {
     data: Project[];
 };
@@ -53,7 +51,7 @@ const allowedActions = {
     COMPLETED: [options[0], options[1]]
 };
 
-const columns = ["12.5%", "12.5%", "20%", "20%", "15%", "15%", "5%"];
+const columns = ["30%", "15%", "15%", "15%", "15%", "15%", "5%"];
 const mapsStatusToBadgeColors = {
     ACTIVE: "blue",
     ARCHIVED: "gray",
@@ -89,10 +87,8 @@ const ProjectsTable: React.FC<ProjectsTableProps> = ({ data }) => {
             <Table>
                 <TableHead>
                     <TableRow columns={columns}>
-                        <TableHeadCell> Name</TableHeadCell>
-                        <TableHeadCell>Description</TableHeadCell>
+                        <TableHeadCell> Name and Description</TableHeadCell>
                         <TableHeadCell>Status</TableHeadCell>
-                        <TableHeadCell>Progress</TableHeadCell>
                         <TableHeadCell>Start Date</TableHeadCell>
                         <TableHeadCell>End Date</TableHeadCell>
                         <TableHeadCell>Team Members</TableHeadCell>
@@ -110,26 +106,12 @@ const ProjectsTable: React.FC<ProjectsTableProps> = ({ data }) => {
                                     >
                                         {project.name}
                                     </Typography>
-                                </TableBodyCell>
-                                <TableBodyCell>
+                                    <br></br>
                                     <Typography
                                         variant="paragraphSM"
                                         weight="medium"
                                     >
                                         {project.description}
-                                    </Typography>
-                                </TableBodyCell>
-                                <TableBodyCell>
-                                    <Typography
-                                        variant="paragraphSM"
-                                        weight="medium"
-                                    >
-                                        {format(
-                                            toDateObj(
-                                                project.startDate.toString()
-                                            ),
-                                            "MMM d, yyyy"
-                                        )}
                                     </Typography>
                                 </TableBodyCell>
                                 <TableBodyCell>
@@ -145,13 +127,40 @@ const ProjectsTable: React.FC<ProjectsTableProps> = ({ data }) => {
                                         status
                                     />
                                 </TableBodyCell>
+                                <TableBodyCell>
+                                    <Typography
+                                        variant="paragraphSM"
+                                        weight="medium"
+                                    >
+                                        {format(
+                                            toDateObj(
+                                                project.startDate.toString()
+                                            ),
+                                            "MMM d, yyyy"
+                                        )}
+                                    </Typography>
+                                </TableBodyCell>
+                                <TableBodyCell>
+                                    <Typography
+                                        variant="paragraphSM"
+                                        weight="medium"
+                                    >
+                                        {format(
+                                            toDateObj(
+                                                project.endDate.toString()
+                                            ),
+                                            "MMM d, yyyy"
+                                        )}
+                                    </Typography>
+                                </TableBodyCell>
+
                                 {/* <TableBodyCell>
                                     <Menu
                                         options={allowedActions[project.status]}
                                         onSelect={(value) =>
                                             onSelectActionCellMenu(
                                                 project.id,
-                                                value as AdminCreateProjectAction
+                                                value as AdminProjectActions
                                             )
                                         }
                                     />
