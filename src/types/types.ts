@@ -47,7 +47,12 @@ export enum AdminTeamMemberActions {
     reactivate = "reactivate",
     deactivate = "deactivate"
 }
-
+export enum AdminProjectActions {
+    edit = "edit",
+    delete = "delete",
+    complete = " complete",
+    archived = " archived"
+}
 export type AdminTeamMemberStatusChange = "reactivate" | "deactivate";
 
 export interface TeamMember {
