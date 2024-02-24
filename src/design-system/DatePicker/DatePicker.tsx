@@ -93,7 +93,7 @@ const DatePickerV1: React.FC<DataPickerProps> = ({
                     className="v1-date-picker__calendar-icon"
                 />
             }
-            // toggleCalendarOnIconClick
+            toggleCalendarOnIconClick
         />
     );
 };
