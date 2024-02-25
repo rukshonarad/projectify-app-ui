@@ -9,7 +9,7 @@ import {
 } from "../../../design-system";
 import { format } from "date-fns";
 import { useState } from "react";
-
+import { formatAsMMMMd, toDateObj } from "../../../utils";
 export const KanbanCardBase = styled.div<{ $isDragging: boolean }>`
     background-color: var(--white);
     padding: var(--space-16);
@@ -102,7 +102,7 @@ const KanbanCard: React.FC<KanbanCardProps> = ({
                 </TaskDescription>
             </div>
             <TaskDue
-                label={format(task.due, "MMMM d")}
+                label={formatAsMMMMd(task.due)}
                 color={StatusToColor[task.status]}
                 iconName={StatusToIcon[task.status]}
                 variant="contained"
