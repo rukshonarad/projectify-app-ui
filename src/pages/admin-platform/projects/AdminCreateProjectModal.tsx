@@ -35,7 +35,10 @@ const Buttons = styled.div`
     gap: var(--space-10);
 `;
 
-const AdminCreateProject: React.FC<ModalProps> = ({ show, closeModal }) => {
+const AdminCreateProjectModal: React.FC<ModalProps> = ({
+    show,
+    closeModal
+}) => {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [startDate, setStartDate] = useState<Date | null>();
@@ -58,8 +61,8 @@ const AdminCreateProject: React.FC<ModalProps> = ({ show, closeModal }) => {
     const resetFields = () => {
         setName("");
         setDescription("");
-        setStartDate(undefined);
-        setEndDate(undefined);
+        setStartDate(null);
+        setEndDate(null);
     };
 
     const createProject = () => {
@@ -97,7 +100,7 @@ const AdminCreateProject: React.FC<ModalProps> = ({ show, closeModal }) => {
             <Inputs>
                 <Input
                     type="text"
-                    placeholder="Name"
+                    placeholder="Name and Description"
                     value={name}
                     onChange={handleOnChangeName}
                     shape="rounded"
@@ -105,7 +108,7 @@ const AdminCreateProject: React.FC<ModalProps> = ({ show, closeModal }) => {
                     disabled={isFormSubmitting}
                 />
                 <Input
-                    type="text"
+                    type="textarea"
                     placeholder="Description"
                     value={description}
                     onChange={handleOnChangeDescription}
@@ -155,4 +158,4 @@ const AdminCreateProject: React.FC<ModalProps> = ({ show, closeModal }) => {
     );
 };
 
-export { AdminCreateProject };
+export { AdminCreateProjectModal };

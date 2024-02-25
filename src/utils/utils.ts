@@ -1,5 +1,6 @@
 import { formatISO, parseISO } from "date-fns";
-import { Task, Project } from "../types";
+import { Task } from "../types";
+import { format } from "date-fns";
 
 export interface GroupedTasks {
     [status: string]: Task[];
@@ -19,27 +20,19 @@ export const groupTasksByStatus = (data: Task[]): GroupedTasks => {
 
     return grouped;
 };
-export interface GroupedProject {
-    [status: string]: Project[];
-}
-export const groupProjectsByStatus = (data: Project[]): GroupedProject => {
-    const grouped: GroupedProject = {
-        ACTIVE: [],
-        ARCHIVED: [],
-        COMPLETED: []
-    };
 
-    data.forEach((project) => {
-        const { status } = project;
-        grouped[status].push(project);
-    });
-
-    return grouped;
-};
 export const toIso8601 = (date: Date) => {
     return formatISO(date);
 };
 
 export const toDateObj = (iso8601: string) => {
     return parseISO(iso8601);
+};
+
+export const formatAsMMMMd = (isoDate: string) => {
+    return format(toDateObj(isoDate), "MMM d");
+};
+
+export const formatAsMMMddYYYY = (isoDate: string) => {
+    return format(toDateObj(isoDate), "MMM dd, yyyy");
 };

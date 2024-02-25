@@ -15,7 +15,7 @@ import { TaskStatus } from "../../../types";
 import { TaskUpdateInput, adminTasksService } from "../../../api";
 import toast from "react-hot-toast";
 import { Actions, UpdateTaskAction } from "../../../store";
-
+import { toDateObj, toIso8601 } from "../../../utils";
 type EditTaskModalProps = {
     show: boolean;
     closeModal: () => void;
@@ -69,7 +69,7 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
         const task = adminPersonalTasks.find((task) => task.id === taskId);
 
         if (task) {
-            setTaskDue(parseISO((task?.due).toString()));
+            setTaskDue(toDateObj(task.due));
             setTaskDescription(task.description);
             setTaskTitle(task?.title);
             setSelectedStatus({ value: task.status, label: task.status });
@@ -96,7 +96,7 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
                         id: taskId,
                         title: taskTitle,
                         description: taskDescription,
-                        due: taskDue as Date,
+                        due: toIso8601(taskDue!),
                         status: selectedStatus?.value as TaskStatus
                     }
                 };

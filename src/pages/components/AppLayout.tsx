@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const AppLayout = styled.main`
     display: grid;
-    grid-template-columns: 30.4rem 1fr;
+    grid-template-columns: 30rem 1fr;
 `;
 
 const AppContent = styled.section`

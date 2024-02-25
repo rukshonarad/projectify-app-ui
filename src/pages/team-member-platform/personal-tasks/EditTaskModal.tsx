@@ -12,6 +12,7 @@ import {
 } from "../../../design-system";
 import { useStore } from "../../../hooks";
 import { TaskStatus } from "../../../types";
+import { toDateObj, toIso8601 } from "../../../utils";
 import {
     TaskUpdateInput,
     TeamMemberTaskUpdateInput,
@@ -100,7 +101,7 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
                         id: taskId,
                         title: taskTitle,
                         description: taskDescription,
-                        due: taskDue as Date,
+                        due: toIso8601(taskDue!),
                         status: selectedStatus?.value as TaskStatus
                     }
                 };

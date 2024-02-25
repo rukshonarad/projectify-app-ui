@@ -56,6 +56,7 @@ const CreateTeamMemberModal: React.FC<ModalProps> = ({ show, closeModal }) => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const [position, setPosition] = useState<Option>();
     const [joinDate, setJoinDate] = useState<Date>();
     const [isFormSubmitting, setIsFormSubmitting] = useState<boolean>(false);
@@ -73,13 +74,15 @@ const CreateTeamMemberModal: React.FC<ModalProps> = ({ show, closeModal }) => {
     const handleOnChangeEmail = (value: string) => {
         setEmail(value);
     };
-
+    const handleOnChangePassword = (value: string) => {
+        setPassword(value);
+    };
     const handleOnSelectPosition = (option: Option) => {
         setPosition(option);
     };
 
     const isFormSubmittable =
-        firstName && lastName && email && position && joinDate;
+        firstName && lastName && email && password && position && joinDate;
 
     const resetFields = () => {
         setFirstName("");
@@ -94,6 +97,7 @@ const CreateTeamMemberModal: React.FC<ModalProps> = ({ show, closeModal }) => {
             firstName,
             lastName,
             email,
+            password,
             joinDate: toIso8601(joinDate!),
             position: position?.value as string
         };

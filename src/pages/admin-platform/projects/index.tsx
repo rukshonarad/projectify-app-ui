@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { NoDataPlaceholder } from "../../components";
-import { AdminCreateProject } from "./AdminCreateProjectModal";
+import { AdminCreateProjectModal } from "./AdminCreateProjectModal";
 import noProject from "../../../assets/illustrations/member.svg";
 import { useStore } from "../../../hooks";
 import { adminProjectsService } from "../../../api";
@@ -10,6 +10,7 @@ import { PageHeader } from "../../components/";
 import { ProjectsTable } from "./ProjectsTable";
 import { Option } from "../../../design-system";
 import { ProjectStatus } from "../../../types";
+import { ProjectFilters } from "./ProjectFilter";
 
 const AdminProjectsPage = () => {
     const [showCreateProjectModal, setShowCreateProjectModal] = useState(false);
@@ -28,7 +29,7 @@ const AdminProjectsPage = () => {
             .then((data) => {
                 const action: AdminPopulateProjectAction = {
                     type: Actions.ADMIN_POPULATE_PROJECT,
-                    payload: data.data.projects
+                    payload: data.data
                 };
                 dispatch(action);
                 setIsProjectsFetching(false);
@@ -90,10 +91,17 @@ const AdminProjectsPage = () => {
                             setShowCreateProjectModal(true)
                         }
                     />
+                    <ProjectFilters
+                        setSelectedStatus={handleSetStatusFilter}
+                        selectedStatus={statusFilter}
+                        searchText={searchText}
+                        setSearchText={setSearchText}
+                    />
+                    <ProjectsTable data={filteredProjects} />
                 </>
             )}
 
-            <AdminCreateProject
+            <AdminCreateProjectModal
                 show={showCreateProjectModal}
                 closeModal={() => setShowCreateProjectModal(false)}
             />
