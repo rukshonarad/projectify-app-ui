@@ -40,6 +40,13 @@ const TableContainer = styled(Scrollable)`
 const ProgressWrapper = styled.div`
     width: 80%;
 `;
+const ProjectDescription = styled(Typography)`
+    color: var(--jaguar-500);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+`;
+
 const options: MenuOption[] = [
     {
         label: "Complete",
@@ -79,7 +86,7 @@ const options: MenuOption[] = [
 //     COMPLETED: [options[0], options[1]]
 // };
 
-const columns = ["20%", "10%", "20%", "15%", "15%", "10%"];
+const columns = ["20%", "10%", "20%", "15%", "15%", "10%", "5%"];
 
 enum StatusToBadgeColors {
     ACTIVE = "violet",
@@ -140,12 +147,12 @@ const ProjectsTable: React.FC<ProjectsTableProps> = ({ data }) => {
                                             {project.name}
                                         </Typography>
 
-                                        <Typography
+                                        <ProjectDescription
                                             variant="paragraphSM"
                                             weight="normal"
                                         >
                                             {project.description}
-                                        </Typography>
+                                        </ProjectDescription>
                                     </AboutProject>
                                 </TableBodyCell>
                                 <TableBodyCell>
