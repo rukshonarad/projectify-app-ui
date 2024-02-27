@@ -69,10 +69,10 @@ const AdminProjectsPage = () => {
                         }
                     />
                     <ProjectsFilters
-                        sortedBy={sortedBy}
-                        setSortedBy={handleSetSortBy}
-                        selectedStatus={statusFilter}
                         setSelectedStatus={handleSetStatusFilter}
+                        selectedStatus={statusFilter}
+                        sortedBy={sortedBy}
+                        setSortedBy={setSortedBy}
                     />
                     <ProjectsTable data={projectsArr} />
                 </>

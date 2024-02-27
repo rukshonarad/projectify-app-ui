@@ -18,6 +18,7 @@ import { ProjectStatus, ProjectWithContributors } from "../../../types";
 import { formatAsMMMddYYYY, formatDeadline } from "../../../utils";
 import { useState } from "react";
 import { ChangeProjectStatusModal } from "./ChangeProjectStatusModal";
+import { AdminEditProjectModal } from "./AdminEditProjectModal";
 
 type ProjectsTableProps = {
     data: ProjectWithContributors[];
@@ -116,6 +117,7 @@ const ProjectsTable: React.FC<ProjectsTableProps> = ({ data }) => {
     const [changeStatusTo, setChangeStatusTo] = useState<ProjectStatus>();
     const [showChangeProjectStatusModal, setShowChangeProjectStatusModal] =
         useState(false);
+    const [showEditProjectModal, setShowEditProjectModal] = useState(false);
 
     const handleOnSelectCellMenu = (
         projectId: string,
@@ -124,7 +126,9 @@ const ProjectsTable: React.FC<ProjectsTableProps> = ({ data }) => {
         setSelectedProjectId(projectId);
         if (statuses.includes(value)) {
             setShowChangeProjectStatusModal(true);
-            setChangeStatusTo(value);
+        }
+        if (options[0].value) {
+            setShowEditProjectModal(true);
         }
     };
     return (
@@ -229,6 +233,11 @@ const ProjectsTable: React.FC<ProjectsTableProps> = ({ data }) => {
                     </TableBody>
                 </Table>
             </TableContainer>
+            <AdminEditProjectModal
+                show={showEditProjectModal}
+                closeModal={() => setShowEditProjectModal(false)}
+                projectId={selectedProjectId}
+            />
             <ChangeProjectStatusModal
                 show={showChangeProjectStatusModal}
                 changeStatusTo={changeStatusTo!}

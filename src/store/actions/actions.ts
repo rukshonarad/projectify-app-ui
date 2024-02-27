@@ -8,7 +8,8 @@ import {
     TeamMemberUpdate,
     Project,
     ProjectStatus,
-    ProjectWithContributors
+    ProjectWithContributors,
+    AdminUpdateProject
 } from "../../types";
 
 export enum Actions {
@@ -31,7 +32,8 @@ export enum Actions {
 
     ADMIN_CREATE_PROJECT = "ADMIN_CREATE_PROJECT",
     ADMIN_POPULATE_PROJECT = "ADMIN_POPULATE_PROJECT",
-    CHANGE_PROJECT_STATUS = "CHANGE_PROJECT_STATUS"
+    CHANGE_PROJECT_STATUS = "CHANGE_PROJECT_STATUS",
+    ADMIN_UPDATE_PROJECT = "ADMIN_UPDATE_PROJECT"
 }
 
 export interface InitUserAction {
@@ -142,7 +144,13 @@ export type ChangeProjectStatusAction = {
     type: Actions.CHANGE_PROJECT_STATUS;
     payload: { id: string; status: ProjectStatus };
 };
-
+export type AdminUpdateProjectAction = {
+    type: Actions.ADMIN_UPDATE_PROJECT;
+    payload: {
+        id: string;
+        data: AdminUpdateProject;
+    };
+};
 export type ActionType =
     | InitUserAction
     | ResetStateAction
@@ -161,4 +169,5 @@ export type ActionType =
     | AdminChangePasswordTeamMemberAction
     | AdminCreateProjectAction
     | AdminPopulateProjectAction
-    | ChangeProjectStatusAction;
+    | ChangeProjectStatusAction
+    | AdminUpdateProjectAction;

@@ -6,7 +6,7 @@ type ProjectsFiltersProps = {
     selectedStatus: string;
     setSelectedStatus: (option: Option) => void;
     sortedBy: string;
-    setSortedBy: (option: Option) => void;
+    setSortedBy: (value: string) => void;
 };
 
 const statusOptions = [
@@ -44,9 +44,9 @@ const ProjectsFilters: React.FC<ProjectsFiltersProps> = ({
                 className="status-filter"
             />
             <Select
-                value={sortedBy}
-                onSelect={setSortedBy}
-                options={sortOptions}
+                value=""
+                onSelect={() => {}}
+                options={[]}
                 shape="rounded"
                 size="md"
                 headerPlaceholder="Sort By"

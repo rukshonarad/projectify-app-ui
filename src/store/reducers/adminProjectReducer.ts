@@ -4,7 +4,8 @@ import {
     Actions,
     AdminCreateProjectAction,
     ChangeProjectStatusAction,
-    AdminPopulateProjectAction
+    AdminPopulateProjectAction,
+    AdminUpdateProjectAction
 } from "../actions";
 import { ProjectState } from "../state";
 
@@ -36,6 +37,21 @@ const adminProjectsReducer = produce(
                 }
 
                 return draft;
+            }
+            case Actions.ADMIN_UPDATE_PROJECT: {
+                const payload =
+                    action.payload as AdminUpdateProjectAction["payload"];
+                const { id, data } = payload;
+                const project = draft[id];
+
+                if (project) {
+                    project.name = data.name || project.name;
+                    project.description =
+                        data.description || project.description;
+                    project.endDate = data.endDate || project.endDate;
+
+                    return draft;
+                }
             }
         }
     }
