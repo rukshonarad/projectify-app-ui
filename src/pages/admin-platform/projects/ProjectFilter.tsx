@@ -1,76 +1,58 @@
 import styled from "styled-components";
-import { Input, Option, Select } from "../../../design-system";
-import React from "react";
+import { Option, Select } from "../../../design-system";
+import { PageFilters } from "../../components/PageFilter";
 
-type ProjectFiltersProps = {
+type ProjectsFiltersProps = {
     selectedStatus: string;
     setSelectedStatus: (option: Option) => void;
-    searchText: string;
-    setSearchText: (value: string) => void;
+    sortedBy: string;
+    setSortedBy: (option: Option) => void;
 };
 
-const FiltersBase = styled.section`
-    display: grid;
-    grid-template-columns: 20rem 20rem 1fr 20rem;
-    align-items: center;
-    gap: var(--space-24);
-    margin-bottom: var(--space-20);
-
-    .filter-by-status {
-        grid-column: 1 / 2;
-    }
-
-    .search {
-        grid-column: 2 / 3;
-    }
-
-    .filter-by-project {
-        grid-column: 4 / 5;
-    }
-`;
 const statusOptions = [
-    { label: "All", value: "all" },
     { label: "Active", value: "ACTIVE" },
-    { label: "Archived", value: "ARCHIVED" },
     { label: "Completed", value: "COMPLETED" },
+    { label: "Archived", value: "ARCHIVED" },
     { label: "On Hold", value: "ONHOLD" }
 ];
-const ProjectFilters: React.FC<ProjectFiltersProps> = ({
+
+const sortOptions = [
+    { label: "Deadline", value: "deadline" },
+    { label: "Progress", value: "progress" }
+];
+const Filters = styled(PageFilters)`
+    .status-filter {
+        margin-right: auto;
+    }
+`;
+
+const ProjectsFilters: React.FC<ProjectsFiltersProps> = ({
     selectedStatus,
     setSelectedStatus,
-    searchText,
-    setSearchText
+    sortedBy,
+    setSortedBy
 }) => {
     return (
-        <FiltersBase>
+        <Filters>
             <Select
                 value={selectedStatus}
                 onSelect={setSelectedStatus}
                 options={statusOptions}
                 shape="rounded"
                 size="md"
-                headerPlaceholder="By Status"
-                className="filter-by-status"
-            />
-            <Input
-                value={searchText}
-                onChange={setSearchText}
-                placeholder="Search..."
-                shape="rounded"
-                size="md"
-                className="search"
+                headerPlaceholder="Filter By Status"
+                className="status-filter"
             />
             <Select
-                value=""
-                onSelect={() => {}}
-                options={[]}
+                value={sortedBy}
+                onSelect={setSortedBy}
+                options={sortOptions}
                 shape="rounded"
                 size="md"
-                headerPlaceholder="End Date"
-                className="filter-by-project"
+                headerPlaceholder="Sort By"
             />
-        </FiltersBase>
+        </Filters>
     );
 };
 
-export { ProjectFilters };
+export { ProjectsFilters };
