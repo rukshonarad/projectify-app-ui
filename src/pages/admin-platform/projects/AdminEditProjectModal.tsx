@@ -44,7 +44,7 @@ const AdminEditProjectModal: React.FC<EditProjectModalProps> = ({
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
 
-    const [dueDate, setDueDate] = useState<Date>();
+    const [startDate, setStartDate] = useState<Date>();
 
     const {
         dispatch,
@@ -60,7 +60,7 @@ const AdminEditProjectModal: React.FC<EditProjectModalProps> = ({
             setName(project.name);
             setDescription(project.description);
 
-            setDueDate(toDateObj(project.endDate));
+            setStartDate(toDateObj(project.startDate));
         }
     }, [projectId]);
 
@@ -69,7 +69,7 @@ const AdminEditProjectModal: React.FC<EditProjectModalProps> = ({
             name: name,
             descriptin: description,
 
-            dueDate: toIso8601(dueDate!)
+            dueDate: toIso8601(startDate!)
         };
 
         adminProjectsService
@@ -116,8 +116,8 @@ const AdminEditProjectModal: React.FC<EditProjectModalProps> = ({
                     inputSize="lg"
                     shape="rounded"
                     placeholder="Due Date"
-                    selected={dueDate}
-                    onChange={(date) => setDueDate(date)}
+                    selected={startDate}
+                    onChange={(date) => setStartDate(date)}
                 />
             </Inputs>
             <Buttons>

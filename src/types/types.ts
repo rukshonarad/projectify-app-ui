@@ -95,7 +95,6 @@ export interface AdminUpdateProject {
     name?: string;
     description?: string;
     startDate?: string;
-    endDate?: string;
 }
 
 export interface ProjectWithContributors extends Project {

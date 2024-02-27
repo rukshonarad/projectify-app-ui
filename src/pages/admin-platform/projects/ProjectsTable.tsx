@@ -203,7 +203,7 @@ const ProjectsTable: React.FC<ProjectsTableProps> = ({ data }) => {
                                             variant="paragraphSM"
                                             weight="medium"
                                         >
-                                            {renderDeadline(project.endDate)}
+                                            {renderDeadline(project.startDate)}
                                         </Typography>
                                     </TableBodyCell>
                                     <TableBodyCell>

@@ -48,7 +48,7 @@ const adminProjectsReducer = produce(
                     project.name = data.name || project.name;
                     project.description =
                         data.description || project.description;
-                    project.endDate = data.endDate || project.endDate;
+                    project.startDate = data.startDate || project.startDate;
 
                     return draft;
                 }
