@@ -6,7 +6,9 @@ import {
     TeamMemberStatus,
     TeamMemberUser,
     TeamMemberUpdate,
-    Project
+    Project,
+    ProjectStatus,
+    ProjectWithContributors
 } from "../../types";
 
 export enum Actions {
@@ -26,8 +28,10 @@ export enum Actions {
     ADMIN_UPDATE_TEAM_MEMBER = "ADMIN_UPDATE_TEAM_MEMBER",
     ADMIN_CHANGE_TEAM_MEMBER_STATUS = "ADMIN_CHANGE_TEAM_MEMBER_STATUS",
     ADMIN_CHANGE_PASSWORD_TEAM_MEMBER = "ADMIN_CHANGE_PASSWORD_TEAM_MEMBER",
+
     ADMIN_CREATE_PROJECT = "ADMIN_CREATE_PROJECT",
-    ADMIN_POPULATE_PROJECT = "ADMIN_POPULATE_PROJECT"
+    ADMIN_POPULATE_PROJECT = "ADMIN_POPULATE_PROJECT",
+    CHANGE_PROJECT_STATUS = "CHANGE_PROJECT_STATUS"
 }
 
 export interface InitUserAction {
@@ -127,13 +131,18 @@ export type AdminChangePasswordTeamMemberAction = {
 
 export interface AdminPopulateProjectAction {
     type: Actions.ADMIN_POPULATE_PROJECT;
-    payload: Project[];
+    payload: ProjectWithContributors[];
 }
 
 export type AdminCreateProjectAction = {
     type: Actions.ADMIN_CREATE_PROJECT;
     payload: Project;
 };
+export type ChangeProjectStatusAction = {
+    type: Actions.CHANGE_PROJECT_STATUS;
+    payload: { id: string; status: ProjectStatus };
+};
+
 export type ActionType =
     | InitUserAction
     | ResetStateAction
@@ -151,4 +160,5 @@ export type ActionType =
     | AdminChangeTeamMemberStatusAction
     | AdminChangePasswordTeamMemberAction
     | AdminCreateProjectAction
-    | AdminPopulateProjectAction;
+    | AdminPopulateProjectAction
+    | ChangeProjectStatusAction;

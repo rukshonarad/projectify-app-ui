@@ -1,15 +1,12 @@
 import { Project, ProjectStatus } from "../types";
-interface createProjectInput {
-    name: string;
-    description: string;
-    startDate: string;
-    endDate: string;
-}
+
+type CreateInput = Omit<Project, "id" | "status" | "progress">;
+
+type CreateAPIResponse = {
+    data: Project;
+};
 interface GetAllProjectsResponse {
     data: Project[];
-}
-interface ProjectCreateResponse {
-    data: Project;
 }
 
 class AdminProjectsService {
@@ -21,7 +18,7 @@ class AdminProjectsService {
                 : process.env.REACT_APP_PROJECTIFY_API_URL
         }/projects`;
     }
-    async create(input: createProjectInput): Promise<ProjectCreateResponse> {
+    async create(input: CreateInput): Promise<CreateAPIResponse> {
         try {
             const rawAuthToken = localStorage.getItem("authToken");
             const authToken = rawAuthToken ? JSON.parse(rawAuthToken) : "";
@@ -58,6 +55,30 @@ class AdminProjectsService {
             }
 
             return response.json();
+        } catch (error) {
+            throw error;
+        }
+    }
+    async changeStatus(projectId: string, status: ProjectStatus) {
+        try {
+            const rawAuthToken = localStorage.getItem("authToken");
+            const authToken = rawAuthToken ? JSON.parse(rawAuthToken) : "";
+            const response = await fetch(
+                `${this.url}/${projectId}/change-status`,
+                {
+                    method: "PATCH",
+                    headers: {
+                        authorization: `Bearer ${authToken}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ status })
+                }
+            );
+
+            if (!response.ok) {
+                const data = await response.json();
+                throw new Error(data.message);
+            }
         } catch (error) {
             throw error;
         }
