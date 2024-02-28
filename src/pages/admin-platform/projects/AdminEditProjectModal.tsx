@@ -51,15 +51,12 @@ const AdminEditProjectModal: React.FC<EditProjectModalProps> = ({
         state: { adminProject }
     } = useStore();
 
-    const [selectedProjectId, setSelectedProjectId] = useState("");
-
     useEffect(() => {
         const project = adminProject[projectId];
 
         if (project) {
             setName(project.name);
             setDescription(project.description);
-
             setStartDate(toDateObj(project.startDate));
         }
     }, [projectId]);
@@ -68,7 +65,6 @@ const AdminEditProjectModal: React.FC<EditProjectModalProps> = ({
         const updateData = {
             name: name,
             descriptin: description,
-
             dueDate: toIso8601(startDate!)
         };
 

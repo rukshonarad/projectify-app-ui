@@ -173,10 +173,11 @@ const ProjectsTable: React.FC<ProjectsTableProps> = ({ data }) => {
                                             color={
                                                 StatusToBadgeColors[
                                                     project.status
-                                                ]
+                                                ] as BadgeColors
                                             }
                                             variant="outlined"
                                             shape="rounded"
+                                            status
                                         />
                                     </TableBodyCell>
                                     <TableBodyCell>
