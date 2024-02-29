@@ -63,7 +63,7 @@ const AdminEditProjectModal: React.FC<EditProjectModalProps> = ({
     const updateProject = () => {
         const updateData = {
             name: name,
-            descriptin: description,
+            description: description,
             dueDate: toIso8601(startDate!)
         };
 
