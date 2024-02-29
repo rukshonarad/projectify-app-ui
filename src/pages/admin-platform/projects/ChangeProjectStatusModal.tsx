@@ -60,7 +60,7 @@ const ChangeProjectStatusModal: React.FC<ChangeProjectStatusModalProps> = ({
     };
     return (
         <ConfirmationModal
-            confirmationMessage={generateMessages(changeStatusTo).confirmation}
+            confirmationMessage={`Are you sure you want to ${changeStatusTo} a project?`}
             show={show}
             cancel={closeModal}
             onConfirm={changeProjectStatus}

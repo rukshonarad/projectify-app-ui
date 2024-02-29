@@ -43,7 +43,6 @@ const AdminEditProjectModal: React.FC<EditProjectModalProps> = ({
 }) => {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
-
     const [startDate, setStartDate] = useState<Date>();
 
     const {

@@ -128,8 +128,9 @@ const ProjectsTable: React.FC<ProjectsTableProps> = ({ data }) => {
             setShowChangeProjectStatusModal(true);
         }
         if (options[0].value) {
-            setShowEditProjectModal(true);
+            setChangeStatusTo(value);
         }
+        setShowEditProjectModal(true);
     };
     return (
         <>
