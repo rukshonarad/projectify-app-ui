@@ -124,13 +124,13 @@ const ProjectsTable: React.FC<ProjectsTableProps> = ({ data }) => {
         value: ProjectStatus
     ) => {
         setSelectedProjectId(projectId);
-        if (statuses.includes(value)) {
+
+        if (statuses.includes(value as ProjectStatus)) {
             setShowChangeProjectStatusModal(true);
+            setChangeStatusTo(value as ProjectStatus);
+        } else if (options[0].value === "edit") {
+            setShowEditProjectModal(true);
         }
-        if (options[0].value) {
-            setChangeStatusTo(value);
-        }
-        setShowEditProjectModal(true);
     };
     return (
         <>
