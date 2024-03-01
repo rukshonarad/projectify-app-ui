@@ -6,8 +6,7 @@ import {
     Typography,
     Button,
     Input,
-    DatePickerV1,
-    Icon
+    DatePickerV1
 } from "../../../design-system";
 import { useStore } from "../../../hooks";
 import { adminProjectsService } from "../../../api";
@@ -44,6 +43,7 @@ const AdminEditProjectModal: React.FC<EditProjectModalProps> = ({
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [startDate, setStartDate] = useState<Date>();
+    const [endDate, setEndDate] = useState<Date>();
 
     const {
         dispatch,
@@ -57,6 +57,7 @@ const AdminEditProjectModal: React.FC<EditProjectModalProps> = ({
             setName(project.name);
             setDescription(project.description);
             setStartDate(toDateObj(project.startDate));
+            setEndDate(toDateObj(project.endDate));
         }
     }, [projectId]);
 
@@ -64,7 +65,8 @@ const AdminEditProjectModal: React.FC<EditProjectModalProps> = ({
         const updateData = {
             name: name,
             description: description,
-            dueDate: toIso8601(startDate!)
+            startDate: toIso8601(startDate!),
+            endDate: toIso8601(endDate!)
         };
 
         adminProjectsService
@@ -100,21 +102,28 @@ const AdminEditProjectModal: React.FC<EditProjectModalProps> = ({
                 />
                 <Input
                     type="textarea"
-                    placeholder="Description"
+                    placeholder="Project Description"
                     value={description}
                     onChange={(value) => setDescription(value)}
                     shape="rounded"
                     size="lg"
                 />
-
+                <DatePickerV1
+                    inputSize="lg"
+                    shape="rounded"
+                    placeholder="Start Date"
+                    selected={startDate}
+                    onChange={(date) => setStartDate(date)}
+                />
                 <DatePickerV1
                     inputSize="lg"
                     shape="rounded"
                     placeholder="Due Date"
-                    selected={startDate}
-                    onChange={(date) => setStartDate(date)}
+                    selected={endDate}
+                    onChange={(date) => setEndDate(date)}
                 />
             </Inputs>
+
             <Buttons>
                 <Button
                     color="secondary"
