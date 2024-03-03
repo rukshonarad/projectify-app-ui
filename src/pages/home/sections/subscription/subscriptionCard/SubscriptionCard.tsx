@@ -63,7 +63,7 @@ const SubscriptionsCard = ({ subscription }: SubscriptionCardProps) => {
                 <SubscriptionTitle variant="h6" weight="semibold">
                     {subscription.title}
                 </SubscriptionTitle>
-                <Typography variant="paragraphMD" weight="semibold">
+                <Typography variant="paragraphSM" weight="semibold">
                     {subscription.price}
                 </Typography>
                 <SubscriptionDescription variant="subtitleLG" weight="medium">

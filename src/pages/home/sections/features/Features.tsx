@@ -31,6 +31,7 @@ const FeaturesCardsWrapper = styled.div`
 const ButtonWrapper = styled.div`
     margin: 0 auto;
     max-width: 27rem;
+    margin-bottom: var(--space-64);
 `;
 
 const Features = () => {
