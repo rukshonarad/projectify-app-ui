@@ -7,7 +7,7 @@ type Subscription = {
     icon: string;
     title: string;
     price: string;
-    description: string;
+    description: string[];
     button: string;
 };
 
@@ -24,9 +24,17 @@ export const SubscriptionCardBase = styled.div<{ icon: string }>`
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #e6b1e9;
     transition: opacity 0.5s;
-
+    background-color: white;
+    transition: background-color 0.3s ease;
+    color: var(--jaguar-500);
+    &:hover {
+        background-color: var(--primary-700);
+        color: white;
+        button {
+            color: white;
+        }
+    }
     & > img {
         width: 10.8rem;
         height: 10.8rem;
@@ -39,7 +47,6 @@ const SubscriptionTextWrapper = styled.div`
     max-width: 35rem;
     padding: var(--space-24);
     border-radius: var(--border-radius-24);
-    background-color: var(--blue);
 `;
 
 const SubscriptionTitle = styled(Typography)`
@@ -48,10 +55,14 @@ const SubscriptionTitle = styled(Typography)`
 const SubscriptionParagraph = styled(Typography)`
     align-items: center;
 `;
-const SubscriptionDescription = styled(Typography)`
-    color: var(--jaguar-500);
+const SubscriptionDescriptionList = styled.ul`
+    list-style-type: none;
 `;
 
+const SubscriptionDescriptionItem = styled.li`
+    margin-bottom: 1.2rem;
+    align-items: left;
+`;
 const SubscriptionsCard = ({ subscription }: SubscriptionCardProps) => {
     return (
         <SubscriptionCardBase icon={subscription.icon}>
@@ -66,9 +77,15 @@ const SubscriptionsCard = ({ subscription }: SubscriptionCardProps) => {
                 <Typography variant="paragraphSM" weight="semibold">
                     {subscription.price}
                 </Typography>
-                <SubscriptionDescription variant="subtitleLG" weight="medium">
-                    {subscription.description}
-                </SubscriptionDescription>
+                <SubscriptionDescriptionList>
+                    {subscription.description.map((item, index) => (
+                        <SubscriptionDescriptionItem key={index}>
+                            <Typography variant="subtitleLG" weight="medium">
+                                {item}
+                            </Typography>
+                        </SubscriptionDescriptionItem>
+                    ))}
+                </SubscriptionDescriptionList>
             </SubscriptionTextWrapper>
             <Button shape="rounded" size="lg" color="primary" fullWidth>
                 {subscription.button}

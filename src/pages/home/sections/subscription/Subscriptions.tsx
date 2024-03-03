@@ -28,6 +28,14 @@ const SubscriptionCardsWrapper = styled.div`
     gap: var(--space-30);
     margin-bottom: var(--space-50);
 `;
+const SubscriptionDescriptionList = styled.ul`
+    list-style-type: disc; /* Change this to match your preferred list style */
+    padding-left: 20px; /* Adjust as needed */
+`;
+
+const SubscriptionDescriptionItem = styled.li`
+    /* Your styles for each list item */
+`;
 
 const Subscription = () => {
     return (
