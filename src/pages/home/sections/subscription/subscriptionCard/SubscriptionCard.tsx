@@ -30,8 +30,14 @@ export const SubscriptionCardBase = styled.div<{ icon: string }>`
     color: var(--jaguar-500);
     &:hover {
         background-color: var(--primary-700);
-        color: white;
+        p {
+            color: white;
+        }
         button {
+            background-color: white;
+            color: var(--primary-500);
+        }
+        h5 {
             color: white;
         }
     }
@@ -39,7 +45,6 @@ export const SubscriptionCardBase = styled.div<{ icon: string }>`
         width: 10.8rem;
         height: 10.8rem;
         margin-top: var(--space-32);
-        margin-bottom: var(--space-40);
     }
 `;
 
@@ -54,6 +59,7 @@ const SubscriptionTitle = styled(Typography)`
 `;
 const SubscriptionParagraph = styled(Typography)`
     align-items: center;
+    margin-bottom: 1.2rem;
 `;
 const SubscriptionDescriptionList = styled.ul`
     list-style-type: none;
@@ -61,7 +67,14 @@ const SubscriptionDescriptionList = styled.ul`
 
 const SubscriptionDescriptionItem = styled.li`
     margin-bottom: 1.2rem;
-    align-items: left;
+`;
+const SubscriptionPrice = styled(Typography)`
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+`;
+const SubscriptionButton = styled(Button)`
+    margin-top: auto;
 `;
 const SubscriptionsCard = ({ subscription }: SubscriptionCardProps) => {
     return (
@@ -71,12 +84,12 @@ const SubscriptionsCard = ({ subscription }: SubscriptionCardProps) => {
             </SubscriptionParagraph>
             <img src={subscription.icon} alt="Subscription Icon" />
             <SubscriptionTextWrapper>
-                <SubscriptionTitle variant="h6" weight="semibold">
+                <SubscriptionTitle variant="h5" weight="semibold">
                     {subscription.title}
                 </SubscriptionTitle>
-                <Typography variant="paragraphSM" weight="semibold">
+                <SubscriptionPrice variant="paragraphSM" weight="semibold">
                     {subscription.price}
-                </Typography>
+                </SubscriptionPrice>
                 <SubscriptionDescriptionList>
                     {subscription.description.map((item, index) => (
                         <SubscriptionDescriptionItem key={index}>
@@ -87,9 +100,14 @@ const SubscriptionsCard = ({ subscription }: SubscriptionCardProps) => {
                     ))}
                 </SubscriptionDescriptionList>
             </SubscriptionTextWrapper>
-            <Button shape="rounded" size="lg" color="primary" fullWidth>
+            <SubscriptionButton
+                shape="rounded"
+                size="lg"
+                color="primary"
+                fullWidth
+            >
                 {subscription.button}
-            </Button>
+            </SubscriptionButton>
         </SubscriptionCardBase>
     );
 };

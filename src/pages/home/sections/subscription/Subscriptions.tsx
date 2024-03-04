@@ -6,6 +6,7 @@ import { subscriptions } from "./subscriptionCard/subscription";
 const SectionBase = styled.section`
     max-width: 192rem;
     padding: 2rem 15.2rem;
+    height: 95.5rem;
 `;
 
 const SubscriptionTextWrapper = styled.div`
@@ -27,14 +28,6 @@ const SubscriptionCardsWrapper = styled.div`
     grid-template-columns: 1fr 1fr 1fr;
     gap: var(--space-30);
     margin-bottom: var(--space-50);
-`;
-const SubscriptionDescriptionList = styled.ul`
-    list-style-type: disc; /* Change this to match your preferred list style */
-    padding-left: 20px; /* Adjust as needed */
-`;
-
-const SubscriptionDescriptionItem = styled.li`
-    /* Your styles for each list item */
 `;
 
 const Subscription = () => {
